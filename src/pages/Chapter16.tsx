@@ -887,6 +887,10 @@ export const Chapter16: React.FC = () => {
       {/* ── Chapter Header ────────────────────────────────────────── */}
       <ChapterHeader num="16" title="Ajax &amp; JSON" subtitle="XMLHttpRequest · Asynchronous Requests · Data Interchange" chapterWord="Chapter Sixteen" />
 
+      <div className="study-callout">
+        <strong>Study route:</strong> learn Ajax as a request lifecycle: create the request, send it, watch readyState, check status, parse JSON, then update the DOM. The address-book demo is the exam-style mental model for async data loading.
+      </div>
+
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 1: WHAT IS AJAX                                  */}
       {/* ══════════════════════════════════════════════════════════ */}

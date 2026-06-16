@@ -1,11 +1,13 @@
 .nothing-card {
   border: 1px solid var(--nothing-border);
-  background: var(--nothing-surface);
+  background: var(--nothing-bg-elevated);
   transition: border-color 0.2s ease, transform 0.2s ease;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
 }
 
 .nothing-card.hoverable:hover {
@@ -14,7 +16,7 @@
 }
 
 .nothing-card-header {
-  padding: 16px;
+  padding: 16px 18px;
   border-bottom: 1px solid var(--nothing-border);
   display: flex;
   align-items: center;
@@ -32,11 +34,17 @@
 }
 
 .nothing-card-body {
-  padding: 16px;
+  padding: 18px;
   flex-grow: 1;
   color: var(--nothing-text-muted);
   line-height: 1.5;
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .nothing-card-body {
+    padding: 14px;
+  }
 }
 
 .nothing-card-body p {

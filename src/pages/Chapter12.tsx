@@ -614,6 +614,10 @@ export const Chapter12: React.FC = () => {
         </div>
       </div>
 
+      <div className="study-callout">
+        <strong>Study route:</strong> think of the DOM as the browser's live tree. Master how to select nodes, inspect relationships, change structure, and explain why live collections behave differently from static query results.
+      </div>
+
       {/* ═══════ SECTION 1: DOM TREE STRUCTURE ═══════ */}
       <div className="nt-section">
         <SectionHeader no="01" title="DOM Tree Structure" icon={<TreePine size={20} />} />

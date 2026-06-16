@@ -402,6 +402,10 @@ export const Chapter13: React.FC = () => {
       {/* ═══ HEADER ═══ */}
       <ChapterHeader num="13" title="Events" subtitle="Mouse · Keyboard · Form · Bubbling · Capturing · Delegation" chapterWord="Chapter Thirteen" />
 
+      <div className="study-callout">
+        <strong>Study route:</strong> treat events as a flow: something happens, the event object records context, handlers react, and propagation decides who sees it next. Pay special attention to forms, delegation, and the difference between stopping propagation and preventing default behavior.
+      </div>
+
       {/* ═══ SECTION 1 — EVENT OBJECT PROPERTIES ═══ */}
       <section className="nt-section">
         <SectionHeader no="01" title="Event Object Properties" icon={<Zap size={22} />} />

@@ -341,6 +341,10 @@ export const Chapter11: React.FC = () => {
         <div style={{ height: 1, background: 'var(--nothing-border)', marginTop: 24 }} />
       </header>
 
+      <div className="study-callout">
+        <strong>Study route:</strong> learn strings as input processors, dates as time values, and storage as browser memory. For practice, focus on method return values, edge cases, JSON conversion, and the assignment-style flow of storing form data safely.
+      </div>
+
       {/* ╔══════════════════════════════════════════════════════╗
          ║  SECTION 1 — STRING OBJECT                          ║
          ╚══════════════════════════════════════════════════════╝ */}

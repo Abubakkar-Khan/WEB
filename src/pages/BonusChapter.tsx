@@ -270,6 +270,10 @@ export const BonusChapter: React.FC = () => {
       {/* ──────── CHAPTER HEADER ──────── */}
       <ChapterHeader num="++" title="Security &amp; DevOps" subtitle="Web Security · Modern Deployment · Architecture &amp; Trends" chapterWord="Bonus Module" />
 
+      <div className="study-callout">
+        <strong>Study route:</strong> connect security, hosting, containers, CI/CD, REST, and architecture to the class assignments. You should be able to justify a framework choice, deploy a simple page, and explain how frontend, backend, database, and network layers fit together.
+      </div>
+
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 1: WEB SECURITY                                    ║
          ╚══════════════════════════════════════════════════════════════╝ */}

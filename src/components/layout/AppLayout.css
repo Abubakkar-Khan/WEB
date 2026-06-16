@@ -10,16 +10,33 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, transparent 0, var(--nothing-bg) 420px);
 }
 
 .nothing-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.mobile-scrim {
+  display: none;
 }
 
 @media (max-width: 1024px) {
   .nothing-app {
     grid-template-columns: 1fr;
+  }
+
+  .mobile-scrim {
+    display: block;
+    position: fixed;
+    inset: 64px 0 0;
+    z-index: 90;
+    border: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
   }
 }
