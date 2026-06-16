@@ -10,11 +10,18 @@ interface AppLayoutProps {
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children, activeChapter, setActiveChapter }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="nothing-app">
-      <Sidebar activeChapter={activeChapter} setActiveChapter={setActiveChapter} />
+      <Sidebar 
+        activeChapter={activeChapter} 
+        setActiveChapter={setActiveChapter} 
+        mobileOpen={mobileOpen}
+        onCloseMenu={() => setMobileOpen(false)}
+      />
       <main className="nothing-main">
-        <Topbar />
+        <Topbar onToggleMenu={() => setMobileOpen(!mobileOpen)} menuOpen={mobileOpen} />
         <div className="nothing-content" style={{ overflowY: 'auto' }}>
           {children}
         </div>

@@ -22,9 +22,4 @@
   .nothing-app {
     grid-template-columns: 1fr;
   }
-  
-  .nothing-sidebar {
-    height: auto;
-    position: relative;
-  }
 }

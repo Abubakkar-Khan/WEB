@@ -6,6 +6,8 @@ import './Sidebar.css';
 interface SidebarProps {
   activeChapter: string;
   setActiveChapter: (chapter: string) => void;
+  mobileOpen: boolean;
+  onCloseMenu?: () => void;
 }
 
 const CHAPTERS = [
@@ -16,44 +18,22 @@ const CHAPTERS = [
   { id: 'bonus', no: '++', title: 'Bonus', meta: 'Security · DevOps · Architecture', icon: Sparkles },
 ];
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeChapter, setActiveChapter }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeChapter, setActiveChapter, mobileOpen, onCloseMenu }) => {
   const { xp, level, streak, completedLessons } = useStore();
   const completedCount = Object.keys(completedLessons).filter(k => completedLessons[k]).length;
   const totalLessons = CHAPTERS.length;
   const progressPct = Math.round((completedCount / totalLessons) * 100);
 
   return (
-    <aside className="nothing-sidebar">
+    <aside className={`nothing-sidebar ${mobileOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-brand">
-        <div className="brand-row">
-          <h1 className="brand-title" style={{ fontFamily: 'var(--font-dot)', fontSize: '42px', lineHeight: 0.85, margin: 0, letterSpacing: '0.05em' }}>
+        <div className="brand-row" style={{ padding: '12px 0' }}>
+          <h1 className="brand-title" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '32px', letterSpacing: '-0.02em', margin: 0, color: 'var(--nothing-text)' }}>
             WEB
-            <span style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.18em', color: 'var(--nothing-text-muted)', marginTop: '10px', fontWeight: 400 }}>
-              INTERACTIVE STUDY
+            <span style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--nothing-text-muted)', marginTop: '8px', fontWeight: 400, textTransform: 'uppercase' }}>
+              Study Engine
             </span>
           </h1>
-        </div>
-
-        <div style={{ display: 'grid', gap: '6px', marginTop: '12px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            <span>PROGRESS</span>
-            <span>{progressPct}%</span>
-          </div>
-          <div style={{ height: '8px', border: '1px solid var(--nothing-border)', background: '#000', padding: '1px' }}>
-            <div style={{ height: '100%', width: `${progressPct}%`, background: 'var(--nothing-text)', transition: 'width 0.4s ease' }} />
-          </div>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', border: '1px solid var(--nothing-border)', marginTop: '8px' }}>
-          <div style={{ padding: '10px 8px', borderRight: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            XP<b style={{ display: 'block', color: 'var(--nothing-text)', fontSize: '18px', letterSpacing: '-0.03em', marginTop: '4px' }}>{xp}</b>
-          </div>
-          <div style={{ padding: '10px 8px', borderRight: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            LEVEL<b style={{ display: 'block', color: 'var(--nothing-text)', fontSize: '18px', letterSpacing: '-0.03em', marginTop: '4px' }}>{level}</b>
-          </div>
-          <div style={{ padding: '10px 8px', fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            STREAK<b style={{ display: 'block', color: 'var(--nothing-text)', fontSize: '18px', letterSpacing: '-0.03em', marginTop: '4px' }}>{streak}</b>
-          </div>
         </div>
       </div>
 
@@ -65,7 +45,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeChapter, setActiveChapte
             <button
               key={ch.id}
               className={`nav-btn ${activeChapter === ch.id ? 'active' : ''}`}
-              onClick={() => setActiveChapter(ch.id)}
+              onClick={() => {
+                setActiveChapter(ch.id);
+                if (onCloseMenu) onCloseMenu();
+              }}
             >
               <div className="nav-btn-no">{ch.no}</div>
               <div className="nav-btn-content">

@@ -6,10 +6,10 @@ import { Shield, Server, Cloud, Lock, AlertTriangle, Database, Eye, Key, Bug, Fi
 const sectionStyle: React.CSSProperties = { marginBottom: 48 };
 const headingStyle: React.CSSProperties = {
   fontFamily: 'var(--font-dot)', letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-  fontSize: 28, marginBottom: 20, color: 'var(--nothing-text)',
+  fontSize: 32, marginBottom: 20, color: 'var(--nothing-text)',
 };
 const subHeadingStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-display)', fontSize: 20, marginBottom: 14,
+  fontFamily: 'var(--font-display)', fontSize: 24, marginBottom: 14,
   color: 'var(--nothing-text)', borderBottom: '1px solid var(--nothing-border)', paddingBottom: 8,
 };
 const cardStyle: React.CSSProperties = {
@@ -17,39 +17,39 @@ const cardStyle: React.CSSProperties = {
   padding: 20, borderRadius: 0,
 };
 const monoLabel: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-muted)',
+  fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)',
   letterSpacing: '0.12em', textTransform: 'uppercase' as const, marginBottom: 6,
 };
 const codeBlock: React.CSSProperties = {
-  background: 'var(--nothing-bg)', padding: 14, fontFamily: 'var(--font-mono)', fontSize: 12,
-  border: '1px solid var(--nothing-border)', overflowX: 'auto', lineHeight: 1.7,
+  background: 'var(--nothing-bg)', padding: 14, fontFamily: 'var(--font-mono)', fontSize: 16,
+  border: '1px solid var(--nothing-border)', overflowX: 'auto', lineHeight: 1.9,
   color: 'var(--nothing-text)', whiteSpace: 'pre',
 };
 const tableStyle: React.CSSProperties = {
-  width: '100%', borderCollapse: 'collapse' as const, fontFamily: 'var(--font-mono)', fontSize: 13,
+  width: '100%', borderCollapse: 'collapse' as const, fontFamily: 'var(--font-mono)', fontSize: 15,
 };
 const thStyle: React.CSSProperties = {
-  textAlign: 'left', padding: '10px 12px', borderBottom: '2px solid var(--nothing-border)',
+  textAlign: 'left', padding: '12px 16px', borderBottom: '2px solid var(--nothing-border)',
   color: 'var(--nothing-text-muted)', fontWeight: 600, textTransform: 'uppercase' as const,
-  letterSpacing: '0.08em', fontSize: 11,
+  letterSpacing: '0.08em', fontSize: 15,
 };
 const tdStyle: React.CSSProperties = {
-  padding: '10px 12px', borderBottom: '1px solid var(--nothing-border)',
+  padding: '12px 16px', borderBottom: '1px solid var(--nothing-border)',
   color: 'var(--nothing-text)', verticalAlign: 'top',
 };
 const tagStyle = (color: string): React.CSSProperties => ({
-  display: 'inline-block', padding: '2px 8px', fontSize: 10, fontFamily: 'var(--font-mono)',
+  display: 'inline-block', padding: '2px 8px', fontSize: 16, fontFamily: 'var(--font-mono)',
   letterSpacing: '0.1em', textTransform: 'uppercase' as const, border: `1px solid ${color}`,
   color, marginBottom: 6,
 });
 const btnStyle: React.CSSProperties = {
-  padding: '10px 20px', fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.08em',
+  padding: '10px 20px', fontFamily: 'var(--font-mono)', fontSize: 16, letterSpacing: '0.08em',
   textTransform: 'uppercase' as const, border: '1px solid var(--nothing-text)',
   background: 'transparent', color: 'var(--nothing-text)', cursor: 'pointer',
 };
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)',
-  color: 'var(--nothing-text)', fontFamily: 'var(--font-mono)', fontSize: 13,
+  color: 'var(--nothing-text)', fontFamily: 'var(--font-mono)', fontSize: 15,
 };
 
 /* ───────── OWASP Data ───────── */
@@ -146,7 +146,7 @@ export const BonusChapter: React.FC = () => {
         <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: 44, letterSpacing: '0.08em', textTransform: 'uppercase', margin: 0, lineHeight: 1 }}>
           SECURITY · DEVOPS · ARCHITECTURE
         </h1>
-        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: 13, marginTop: 10, letterSpacing: '0.05em' }}>
+        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: 15, marginTop: 10, letterSpacing: '0.05em' }}>
           Web Security Fundamentals · Modern Deployment · Architecture Patterns · Future Trends
         </p>
         <div style={{ height: 2, background: 'linear-gradient(90deg, var(--nothing-text), transparent)', marginTop: 16 }} />
@@ -164,7 +164,7 @@ export const BonusChapter: React.FC = () => {
         {/* ── OWASP Top 10 ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>OWASP Top 10 Vulnerabilities</h3>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 14, marginBottom: 20, lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginBottom: 20, lineHeight: 1.9 }}>
             The Open Web Application Security Project (OWASP) publishes a list of the ten most critical web application security risks. Understanding these is essential for building secure software.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
@@ -180,15 +180,15 @@ export const BonusChapter: React.FC = () => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                     <span style={{ ...tagStyle('#fff'), minWidth: 24, textAlign: 'center' }}>#{item.id}</span>
                     <Icon size={16} style={{ color: 'var(--nothing-text-muted)' }} />
-                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 14 }}>{item.name}</span>
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16 }}>{item.name}</span>
                   </div>
-                  <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 1.6 }}>{item.desc}</p>
+                  <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 1.9 }}>{item.desc}</p>
                   {isExpanded && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ marginTop: 14 }}>
                       <div style={monoLabel}>EXAMPLE</div>
                       <pre style={{ ...codeBlock, marginBottom: 12, color: '#d71921' }}>{item.example}</pre>
                       <div style={monoLabel}>PREVENTION</div>
-                      <p style={{ fontSize: 13, color: 'var(--nothing-text)', lineHeight: 1.6, padding: '8px 12px', background: 'var(--nothing-surface)', border: '1px solid var(--nothing-border)' }}>{item.prevention}</p>
+                      <p style={{ fontSize: 15, color: 'var(--nothing-text)', lineHeight: 1.9, padding: '10px 16px', background: 'var(--nothing-surface)', border: '1px solid var(--nothing-border)' }}>{item.prevention}</p>
                     </motion.div>
                   )}
                 </motion.div>
@@ -200,7 +200,7 @@ export const BonusChapter: React.FC = () => {
         {/* ── Interactive SQL Injection Demo ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>🛡️ Interactive: SQL Injection Demo</h3>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16, lineHeight: 1.6 }}>
+          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             Type into the fields below to see how user input becomes part of a SQL query. Try typing <code style={{ color: '#d71921' }}>' OR '1'='1</code> into the username field.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
@@ -222,7 +222,7 @@ export const BonusChapter: React.FC = () => {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               style={{ padding: '12px 16px', border: '1px solid #d71921', background: 'rgba(215,25,33,0.08)', marginBottom: 12 }}
             >
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#d71921' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: '#d71921' }}>
                 ⚠ INJECTION DETECTED — The single quote breaks out of the string literal, altering the SQL logic!
               </span>
             </motion.div>
@@ -237,7 +237,7 @@ export const BonusChapter: React.FC = () => {
               <pre style={{ ...codeBlock, borderColor: '#0f0' }}>
 {sanitizedQuery}
               </pre>
-              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 12, marginTop: 8 }}>
+              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 8 }}>
                 ✓ User input is treated as data, never as executable SQL. The database driver handles escaping.
               </p>
             </motion.div>
@@ -254,11 +254,11 @@ export const BonusChapter: React.FC = () => {
                 <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 }}>AUTHENTICATION</span>
               </div>
               <div style={{ ...tagStyle('var(--nothing-text-muted)'), marginBottom: 12 }}>WHO ARE YOU?</div>
-              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
+              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 1.9, marginBottom: 14 }}>
                 The process of verifying a user's <strong style={{ color: 'var(--nothing-text)' }}>identity</strong>. It answers: "Are you who you say you are?"
               </p>
               <div style={monoLabel}>METHODS</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 13, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 15, lineHeight: 2 }}>
                 <li>Username + Password login</li>
                 <li>OAuth / OpenID Connect (Google, GitHub)</li>
                 <li>Biometrics (fingerprint, face ID)</li>
@@ -272,11 +272,11 @@ export const BonusChapter: React.FC = () => {
                 <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 }}>AUTHORIZATION</span>
               </div>
               <div style={{ ...tagStyle('var(--nothing-text-muted)'), marginBottom: 12 }}>WHAT CAN YOU DO?</div>
-              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
+              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 1.9, marginBottom: 14 }}>
                 The process of verifying what <strong style={{ color: 'var(--nothing-text)' }}>permissions</strong> a user has. It answers: "Are you allowed to do this?"
               </p>
               <div style={monoLabel}>MECHANISMS</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 13, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 15, lineHeight: 2 }}>
                 <li>Role-Based Access Control (RBAC)</li>
                 <li>API scopes & permissions</li>
                 <li>Admin panel access control</li>
@@ -287,7 +287,7 @@ export const BonusChapter: React.FC = () => {
           </div>
           <div style={{ ...cardStyle, marginTop: 16, display: 'flex', alignItems: 'center', gap: 16, padding: '14px 20px' }}>
             <AlertTriangle size={16} style={{ color: '#d71921', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-muted)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-muted)' }}>
               KEY INSIGHT: Authentication always comes BEFORE authorization. You must know WHO the user is before deciding WHAT they can do.
             </span>
           </div>
@@ -301,7 +301,7 @@ export const BonusChapter: React.FC = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
             <div style={{ ...cardStyle, borderLeft: '3px solid #d71921' }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#d71921' }}>HTTP</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 2 }}>
                 <li>Data sent in <strong style={{ color: 'var(--nothing-text)' }}>plaintext</strong></li>
                 <li>Vulnerable to eavesdropping</li>
                 <li>No server identity verification</li>
@@ -311,7 +311,7 @@ export const BonusChapter: React.FC = () => {
             </div>
             <div style={{ ...cardStyle, borderLeft: '3px solid #0f0' }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#0f0' }}>HTTPS</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 2 }}>
                 <li>Data <strong style={{ color: 'var(--nothing-text)' }}>encrypted</strong> via TLS</li>
                 <li>Confidentiality guaranteed</li>
                 <li>Server authenticated via certificate</li>
@@ -325,8 +325,8 @@ export const BonusChapter: React.FC = () => {
           <div style={monoLabel}>TLS HANDSHAKE — STEP BY STEP</div>
           <div style={{ ...cardStyle, padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 700, textAlign: 'center', width: 100 }}>CLIENT</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 700, textAlign: 'center', width: 100 }}>SERVER</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 700, textAlign: 'center', width: 100 }}>CLIENT</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 700, textAlign: 'center', width: 100 }}>SERVER</div>
             </div>
             {[
               { step: 1, label: 'Client Hello', desc: 'Supported TLS versions, cipher suites, random number', dir: 'right' },
@@ -336,26 +336,26 @@ export const BonusChapter: React.FC = () => {
               { step: 5, label: 'Encrypted Connection', desc: 'All subsequent data encrypted with session key', dir: 'both' },
             ].map(({ step, label, desc, dir }) => (
               <div key={step} style={{ display: 'flex', alignItems: 'center', marginBottom: 16, gap: 12 }}>
-                <div style={{ width: 32, height: 32, border: '1px solid var(--nothing-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 12, flexShrink: 0 }}>
+                <div style={{ width: 32, height: 32, border: '1px solid var(--nothing-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 16, flexShrink: 0 }}>
                   {step}
                 </div>
                 <div style={{ flex: 1, height: 1, background: 'var(--nothing-border)', position: 'relative' }}>
                   <span style={{
                     position: 'absolute', top: -18, left: '50%', transform: 'translateX(-50%)',
-                    fontFamily: 'var(--font-mono)', fontSize: 11, whiteSpace: 'nowrap', color: 'var(--nothing-text)',
+                    fontFamily: 'var(--font-mono)', fontSize: 15, whiteSpace: 'nowrap', color: 'var(--nothing-text)',
                   }}>{label}</span>
                   <span style={{
                     position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
-                    fontFamily: 'var(--font-mono)', fontSize: 10, whiteSpace: 'nowrap', color: 'var(--nothing-text-dim)',
+                    fontFamily: 'var(--font-mono)', fontSize: 16, whiteSpace: 'nowrap', color: 'var(--nothing-text-dim)',
                   }}>{desc}</span>
-                  {dir === 'right' && <span style={{ position: 'absolute', right: -4, top: -4, fontSize: 10 }}>→</span>}
-                  {dir === 'left' && <span style={{ position: 'absolute', left: -4, top: -4, fontSize: 10 }}>←</span>}
-                  {dir === 'both' && <><span style={{ position: 'absolute', right: -4, top: -4, fontSize: 10 }}>↔</span></>}
+                  {dir === 'right' && <span style={{ position: 'absolute', right: -4, top: -4, fontSize: 16 }}>→</span>}
+                  {dir === 'left' && <span style={{ position: 'absolute', left: -4, top: -4, fontSize: 16 }}>←</span>}
+                  {dir === 'both' && <><span style={{ position: 'absolute', right: -4, top: -4, fontSize: 16 }}>↔</span></>}
                 </div>
               </div>
             ))}
           </div>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginTop: 12, lineHeight: 1.6 }}>
+          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginTop: 12, lineHeight: 1.9 }}>
             <strong style={{ color: 'var(--nothing-text)' }}>Why TLS matters:</strong> Encryption (nobody can read data), Integrity (nobody can tamper), Authentication (server is who it claims to be).
           </p>
         </div>
@@ -380,27 +380,27 @@ export const BonusChapter: React.FC = () => {
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>VIRTUAL MACHINE</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {['App A', 'Bins/Libs', 'Guest OS'].map(l => (
-                  <div key={l} style={{ padding: '8px 12px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center' }}>{l}</div>
+                  <div key={l} style={{ padding: '10px 16px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
                 ))}
-                <div style={{ padding: '8px 12px', background: '#222', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center', color: '#d71921' }}>HYPERVISOR</div>
-                <div style={{ padding: '8px 12px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center' }}>HOST OS</div>
-                <div style={{ padding: '8px 12px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center' }}>HARDWARE</div>
+                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: '#d71921' }}>HYPERVISOR</div>
+                <div style={{ padding: '10px 16px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS</div>
+                <div style={{ padding: '10px 16px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
               </div>
-              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 12, marginTop: 10 }}>Heavy — each VM runs full OS. GBs of overhead. Minutes to start.</p>
+              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 10 }}>Heavy — each VM runs full OS. GBs of overhead. Minutes to start.</p>
             </div>
             <div style={cardStyle}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>CONTAINER</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
                   {['App A', 'App B'].map(l => (
-                    <div key={l} style={{ padding: '8px 12px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center' }}>{l}</div>
+                    <div key={l} style={{ padding: '10px 16px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
                   ))}
                 </div>
-                <div style={{ padding: '8px 12px', background: '#222', border: '1px solid #0f0', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center', color: '#0f0' }}>CONTAINER ENGINE (Docker)</div>
-                <div style={{ padding: '8px 12px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center' }}>HOST OS (shared kernel)</div>
-                <div style={{ padding: '8px 12px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center' }}>HARDWARE</div>
+                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid #0f0', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: '#0f0' }}>CONTAINER ENGINE (Docker)</div>
+                <div style={{ padding: '10px 16px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS (shared kernel)</div>
+                <div style={{ padding: '10px 16px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
               </div>
-              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 12, marginTop: 10 }}>Light — shares host OS kernel. MBs of overhead. Seconds to start.</p>
+              <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 10 }}>Light — shares host OS kernel. MBs of overhead. Seconds to start.</p>
             </div>
           </div>
 
@@ -487,10 +487,10 @@ $ docker run -p 3000:3000 my-app`}</pre>
             </div>
             {advisorResult === null ? (
               <div>
-                <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16 }}>
+                <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16 }}>
                   Answer the questions to get a hosting recommendation.
                 </p>
-                <div style={{ padding: 16, border: '1px solid var(--nothing-border)', marginBottom: 16 }}>
+                <div style={{ padding: 24, border: '1px solid var(--nothing-border)', marginBottom: 16 }}>
                   <div style={{ ...monoLabel, marginBottom: 8 }}>QUESTION {advisorStep + 1} OF {advisorQuestions.length}</div>
                   <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginBottom: 16 }}>{advisorQuestions[advisorStep].q}</p>
                   <div style={{ display: 'flex', gap: 12 }}>
@@ -514,7 +514,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
         {/* ── CI/CD Pipeline ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>CI/CD Pipeline</h3>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16, lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             <strong style={{ color: 'var(--nothing-text)' }}>Continuous Integration (CI):</strong> Automatically build and test code on every commit.{' '}
             <strong style={{ color: 'var(--nothing-text)' }}>Continuous Deployment (CD):</strong> Automatically deploy tested code to production.
           </p>
@@ -534,8 +534,8 @@ $ docker run -p 3000:3000 my-app`}</pre>
                   borderColor: i < 4 ? 'var(--nothing-border)' : '#0f0',
                 }}>
                   <div style={{ fontSize: 22, marginBottom: 6 }}>{step.icon}</div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>{step.label}</div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)' }}>{step.sub}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 700, marginBottom: 4 }}>{step.label}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)' }}>{step.sub}</div>
                 </div>
                 {i < arr.length - 1 && (
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', flexShrink: 0, padding: '0 2px' }}>→</div>
@@ -546,11 +546,11 @@ $ docker run -p 3000:3000 my-app`}</pre>
           <div style={{ display: 'flex', gap: 16, marginTop: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <div style={{ width: 12, height: 12, border: '1px solid var(--nothing-border)' }} />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-muted)' }}>CI (Integration)</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)' }}>CI (Integration)</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <div style={{ width: 12, height: 12, border: '1px solid #0f0' }} />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-muted)' }}>CD (Deployment)</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)' }}>CD (Deployment)</span>
             </div>
           </div>
           <div style={monoLabel}>POPULAR CI/CD TOOLS</div>
@@ -578,14 +578,14 @@ $ docker run -p 3000:3000 my-app`}</pre>
             {/* Monolith Diagram */}
             <div style={cardStyle}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>MONOLITH</div>
-              <div style={{ border: '2px solid var(--nothing-text-muted)', padding: 16, marginBottom: 12 }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-muted)', textAlign: 'center', marginBottom: 8 }}>SINGLE APPLICATION</div>
+              <div style={{ border: '2px solid var(--nothing-text-muted)', padding: 24, marginBottom: 12 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)', textAlign: 'center', marginBottom: 8 }}>SINGLE APPLICATION</div>
                 {['UI Layer', 'Business Logic', 'Data Access', 'Database'].map(l => (
-                  <div key={l} style={{ padding: '6px 10px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 11, textAlign: 'center', marginBottom: 4 }}>{l}</div>
+                  <div key={l} style={{ padding: '6px 10px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', marginBottom: 4 }}>{l}</div>
                 ))}
               </div>
               <div style={monoLabel}>CHARACTERISTICS</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 12, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 16, lineHeight: 2 }}>
                 <li>Single codebase & deployment</li>
                 <li>Tightly coupled components</li>
                 <li>Simple to develop initially</li>
@@ -599,14 +599,14 @@ $ docker run -p 3000:3000 my-app`}</pre>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>MICROSERVICES</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6, marginBottom: 12 }}>
                 {['Auth Service', 'User Service', 'Payment Service', 'Email Service', 'Search Service', 'API Gateway'].map(s => (
-                  <div key={s} style={{ padding: '10px 6px', background: '#1a1a1a', border: '1px solid var(--nothing-text-muted)', fontFamily: 'var(--font-mono)', fontSize: 10, textAlign: 'center' }}>{s}</div>
+                  <div key={s} style={{ padding: '10px 6px', background: '#1a1a1a', border: '1px solid var(--nothing-text-muted)', fontFamily: 'var(--font-mono)', fontSize: 16, textAlign: 'center' }}>{s}</div>
                 ))}
               </div>
-              <div style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', marginBottom: 12 }}>
+              <div style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', marginBottom: 12 }}>
                 ↕ API / Message Queue Communication ↕
               </div>
               <div style={monoLabel}>CHARACTERISTICS</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 12, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 16, lineHeight: 2 }}>
                 <li>Independent services & deployments</li>
                 <li>Loosely coupled via APIs</li>
                 <li>Complex to set up & manage</li>
@@ -644,7 +644,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
         {/* ── Serverless ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>Serverless Architecture</h3>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16, lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             Serverless doesn't mean "no servers" — it means <strong style={{ color: 'var(--nothing-text)' }}>you don't manage servers</strong>. The cloud provider handles provisioning, scaling, and maintenance. You write functions that run in response to events.
           </p>
 
@@ -663,8 +663,8 @@ $ docker run -p 3000:3000 my-app`}</pre>
                   ...cardStyle, minWidth: 130, textAlign: 'center', padding: 14, flexShrink: 0,
                   borderColor: step.color,
                 }}>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, color: step.color, marginBottom: 4 }}>{step.label}</div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)' }}>{step.sub}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 700, color: step.color, marginBottom: 4 }}>{step.label}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)' }}>{step.sub}</div>
                 </div>
                 {i < arr.length - 1 && <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-dim)', padding: '0 2px' }}>→</span>}
               </React.Fragment>
@@ -674,7 +674,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <div style={cardStyle}>
               <div style={monoLabel}>PROVIDERS</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 13, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 15, lineHeight: 2 }}>
                 <li>AWS Lambda</li>
                 <li>Google Cloud Functions</li>
                 <li>Azure Functions</li>
@@ -684,7 +684,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
             </div>
             <div style={cardStyle}>
               <div style={monoLabel}>USE CASES</div>
-              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 13, lineHeight: 2 }}>
+              <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 15, lineHeight: 2 }}>
                 <li>REST APIs & webhooks</li>
                 <li>Scheduled tasks (cron jobs)</li>
                 <li>Image/video processing</li>
@@ -698,7 +698,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
         {/* ── API-Driven Design ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>API-Driven Design (REST)</h3>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16, lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             REST (Representational State Transfer) is an architectural style for designing APIs. Resources are identified by URLs, manipulated using standard HTTP methods, and the server is stateless.
           </p>
 
@@ -711,8 +711,8 @@ $ docker run -p 3000:3000 my-app`}</pre>
               { title: 'Uniform Interface', desc: 'Consistent URL patterns and response formats (JSON)' },
             ].map(p => (
               <div key={p.title} style={{ ...cardStyle, padding: 14 }}>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, marginBottom: 6 }}>{p.title}</div>
-                <p style={{ color: 'var(--nothing-text-muted)', fontSize: 12, lineHeight: 1.5 }}>{p.desc}</p>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, marginBottom: 6 }}>{p.title}</div>
+                <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, lineHeight: 1.5 }}>{p.desc}</p>
               </div>
             ))}
           </div>
@@ -736,7 +736,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
                   <td style={{ ...tdStyle, fontWeight: 700, color: m === 'GET' ? '#0f0' : m === 'POST' ? '#00bfff' : m === 'PUT' ? '#ff0' : '#d71921' }}>{m}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)' }}>{e}</td>
                   <td style={tdStyle}>{d}</td>
-                  <td style={{ ...tdStyle, fontSize: 11 }}>{b}</td>
+                  <td style={{ ...tdStyle, fontSize: 15 }}>{b}</td>
                 </tr>
               ))}
             </tbody>
@@ -772,7 +772,7 @@ app.post('/api/posts', async (req, res) => {
           {/* Security Terms */}
           <div style={cardStyle}>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>🛡️ Security Quick Reference</div>
-            <table style={{ ...tableStyle, fontSize: 12 }}>
+            <table style={{ ...tableStyle, fontSize: 16 }}>
               <tbody>
                 {[
                   ['SQLi', 'Inject SQL via user input to manipulate database'],
@@ -795,7 +795,7 @@ app.post('/api/posts', async (req, res) => {
           {/* Docker Commands */}
           <div style={cardStyle}>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>🐳 Docker Commands</div>
-            <pre style={{ ...codeBlock, fontSize: 11, lineHeight: 1.8 }}>{`docker build -t name .      # Build image
+            <pre style={{ ...codeBlock, fontSize: 15, lineHeight: 1.9 }}>{`docker build -t name .      # Build image
 docker run -p 3000:3000 name # Run container
 docker ps                    # List running
 docker stop <id>             # Stop container
@@ -810,10 +810,10 @@ docker-compose up -d         # Start services`}</pre>
           {/* Architecture Comparison */}
           <div style={cardStyle}>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>🏗️ Architecture At-a-Glance</div>
-            <table style={{ ...tableStyle, fontSize: 11 }}>
+            <table style={{ ...tableStyle, fontSize: 15 }}>
               <thead><tr>
-                <th style={{ ...thStyle, fontSize: 10 }}>Pattern</th>
-                <th style={{ ...thStyle, fontSize: 10 }}>When to Use</th>
+                <th style={{ ...thStyle, fontSize: 16 }}>Pattern</th>
+                <th style={{ ...thStyle, fontSize: 16 }}>When to Use</th>
               </tr></thead>
               <tbody>
                 {[
@@ -853,7 +853,7 @@ docker-compose up -d         # Start services`}</pre>
               }}>
                 <div style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
                   <span style={{ ...tagStyle('var(--nothing-text-muted)') }}>Q{qi + 1}</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 14 }}>{q.q}</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 16 }}>{q.q}</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {q.opts.map((opt, oi) => {
@@ -873,10 +873,10 @@ docker-compose up -d         # Start services`}</pre>
                         style={{
                           padding: '10px 14px', border: `1px solid ${borderColor}`, background: bg,
                           cursor: quizSubmitted ? 'default' : 'pointer', display: 'flex', alignItems: 'center', gap: 10,
-                          fontFamily: 'var(--font-mono)', fontSize: 13,
+                          fontFamily: 'var(--font-mono)', fontSize: 15,
                         }}
                       >
-                        <span style={{ width: 20, height: 20, border: `1px solid ${borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, flexShrink: 0 }}>
+                        <span style={{ width: 20, height: 20, border: `1px solid ${borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
                           {quizSubmitted ? (isAnswer ? <CheckCircle size={14} color="#0f0" /> : isSelected ? <XCircle size={14} color="#d71921" /> : String.fromCharCode(65 + oi)) : String.fromCharCode(65 + oi)}
                         </span>
                         <span>{opt}</span>
@@ -900,7 +900,7 @@ docker-compose up -d         # Start services`}</pre>
             <>
               <div style={{
                 padding: '12px 20px', border: `2px solid ${quizScore >= 6 ? '#0f0' : '#d71921'}`,
-                fontFamily: 'var(--font-mono)', fontSize: 14,
+                fontFamily: 'var(--font-mono)', fontSize: 16,
               }}>
                 SCORE: {quizScore} / {quizQuestions.length} ({Math.round(quizScore / quizQuestions.length * 100)}%)
               </div>
@@ -914,7 +914,7 @@ docker-compose up -d         # Start services`}</pre>
 
       {/* ── Footer ── */}
       <div style={{ borderTop: '1px solid var(--nothing-border)', paddingTop: 20, textAlign: 'center' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em' }}>
           BONUS MODULE COMPLETE · WEB SECURITY · DEVOPS · ARCHITECTURE
         </span>
       </div>

@@ -19,7 +19,7 @@ const S = {
   },
   sectionHeader: {
     fontFamily: 'var(--font-dot)',
-    fontSize: 28,
+    fontSize: 32,
     letterSpacing: '0.1em',
     textTransform: 'uppercase' as const,
     marginBottom: 24,
@@ -27,7 +27,7 @@ const S = {
   },
   subHeader: {
     fontFamily: 'var(--font-mono)',
-    fontSize: 11,
+    fontSize: 15,
     letterSpacing: '0.16em',
     textTransform: 'uppercase' as const,
     color: 'var(--nothing-text-muted)',
@@ -37,14 +37,14 @@ const S = {
   code: {
     background: 'var(--nothing-bg)',
     border: '1px solid var(--nothing-border)',
-    padding: 16,
+    padding: 24,
     fontFamily: 'var(--font-mono)',
-    fontSize: 12,
+    fontSize: 16,
     whiteSpace: 'pre-wrap' as const,
     overflowX: 'auto' as const,
     borderRadius: 0,
     color: 'var(--nothing-text)',
-    lineHeight: 1.7,
+    lineHeight: 1.9,
   },
   card: {
     border: '1px solid var(--nothing-border)',
@@ -56,18 +56,18 @@ const S = {
     width: '100%',
     borderCollapse: 'collapse' as const,
     fontFamily: 'var(--font-mono)',
-    fontSize: 12,
+    fontSize: 16,
   },
   th: {
     background: 'var(--nothing-text)',
     color: 'var(--nothing-bg)',
-    padding: 10,
+    padding: 24,
     textAlign: 'left' as const,
     fontWeight: 600,
   },
   td: {
     border: '1px solid var(--nothing-border)',
-    padding: 10,
+    padding: 24,
     verticalAlign: 'top' as const,
   },
   interactive: {
@@ -81,7 +81,7 @@ const S = {
     border: 'none',
     padding: '10px 20px',
     fontFamily: 'var(--font-mono)',
-    fontSize: 11,
+    fontSize: 15,
     letterSpacing: '0.1em',
     textTransform: 'uppercase' as const,
     cursor: 'pointer',
@@ -92,7 +92,7 @@ const S = {
     border: '1px solid var(--nothing-border)',
     padding: '8px 16px',
     fontFamily: 'var(--font-mono)',
-    fontSize: 11,
+    fontSize: 15,
     letterSpacing: '0.1em',
     textTransform: 'uppercase' as const,
     cursor: 'pointer',
@@ -101,22 +101,22 @@ const S = {
     borderLeft: '3px solid #d71921',
     paddingLeft: 16,
     background: 'rgba(215,25,33,0.05)',
-    padding: 16,
+    padding: 24,
     marginBottom: 16,
-    fontSize: 13,
+    fontSize: 15,
   },
   input: {
     background: 'var(--nothing-bg)',
     border: '1px solid var(--nothing-border)',
     color: 'var(--nothing-text)',
-    padding: '8px 12px',
+    padding: '10px 16px',
     fontFamily: 'var(--font-mono)',
-    fontSize: 13,
+    fontSize: 15,
     width: '100%',
   },
   label: {
     fontFamily: 'var(--font-mono)',
-    fontSize: 11,
+    fontSize: 15,
     letterSpacing: '0.12em',
     textTransform: 'uppercase' as const,
     color: 'var(--nothing-text-muted)',
@@ -129,11 +129,11 @@ const S = {
     padding: '6px 0',
     borderBottom: '1px solid var(--nothing-border)',
     fontFamily: 'var(--font-mono)',
-    fontSize: 12,
+    fontSize: 16,
   },
   p: {
-    lineHeight: 1.8,
-    fontSize: 14,
+    lineHeight: 1.9,
+    fontSize: 16,
     color: 'var(--nothing-text-muted)',
     marginBottom: 12,
   },
@@ -201,7 +201,7 @@ export const Chapter11: React.FC = () => {
     <div style={S.page}>
       {/* ──────────── CHAPTER HEADER ──────────── */}
       <header>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.2em', color: 'var(--nothing-text-dim)', marginBottom: 8 }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, letterSpacing: '0.2em', color: 'var(--nothing-text-dim)', marginBottom: 8 }}>
           CHAPTER
         </div>
         <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: 56, margin: 0, lineHeight: 0.95, letterSpacing: '0.05em' }}>
@@ -210,7 +210,7 @@ export const Chapter11: React.FC = () => {
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 500, marginTop: 8, letterSpacing: '0.02em' }}>
           JavaScript Built-in Objects
         </h2>
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-muted)', letterSpacing: '0.08em', marginTop: 4 }}>
+        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-muted)', letterSpacing: '0.08em', marginTop: 4 }}>
           String · Date · Web Storage
         </p>
         <div style={{ height: 1, background: 'var(--nothing-border)', marginTop: 24 }} />
@@ -412,10 +412,10 @@ const name = "Alice";
               <input style={S.input} value={needle} onChange={e => setNeedle(e.target.value)} placeholder="Needle for search methods..." />
             </div>
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-dim)', marginBottom: 8, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-dim)', marginBottom: 8, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Live Results
           </div>
-          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: 12 }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: 18 }}>
             {([
               ['.length', () => strInput.length],
               [`.charAt(0)`, () => strInput.charAt(0)],
@@ -599,7 +599,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
         <div style={S.interactive}>
           <div style={{
             fontFamily: 'var(--font-dot)',
-            fontSize: 40,
+            fontSize: 48,
             letterSpacing: '0.1em',
             textAlign: 'center',
             marginBottom: 20,
@@ -626,12 +626,12 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
               <div key={i} style={{
                 background: 'var(--nothing-bg)',
                 border: '1px solid var(--nothing-border)',
-                padding: '8px 12px',
+                padding: '10px 16px',
               }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', marginBottom: 4 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', marginBottom: 4 }}>
                   {label}
                 </div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--nothing-text)', wordBreak: 'break-all' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text)', wordBreak: 'break-all' }}>
                   {String(val)}
                 </div>
               </div>
@@ -639,8 +639,8 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
           </div>
 
           {/* ── Month visual ── */}
-          <div style={{ marginTop: 16, padding: 12, background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.12em', marginBottom: 8, textTransform: 'uppercase' }}>
+          <div style={{ marginTop: 16, padding: 18, background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', letterSpacing: '0.12em', marginBottom: 8, textTransform: 'uppercase' }}>
               Month Index Map (0-based!)
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
@@ -648,7 +648,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
                 <div key={i} style={{
                   padding: '4px 8px',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
+                  fontSize: 15,
                   background: i === now.getMonth() ? 'var(--nothing-text)' : 'transparent',
                   color: i === now.getMonth() ? 'var(--nothing-bg)' : 'var(--nothing-text-dim)',
                   border: '1px solid var(--nothing-border)',
@@ -880,17 +880,17 @@ window.addEventListener("storage", (event) => {
           </div>
 
           {storageResult && (
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-muted)', marginBottom: 12, padding: '8px 12px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-muted)', marginBottom: 12, padding: '10px 16px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
               → {storageResult}
             </div>
           )}
 
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
             Current localStorage Contents ({storageItems.length} items)
           </div>
-          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: 12, maxHeight: 200, overflowY: 'auto' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: 18, maxHeight: 200, overflowY: 'auto' }}>
             {storageItems.length === 0 ? (
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-dim)' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)' }}>
                 (empty)
               </div>
             ) : storageItems.map(([k, v], i) => (
@@ -1014,23 +1014,23 @@ window.addEventListener("storage", (event) => {
         {/* ── Visual Diagram: Storage Lifecycle ── */}
         <h3 style={S.subHeader}>Storage Lifecycle Diagram</h3>
         <div style={{ ...S.interactive, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 32 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 15 }}>
             <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start' }}>
               {/* localStorage column */}
               <div style={{ textAlign: 'center' }}>
-                <div style={{ padding: '12px 24px', border: '2px solid #fff', marginBottom: 8, fontWeight: 700, fontSize: 13 }}>
+                <div style={{ padding: '12px 24px', border: '2px solid #fff', marginBottom: 8, fontWeight: 700, fontSize: 15 }}>
                   localStorage
                 </div>
-                <div style={{ color: 'var(--nothing-text-muted)', fontSize: 10 }}>
+                <div style={{ color: 'var(--nothing-text-muted)', fontSize: 16 }}>
                   ↓ persists
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
                   {['Page reload', 'Tab close', 'Browser close', 'System restart'].map((e, i) => (
-                    <div key={i} style={{ padding: '4px 12px', background: '#0a3a0a', border: '1px solid #1a5a1a', fontSize: 10 }}>
+                    <div key={i} style={{ padding: '4px 12px', background: '#0a3a0a', border: '1px solid #1a5a1a', fontSize: 16 }}>
                       ✓ Survives {e}
                     </div>
                   ))}
-                  <div style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 10 }}>
+                  <div style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 16 }}>
                     ✗ clear() / removeItem()
                   </div>
                 </div>
@@ -1038,22 +1038,22 @@ window.addEventListener("storage", (event) => {
 
               {/* sessionStorage column */}
               <div style={{ textAlign: 'center' }}>
-                <div style={{ padding: '12px 24px', border: '2px solid var(--nothing-text-muted)', marginBottom: 8, fontWeight: 700, fontSize: 13 }}>
+                <div style={{ padding: '12px 24px', border: '2px solid var(--nothing-text-muted)', marginBottom: 8, fontWeight: 700, fontSize: 15 }}>
                   sessionStorage
                 </div>
-                <div style={{ color: 'var(--nothing-text-muted)', fontSize: 10 }}>
+                <div style={{ color: 'var(--nothing-text-muted)', fontSize: 16 }}>
                   ↓ temporary
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
-                  <div style={{ padding: '4px 12px', background: '#0a3a0a', border: '1px solid #1a5a1a', fontSize: 10 }}>
+                  <div style={{ padding: '4px 12px', background: '#0a3a0a', border: '1px solid #1a5a1a', fontSize: 16 }}>
                     ✓ Survives Page reload
                   </div>
                   {['Tab close', 'Browser close', 'System restart'].map((e, i) => (
-                    <div key={i} style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 10 }}>
+                    <div key={i} style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 16 }}>
                       ✗ Lost on {e}
                     </div>
                   ))}
-                  <div style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 10 }}>
+                  <div style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 16 }}>
                     ✗ Not shared across tabs
                   </div>
                 </div>
@@ -1074,10 +1074,10 @@ window.addEventListener("storage", (event) => {
 
         {quizzes.map((quiz, qi) => (
           <div key={qi} style={{ ...S.card, marginBottom: 16 }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', marginBottom: 8 }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', marginBottom: 8 }}>
               QUESTION {qi + 1}
             </div>
-            <div style={{ fontSize: 14, marginBottom: 12, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 16, marginBottom: 12, lineHeight: 1.9 }}>
               {quiz.q}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -1100,7 +1100,7 @@ window.addEventListener("storage", (event) => {
                       textAlign: 'left',
                       padding: '10px 14px',
                       fontFamily: 'var(--font-mono)',
-                      fontSize: 12,
+                      fontSize: 16,
                       background: selected && !showQuizResults ? 'rgba(255,255,255,0.08)' : bg,
                       border: `1px solid ${selected && !showQuizResults ? 'var(--nothing-text)' : borderColor}`,
                       color: 'var(--nothing-text)',
@@ -1138,11 +1138,11 @@ window.addEventListener("storage", (event) => {
         {showQuizResults && (
           <div style={{
             marginTop: 16,
-            padding: 16,
+            padding: 24,
             border: '1px solid var(--nothing-border)',
             background: 'var(--nothing-surface)',
             fontFamily: 'var(--font-mono)',
-            fontSize: 13,
+            fontSize: 15,
           }}>
             Score: {quizzes.filter((q, i) => quizAnswers[i] === q.correct).length} / {quizzes.length}
             {quizzes.filter((q, i) => quizAnswers[i] === q.correct).length === quizzes.length && (
@@ -1154,7 +1154,7 @@ window.addEventListener("storage", (event) => {
 
       {/* ── Footer ── */}
       <div style={{ height: 1, background: 'var(--nothing-border)' }} />
-      <footer style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', textAlign: 'center' }}>
+      <footer style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', textAlign: 'center' }}>
         CHAPTER 11 · STRING · DATE · WEB STORAGE · END
       </footer>
     </div>
