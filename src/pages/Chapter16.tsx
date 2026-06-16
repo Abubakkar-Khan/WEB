@@ -39,7 +39,7 @@ const bodyText: React.CSSProperties = {
 };
 
 const codeBlock: React.CSSProperties = {
-  background: '#000',
+  background: 'var(--nothing-bg)',
   border: '1px solid var(--nothing-border)',
   padding: '16px',
   fontFamily: 'var(--font-mono)',
@@ -105,7 +105,7 @@ const inputStyle: React.CSSProperties = {
   fontSize: '13px',
   padding: '10px 14px',
   border: '1px solid var(--nothing-border)',
-  background: '#000',
+  background: 'var(--nothing-bg)',
   color: 'var(--nothing-text)',
   width: '100%',
 };
@@ -165,7 +165,7 @@ const AjaxSimulator: React.FC = () => {
   };
 
   return (
-    <div style={{ border: '1px solid var(--nothing-border)', padding: '24px', background: '#000' }}>
+    <div style={{ border: '1px solid var(--nothing-border)', padding: '24px', background: 'var(--nothing-bg)' }}>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
         <button
           onClick={simulate}
@@ -174,7 +174,7 @@ const AjaxSimulator: React.FC = () => {
             ...btnStyle,
             opacity: running ? 0.4 : 1,
             background: running ? 'transparent' : 'var(--nothing-text)',
-            color: running ? 'var(--nothing-text-dim)' : '#000',
+            color: running ? 'var(--nothing-text-dim)' : 'var(--nothing-bg)',
           }}
         >
           {running ? '⟳ Simulating...' : '▶ Simulate Ajax Request'}
@@ -193,7 +193,7 @@ const AjaxSimulator: React.FC = () => {
                 flex: 1,
                 padding: '10px 8px',
                 background: currentState >= i ? 'var(--nothing-text)' : 'var(--nothing-surface)',
-                color: currentState >= i ? '#000' : 'var(--nothing-text-dim)',
+                color: currentState >= i ? 'var(--nothing-bg)' : 'var(--nothing-text-dim)',
                 textAlign: 'center',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '10px',
@@ -283,7 +283,7 @@ const JSONPlayground: React.FC = () => {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
       {/* Parse side */}
-      <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: '#000' }}>
+      <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: 'var(--nothing-bg)' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
           JSON.parse() — JSON → Object
         </div>
@@ -307,7 +307,7 @@ const JSONPlayground: React.FC = () => {
       </div>
 
       {/* Stringify side */}
-      <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: '#000' }}>
+      <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: 'var(--nothing-bg)' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
           JSON.stringify() — Object → JSON
         </div>
@@ -377,10 +377,10 @@ const AddressBook: React.FC = () => {
   const selectedContact = contacts.find(c => c.id === selected);
 
   return (
-    <div style={{ border: '1px solid var(--nothing-border)', background: '#000' }}>
+    <div style={{ border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
       {/* Toolbar */}
       <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--nothing-border)', display: 'flex', gap: '12px', alignItems: 'center' }}>
-        <button onClick={loadContacts} style={{ ...btnStyle, background: 'var(--nothing-text)', color: '#000' }}>
+        <button onClick={loadContacts} style={{ ...btnStyle, background: 'var(--nothing-text)', color: 'var(--nothing-bg)' }}>
           {loading ? '⟳ Loading...' : loaded ? '↻ Reload Contacts' : '▶ Fetch Contacts (Ajax)'}
         </button>
         {loaded && (
@@ -557,7 +557,7 @@ const Quiz: React.FC = () => {
   return (
     <div>
       {quizData.map((q, qi) => (
-        <div key={qi} style={{ marginBottom: '24px', padding: '20px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+        <div key={qi} style={{ marginBottom: '24px', padding: '20px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
           <div style={{ fontFamily: 'var(--font-display)', fontSize: '14px', marginBottom: '12px', color: 'var(--nothing-text)' }}>
             <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-dim)', marginRight: '8px' }}>Q{qi + 1}.</span>
             {q.q}
@@ -614,7 +614,7 @@ const Quiz: React.FC = () => {
             ...btnStyle,
             opacity: Object.keys(answers).length < quizData.length ? 0.4 : 1,
             background: 'var(--nothing-text)',
-            color: '#000',
+            color: 'var(--nothing-bg)',
           }}
         >
           Check Answers
@@ -677,7 +677,7 @@ export const Chapter16: React.FC = () => {
         {/* Diagram: Traditional vs Ajax */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginTop: '16px' }}>
           {/* Traditional */}
-          <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: '#000' }}>
+          <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>
               Traditional Model
             </div>
@@ -701,7 +701,7 @@ export const Chapter16: React.FC = () => {
           </div>
 
           {/* Ajax */}
-          <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: '#000' }}>
+          <div style={{ border: '1px solid var(--nothing-border)', padding: '20px', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>
               Ajax Model
             </div>
@@ -1021,7 +1021,7 @@ xhr.send(payload);  // Body with data`}
 
         <h3 style={subHeading}>JSON Syntax Rules</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#4f4', marginBottom: '10px' }}>✓ VALID JSON</div>
             <pre style={{ ...codeBlock, border: 'none', padding: 0, marginBottom: 0 }}>
 {`{
@@ -1036,7 +1036,7 @@ xhr.send(payload);  // Body with data`}
 }`}
             </pre>
           </div>
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#d71921', marginBottom: '10px' }}>✗ INVALID JSON</div>
             <pre style={{ ...codeBlock, border: 'none', padding: 0, marginBottom: 0, color: '#d71921' }}>
 {`{
@@ -1133,7 +1133,7 @@ JSON.stringify(obj, (key, value) => {
           Complete visual walkthrough of every step in an Ajax request/response cycle:
         </p>
 
-        <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '24px', overflowX: 'auto' }}>
+        <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '24px', overflowX: 'auto' }}>
           {/* Client and Server labels */}
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
             <div style={{ fontFamily: 'var(--font-dot)', fontSize: '14px', letterSpacing: '0.1em', padding: '8px 20px', border: '1px solid var(--nothing-text)', display: 'inline-block' }}>
@@ -1294,7 +1294,7 @@ function showDetail(contact) {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
           {/* XHR Quick Ref */}
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-dot)', fontSize: '12px', letterSpacing: '0.1em', marginBottom: '12px' }}>XMLHttpRequest</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
 {`const xhr = new XMLHttpRequest();
@@ -1314,7 +1314,7 @@ xhr.getResponseHeader(name)`}
           </div>
 
           {/* JSON Quick Ref */}
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-dot)', fontSize: '12px', letterSpacing: '0.1em', marginBottom: '12px' }}>JSON</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
 {`// Parse: string → object
@@ -1336,7 +1336,7 @@ JSON.stringify(val, null, 2)
           </div>
 
           {/* Status Codes Quick Ref */}
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-dot)', fontSize: '12px', letterSpacing: '0.1em', marginBottom: '12px' }}>Status Codes</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
 {`200  OK
@@ -1362,7 +1362,7 @@ readyState:
 
         {/* GET vs POST quick */}
         <div style={{ marginTop: '16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-dot)', fontSize: '12px', letterSpacing: '0.1em', marginBottom: '12px' }}>GET Pattern</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
 {`xhr.open("GET", url + "?k=v", true);
@@ -1370,7 +1370,7 @@ xhr.send();
 // No body, params in URL`}
             </pre>
           </div>
-          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
+          <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-dot)', fontSize: '12px', letterSpacing: '0.1em', marginBottom: '12px' }}>POST Pattern</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
 {`xhr.open("POST", url, true);

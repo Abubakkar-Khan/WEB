@@ -8,6 +8,7 @@ interface GamificationState {
   lastLoginDate: string | null;
   completedLessons: Record<string, boolean>;
   unlockedBadges: string[];
+  theme: 'dark' | 'light';
   
   // Actions
   addXP: (amount: number) => void;
@@ -15,6 +16,7 @@ interface GamificationState {
   unlockBadge: (badgeId: string) => void;
   checkStreak: () => void;
   resetProgress: () => void;
+  toggleTheme: () => void;
 }
 
 export const useStore = create<GamificationState>()(
@@ -26,6 +28,9 @@ export const useStore = create<GamificationState>()(
       lastLoginDate: null,
       completedLessons: {},
       unlockedBadges: [],
+      theme: 'dark',
+
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
 
       addXP: (amount) => set((state) => {
         const newXp = state.xp + amount;

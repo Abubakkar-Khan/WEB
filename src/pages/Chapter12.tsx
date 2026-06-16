@@ -31,7 +31,7 @@ const prose: React.CSSProperties = {
   marginBottom: '16px',
 };
 const codeBlock: React.CSSProperties = {
-  background: '#000',
+  background: 'var(--nothing-bg)',
   border: '1px solid var(--nothing-border)',
   padding: '16px',
   fontFamily: 'var(--font-mono)',
@@ -96,8 +96,8 @@ const btnStyle: React.CSSProperties = {
 };
 const btnActive: React.CSSProperties = {
   ...btnStyle,
-  background: '#fff',
-  color: '#000',
+  background: 'var(--nothing-text)',
+  color: 'var(--nothing-bg)',
 };
 
 /* ─────────────────────── INTERACTIVE: DOM SURGEON ─────────────────────── */
@@ -252,7 +252,7 @@ const DomSurgeon: React.FC = () => {
             cursor: 'pointer',
             background: isSel ? 'rgba(255,255,255,0.12)' : 'transparent',
             border: isSel ? '1px solid var(--nothing-text-muted)' : '1px solid transparent',
-            color: isSel ? '#fff' : 'var(--nothing-text-muted)',
+            color: isSel ? 'var(--nothing-text)' : 'var(--nothing-text-muted)',
             display: 'inline-block',
             borderRadius: '2px',
             transition: 'all 0.15s',
@@ -271,7 +271,7 @@ const DomSurgeon: React.FC = () => {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
       {/* Tree view */}
-      <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px', minHeight: 240 }}>
+      <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px', minHeight: 240 }}>
         <div style={{ ...labelTag, marginBottom: '12px' }}>Live DOM Tree</div>
         <RenderNode node={tree} depth={0} />
       </div>
@@ -280,13 +280,13 @@ const DomSurgeon: React.FC = () => {
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <label style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)' }}>Tag:</label>
           <select value={newTag} onChange={e => setNewTag(e.target.value)}
-            style={{ ...btnStyle, padding: '4px 8px', background: '#000' }}>
+            style={{ ...btnStyle, padding: '4px 8px', background: 'var(--nothing-bg)' }}>
             {['div','p','span','h1','h2','h3','ul','ol','li','a','em','strong','section','article','img'].map(t =>
               <option key={t} value={t}>{`<${t}>`}</option>
             )}
           </select>
           <input value={newText} onChange={e => setNewText(e.target.value)} placeholder="text content"
-            style={{ ...btnStyle, flex: 1, padding: '4px 8px', background: '#000' }} />
+            style={{ ...btnStyle, flex: 1, padding: '4px 8px', background: 'var(--nothing-bg)' }} />
         </div>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
           <button style={btnStyle} onClick={handleAppendChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
@@ -309,7 +309,7 @@ const DomSurgeon: React.FC = () => {
           {selected ? `Selected: <${findNode(tree, selected)?.tag}>` : 'Click a node to select it'}
         </div>
         {/* Log */}
-        <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '10px', flex: 1, overflowY: 'auto', maxHeight: 160 }}>
+        <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '10px', flex: 1, overflowY: 'auto', maxHeight: 160 }}>
           <div style={{ ...labelTag, marginBottom: '6px' }}>Action Log</div>
           {log.map((l, i) => (
             <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: l.startsWith('⚠') ? 'var(--nothing-red)' : 'var(--nothing-text-dim)', marginBottom: 2 }}>
@@ -473,8 +473,8 @@ const Quiz: React.FC = () => {
   return (
     <div>
       {quizData.map((q, qi) => (
-        <div key={qi} style={{ marginBottom: '24px', padding: '16px', background: '#000', border: '1px solid var(--nothing-border)' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#fff', marginBottom: '12px' }}>
+        <div key={qi} style={{ marginBottom: '24px', padding: '16px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text)', marginBottom: '12px' }}>
             <span style={{ color: 'var(--nothing-text-dim)' }}>Q{qi + 1}.</span> {q.q}
           </div>
           {q.opts.map((opt, oi) => {
@@ -551,13 +551,13 @@ export const Chapter12: React.FC = () => {
 
         <p style={prose}>
           When a browser loads an HTML page, it parses the markup and constructs a tree data structure called the
-          <strong style={{ color: '#fff' }}> Document Object Model (DOM)</strong>. Every element, text node, comment, and attribute
-          becomes a <strong style={{ color: '#fff' }}>node</strong> in this tree. JavaScript can then traverse, query, and
+          <strong style={{ color: 'var(--nothing-text)' }}> Document Object Model (DOM)</strong>. Every element, text node, comment, and attribute
+          becomes a <strong style={{ color: 'var(--nothing-text)' }}>node</strong> in this tree. JavaScript can then traverse, query, and
           manipulate this tree to dynamically change the page content, structure, and appearance.
         </p>
 
         <p style={prose}>
-          The DOM is <strong style={{ color: '#fff' }}>not</strong> your HTML source code — it's the browser's living, in-memory
+          The DOM is <strong style={{ color: 'var(--nothing-text)' }}>not</strong> your HTML source code — it's the browser's living, in-memory
           representation. If JavaScript modifies the DOM, the page updates immediately but the source file on disk stays unchanged.
         </p>
 
@@ -590,13 +590,13 @@ export const Chapter12: React.FC = () => {
 
         {/* DOM Tree Diagram */}
         <div style={labelTag}>DOM Tree Visualization</div>
-        <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '24px', marginBottom: '16px', overflowX: 'auto' }}>
+        <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '24px', marginBottom: '16px', overflowX: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
             {/* document */}
-            <div style={{ padding: '6px 16px', border: '2px solid #666', color: '#888', marginBottom: '4px' }}>document (nodeType: 9)</div>
+            <div style={{ padding: '6px 16px', border: '2px solid var(--nothing-border)', color: '#888', marginBottom: '4px' }}>document (nodeType: 9)</div>
             <div style={{ width: '1px', height: '16px', background: 'var(--nothing-border)' }} />
             {/* html */}
-            <div style={{ padding: '6px 16px', border: '1px solid var(--nothing-text-muted)', color: '#fff', marginBottom: '4px' }}>&lt;html&gt;</div>
+            <div style={{ padding: '6px 16px', border: '1px solid var(--nothing-text-muted)', color: 'var(--nothing-text)', marginBottom: '4px' }}>&lt;html&gt;</div>
             <div style={{ width: '1px', height: '16px', background: 'var(--nothing-border)' }} />
             {/* head + body row */}
             <div style={{ display: 'flex', gap: '60px', position: 'relative' }}>
@@ -605,7 +605,7 @@ export const Chapter12: React.FC = () => {
               {/* head branch */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ width: '1px', height: '16px', background: 'var(--nothing-border)' }} />
-                <div style={{ padding: '6px 16px', border: '1px solid var(--nothing-text-muted)', color: '#fff', marginBottom: '4px' }}>&lt;head&gt;</div>
+                <div style={{ padding: '6px 16px', border: '1px solid var(--nothing-text-muted)', color: 'var(--nothing-text)', marginBottom: '4px' }}>&lt;head&gt;</div>
                 <div style={{ width: '1px', height: '12px', background: 'var(--nothing-border)' }} />
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <div style={{ padding: '4px 10px', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text-dim)', fontSize: '11px' }}>&lt;title&gt;</div>
@@ -615,7 +615,7 @@ export const Chapter12: React.FC = () => {
               {/* body branch */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ width: '1px', height: '16px', background: 'var(--nothing-border)' }} />
-                <div style={{ padding: '6px 16px', border: '1px solid var(--nothing-text-muted)', color: '#fff', marginBottom: '4px' }}>&lt;body&gt;</div>
+                <div style={{ padding: '6px 16px', border: '1px solid var(--nothing-text-muted)', color: 'var(--nothing-text)', marginBottom: '4px' }}>&lt;body&gt;</div>
                 <div style={{ width: '1px', height: '12px', background: 'var(--nothing-border)' }} />
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -660,7 +660,7 @@ export const Chapter12: React.FC = () => {
             ].map((row, i) => (
               <tr key={i}>
                 {row.map((cell, j) => (
-                  <td key={j} style={{ ...tdStyle, ...(j === 0 ? { color: '#fff', fontWeight: 500 } : {}) }}>{cell}</td>
+                  <td key={j} style={{ ...tdStyle, ...(j === 0 ? { color: 'var(--nothing-text)', fontWeight: 500 } : {}) }}>{cell}</td>
                 ))}
               </tr>
             ))}
@@ -674,10 +674,10 @@ export const Chapter12: React.FC = () => {
               WHITESPACE TRAP
             </div>
             <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--nothing-text-muted)' }}>
-              Browsers treat whitespace between tags as <strong style={{ color: '#fff' }}>Text nodes</strong>. So
-              <code style={{ color: '#fff' }}> firstChild</code> and <code style={{ color: '#fff' }}>nextSibling</code> may
-              return <code style={{ color: '#fff' }}>#text</code> nodes containing just whitespace. Use
-              <code style={{ color: '#fff' }}> firstElementChild</code> and <code style={{ color: '#fff' }}>nextElementSibling</code> to
+              Browsers treat whitespace between tags as <strong style={{ color: 'var(--nothing-text)' }}>Text nodes</strong>. So
+              <code style={{ color: 'var(--nothing-text)' }}> firstChild</code> and <code style={{ color: 'var(--nothing-text)' }}>nextSibling</code> may
+              return <code style={{ color: 'var(--nothing-text)' }}>#text</code> nodes containing just whitespace. Use
+              <code style={{ color: 'var(--nothing-text)' }}> firstElementChild</code> and <code style={{ color: 'var(--nothing-text)' }}>nextElementSibling</code> to
               skip them.
             </div>
           </div>
@@ -710,7 +710,7 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
 
         <p style={prose}>
           Before you can manipulate an element, you need a reference to it. The DOM provides several methods on
-          <code style={{ color: '#fff' }}> document</code> (and on elements) to find nodes.
+          <code style={{ color: 'var(--nothing-text)' }}> document</code> (and on elements) to find nodes.
         </p>
 
         <div style={labelTag}>Selection Methods</div>
@@ -735,7 +735,7 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
                 {row.map((cell, j) => (
                   <td key={j} style={{
                     ...tdStyle,
-                    ...(j === 0 ? { color: '#fff', fontWeight: 500 } : {}),
+                    ...(j === 0 ? { color: 'var(--nothing-text)', fontWeight: 500 } : {}),
                     ...(j === 3 ? { color: cell === 'LIVE' ? '#0f0' : cell === 'STATIC' ? '#ff0' : 'var(--nothing-text-dim)' } : {}),
                   }}>{cell}</td>
                 ))}
@@ -746,23 +746,23 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
 
         {/* Live vs Static explanation */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#0f0', marginBottom: '8px', fontWeight: 600 }}>
               LIVE Collection (HTMLCollection)
             </div>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
               Automatically updates when the DOM changes. If you add or remove elements matching the query,
-              the collection's <code style={{ color: '#fff' }}>length</code> and contents update in real-time.
-              Returned by <code style={{ color: '#fff' }}>getElementsByTagName</code> and <code style={{ color: '#fff' }}>getElementsByClassName</code>.
+              the collection's <code style={{ color: 'var(--nothing-text)' }}>length</code> and contents update in real-time.
+              Returned by <code style={{ color: 'var(--nothing-text)' }}>getElementsByTagName</code> and <code style={{ color: 'var(--nothing-text)' }}>getElementsByClassName</code>.
             </p>
           </div>
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#ff0', marginBottom: '8px', fontWeight: 600 }}>
               STATIC Collection (NodeList)
             </div>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
               A snapshot taken at the moment of the call. Adding/removing elements from the DOM does NOT change the list.
-              Returned by <code style={{ color: '#fff' }}>querySelectorAll</code>. Safer for iteration because
+              Returned by <code style={{ color: 'var(--nothing-text)' }}>querySelectorAll</code>. Safer for iteration because
               the list won't change under your feet.
             </p>
           </div>
@@ -800,10 +800,10 @@ const navLinks = nav.querySelectorAll('a');  // only <a> inside <nav>`}</pre>
               LIVE COLLECTION TRAP
             </div>
             <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--nothing-text-muted)' }}>
-              Iterating a live collection with a <code style={{ color: '#fff' }}>for</code> loop while adding/removing
-              elements can cause <strong style={{ color: '#fff' }}>infinite loops or skipped elements</strong> because
+              Iterating a live collection with a <code style={{ color: 'var(--nothing-text)' }}>for</code> loop while adding/removing
+              elements can cause <strong style={{ color: 'var(--nothing-text)' }}>infinite loops or skipped elements</strong> because
               the length changes during iteration. Convert to array first:
-              <code style={{ color: '#fff' }}> [...liveCollection]</code> or <code style={{ color: '#fff' }}>Array.from(liveCollection)</code>.
+              <code style={{ color: 'var(--nothing-text)' }}> [...liveCollection]</code> or <code style={{ color: 'var(--nothing-text)' }}>Array.from(liveCollection)</code>.
             </div>
           </div>
         </div>
@@ -854,7 +854,7 @@ divArr.forEach(div => div.remove()); // Works correctly`}</pre>
                 {row.map((cell, j) => (
                   <td key={j} style={{
                     ...tdStyle,
-                    ...(j === 0 ? { color: '#fff', fontWeight: 500 } : {}),
+                    ...(j === 0 ? { color: 'var(--nothing-text)', fontWeight: 500 } : {}),
                     ...(j === 3 && cell.includes('!') ? { color: 'var(--nothing-red)' } : {}),
                   }}>{cell}</td>
                 ))}
@@ -921,11 +921,11 @@ document.body.appendChild(deepCopy);`}</pre>
               DOM MUTATION TRAPS
             </div>
             <ul style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--nothing-text-muted)', paddingLeft: '16px', lineHeight: 1.8 }}>
-              <li><strong style={{ color: '#fff' }}>createElement</strong> creates in memory ONLY — you must explicitly attach it with appendChild or insertBefore</li>
-              <li><strong style={{ color: '#fff' }}>appendChild of existing node</strong> MOVES it (doesn't copy!). To copy, use cloneNode first</li>
-              <li><strong style={{ color: '#fff' }}>removeChild</strong> must be called on the PARENT: <code style={{ color: '#fff' }}>node.parentNode.removeChild(node)</code></li>
-              <li><strong style={{ color: '#fff' }}>insertBefore(newNode, null)</strong> behaves exactly like appendChild</li>
-              <li><strong style={{ color: '#fff' }}>cloneNode</strong> does NOT copy event listeners — only DOM structure and attributes</li>
+              <li><strong style={{ color: 'var(--nothing-text)' }}>createElement</strong> creates in memory ONLY — you must explicitly attach it with appendChild or insertBefore</li>
+              <li><strong style={{ color: 'var(--nothing-text)' }}>appendChild of existing node</strong> MOVES it (doesn't copy!). To copy, use cloneNode first</li>
+              <li><strong style={{ color: 'var(--nothing-text)' }}>removeChild</strong> must be called on the PARENT: <code style={{ color: 'var(--nothing-text)' }}>node.parentNode.removeChild(node)</code></li>
+              <li><strong style={{ color: 'var(--nothing-text)' }}>insertBefore(newNode, null)</strong> behaves exactly like appendChild</li>
+              <li><strong style={{ color: 'var(--nothing-text)' }}>cloneNode</strong> does NOT copy event listeners — only DOM structure and attributes</li>
             </ul>
           </div>
         </div>
@@ -947,8 +947,8 @@ document.body.appendChild(deepCopy);`}</pre>
         </div>
 
         <p style={prose}>
-          The <code style={{ color: '#fff' }}>document</code> object provides built-in HTMLCollections for commonly accessed element types.
-          These are <strong style={{ color: '#fff' }}>live collections</strong> that update automatically.
+          The <code style={{ color: 'var(--nothing-text)' }}>document</code> object provides built-in HTMLCollections for commonly accessed element types.
+          These are <strong style={{ color: 'var(--nothing-text)' }}>live collections</strong> that update automatically.
         </p>
 
         <table style={tableStyle}>
@@ -973,7 +973,7 @@ document.body.appendChild(deepCopy);`}</pre>
                 {row.map((cell, j) => (
                   <td key={j} style={{
                     ...tdStyle,
-                    ...(j === 0 ? { color: '#fff', fontWeight: 500 } : {}),
+                    ...(j === 0 ? { color: 'var(--nothing-text)', fontWeight: 500 } : {}),
                     ...(j === 3 && cell === 'DEPRECATED' ? { color: 'var(--nothing-red)' } : {}),
                   }}>{cell}</td>
                 ))}
@@ -1014,8 +1014,8 @@ console.log(email.value);
 
         <p style={prose}>
           JavaScript can dynamically change an element's visual appearance by modifying its
-          <strong style={{ color: '#fff' }}> inline styles</strong> (via <code style={{ color: '#fff' }}>element.style</code>)
-          or by toggling <strong style={{ color: '#fff' }}>CSS classes</strong> (via <code style={{ color: '#fff' }}>element.classList</code>).
+          <strong style={{ color: 'var(--nothing-text)' }}> inline styles</strong> (via <code style={{ color: 'var(--nothing-text)' }}>element.style</code>)
+          or by toggling <strong style={{ color: 'var(--nothing-text)' }}>CSS classes</strong> (via <code style={{ color: 'var(--nothing-text)' }}>element.classList</code>).
           The classList API is preferred because it keeps styling concerns in CSS.
         </p>
 
@@ -1039,7 +1039,7 @@ console.log(email.value);
             ].map((row, i) => (
               <tr key={i}>
                 {row.map((cell, j) => (
-                  <td key={j} style={{ ...tdStyle, ...(j === 0 ? { color: '#fff', fontWeight: 500 } : {}) }}>{cell}</td>
+                  <td key={j} style={{ ...tdStyle, ...(j === 0 ? { color: 'var(--nothing-text)', fontWeight: 500 } : {}) }}>{cell}</td>
                 ))}
               </tr>
             ))}
@@ -1088,9 +1088,9 @@ requestAnimationFrame(animate);`}</pre>
               STYLING BEST PRACTICE
             </div>
             <div style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--nothing-text-muted)' }}>
-              Prefer <code style={{ color: '#fff' }}>classList.add/remove/toggle</code> over direct <code style={{ color: '#fff' }}>style</code> manipulation.
-              Keep visual rules in CSS; use JavaScript only to toggle <strong style={{ color: '#fff' }}>state classes</strong> like
-              <code style={{ color: '#fff' }}> .active</code>, <code style={{ color: '#fff' }}>.hidden</code>, <code style={{ color: '#fff' }}>.error</code>.
+              Prefer <code style={{ color: 'var(--nothing-text)' }}>classList.add/remove/toggle</code> over direct <code style={{ color: 'var(--nothing-text)' }}>style</code> manipulation.
+              Keep visual rules in CSS; use JavaScript only to toggle <strong style={{ color: 'var(--nothing-text)' }}>state classes</strong> like
+              <code style={{ color: 'var(--nothing-text)' }}> .active</code>, <code style={{ color: 'var(--nothing-text)' }}>.hidden</code>, <code style={{ color: 'var(--nothing-text)' }}>.error</code>.
               Inline styles have highest specificity and are harder to override.
             </div>
           </div>
@@ -1113,7 +1113,7 @@ requestAnimationFrame(animate);`}</pre>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
           {/* Selecting */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Selecting Elements</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`getElementById(id)        → Element|null
@@ -1125,7 +1125,7 @@ querySelectorAll(css)     → NodeList ○STATIC`}
           </div>
 
           {/* Creating */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Creating & Inserting</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`document.createElement(tag) → Element
@@ -1139,7 +1139,7 @@ node.cloneNode(deep)        → cloned node`}
           </div>
 
           {/* Traversal */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Traversal (All Nodes)</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`node.parentNode
@@ -1153,7 +1153,7 @@ node.nodeType / nodeName / nodeValue`}
           </div>
 
           {/* Element Traversal */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Traversal (Elements Only)</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`el.children             (HTMLCollection, live)
@@ -1166,7 +1166,7 @@ el.childElementCount`}
           </div>
 
           {/* classList */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>classList API</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`el.classList.add('a', 'b')
@@ -1179,7 +1179,7 @@ el.classList.replace('a','b') → boolean`}
           </div>
 
           {/* Content & Attributes */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Content & Attributes</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`el.textContent         (text only)
@@ -1194,7 +1194,7 @@ el.dataset.key         (data-* attributes)`}
           </div>
 
           {/* Styling */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Inline Styles</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`el.style.propertyName = value
@@ -1205,7 +1205,7 @@ el.style.removeProperty('color')`}
           </div>
 
           {/* Collections */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>Document Collections</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`document.images        → all <img>
@@ -1218,7 +1218,7 @@ document.anchors       → DEPRECATED`}
           </div>
 
           {/* Node Type Constants */}
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
             <div style={{ ...labelTag, marginBottom: '10px' }}>nodeType Constants</div>
             <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-muted)', whiteSpace: 'pre', lineHeight: 1.6 }}>
 {`1  Node.ELEMENT_NODE
@@ -1239,7 +1239,7 @@ document.anchors       → DEPRECATED`}
           <HelpCircle size={20} /> 07 · Quiz
         </div>
         <p style={{ ...prose, marginBottom: '20px' }}>
-          Test your understanding of the Document Object Model. Select one answer per question, then click <strong style={{ color: '#fff' }}>Check Answers</strong>.
+          Test your understanding of the Document Object Model. Select one answer per question, then click <strong style={{ color: 'var(--nothing-text)' }}>Check Answers</strong>.
         </p>
         <Quiz />
       </div>

@@ -35,7 +35,7 @@ const S = {
     marginTop: 28,
   },
   code: {
-    background: '#000',
+    background: 'var(--nothing-bg)',
     border: '1px solid var(--nothing-border)',
     padding: 16,
     fontFamily: 'var(--font-mono)',
@@ -71,7 +71,7 @@ const S = {
     verticalAlign: 'top' as const,
   },
   interactive: {
-    background: '#050505',
+    background: 'var(--nothing-surface)',
     border: '1px solid var(--nothing-border)',
     padding: 20,
   },
@@ -106,7 +106,7 @@ const S = {
     fontSize: 13,
   },
   input: {
-    background: '#000',
+    background: 'var(--nothing-bg)',
     border: '1px solid var(--nothing-border)',
     color: 'var(--nothing-text)',
     padding: '8px 12px',
@@ -223,10 +223,10 @@ export const Chapter11: React.FC = () => {
         <h2 style={S.sectionHeader}>1 · String Object</h2>
 
         <p style={S.p}>
-          JavaScript strings are <strong style={{ color: '#fff' }}>immutable</strong> sequences of UTF-16 code units.
+          JavaScript strings are <strong style={{ color: 'var(--nothing-text)' }}>immutable</strong> sequences of UTF-16 code units.
           Primitive strings are auto-boxed to <code>String</code> objects when you call methods on them.
-          Every method returns a <strong style={{ color: '#fff' }}>new</strong> string — the original is never modified.
-          Strings are <strong style={{ color: '#fff' }}>zero-indexed</strong>: the first character is at index 0.
+          Every method returns a <strong style={{ color: 'var(--nothing-text)' }}>new</strong> string — the original is never modified.
+          Strings are <strong style={{ color: 'var(--nothing-text)' }}>zero-indexed</strong>: the first character is at index 0.
         </p>
 
         <pre style={S.code}>{`// Primitive vs Object
@@ -276,7 +276,7 @@ console.log(s);    // "Hello" (original unchanged)
                 ['concat(...s)', '...s: string[]', 'string', 'Concatenates one or more strings.'],
               ] as string[][]).map(([m, p, r, d], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, color: '#fff', fontWeight: 600 }}>{m}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text)', fontWeight: 600 }}>{m}</td>
                   <td style={S.td}>{p}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{r}</td>
                   <td style={S.td}>{d}</td>
@@ -415,7 +415,7 @@ const name = "Alice";
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--nothing-text-dim)', marginBottom: 8, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Live Results
           </div>
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: 12 }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: 12 }}>
             {([
               ['.length', () => strInput.length],
               [`.charAt(0)`, () => strInput.charAt(0)],
@@ -437,7 +437,7 @@ const name = "Alice";
             ] as [string, () => unknown][]).map(([label, fn], i) => (
               <div key={i} style={S.resultRow}>
                 <span style={{ color: 'var(--nothing-text-muted)' }}>{label}</span>
-                <span style={{ color: '#fff', maxWidth: '50%', textAlign: 'right', wordBreak: 'break-all' }}>{safe(fn)}</span>
+                <span style={{ color: 'var(--nothing-text)', maxWidth: '50%', textAlign: 'right', wordBreak: 'break-all' }}>{safe(fn)}</span>
               </div>
             ))}
           </div>
@@ -451,7 +451,7 @@ const name = "Alice";
         <h2 style={S.sectionHeader}>2 · Date Object</h2>
 
         <p style={S.p}>
-          The <code>Date</code> object represents a single point in time, stored internally as the number of <strong style={{ color: '#fff' }}>milliseconds since January 1, 1970 00:00:00 UTC</strong> (the Unix Epoch).
+          The <code>Date</code> object represents a single point in time, stored internally as the number of <strong style={{ color: 'var(--nothing-text)' }}>milliseconds since January 1, 1970 00:00:00 UTC</strong> (the Unix Epoch).
         </p>
 
         {/* ── Construction ── */}
@@ -501,7 +501,7 @@ new Date(2026, 11, 31); // December 31, 2026`}</pre>
                 ['valueOf()', 'number', 'ms since epoch', 'Same as getTime()'],
               ] as string[][]).map(([m, r, range, d], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, color: '#fff', fontWeight: 600 }}>{m}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text)', fontWeight: 600 }}>{m}</td>
                   <td style={S.td}>{r}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{range}</td>
                   <td style={S.td}>{d}</td>
@@ -603,7 +603,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
             letterSpacing: '0.1em',
             textAlign: 'center',
             marginBottom: 20,
-            color: '#fff',
+            color: 'var(--nothing-text)',
           }}>
             {now.toLocaleTimeString()}
           </div>
@@ -624,14 +624,14 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
               ['toDateString()', now.toDateString()],
             ] as [string, unknown][]).map(([label, val], i) => (
               <div key={i} style={{
-                background: '#000',
+                background: 'var(--nothing-bg)',
                 border: '1px solid var(--nothing-border)',
                 padding: '8px 12px',
               }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.1em', marginBottom: 4 }}>
                   {label}
                 </div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: '#fff', wordBreak: 'break-all' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--nothing-text)', wordBreak: 'break-all' }}>
                   {String(val)}
                 </div>
               </div>
@@ -639,7 +639,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
           </div>
 
           {/* ── Month visual ── */}
-          <div style={{ marginTop: 16, padding: 12, background: '#000', border: '1px solid var(--nothing-border)' }}>
+          <div style={{ marginTop: 16, padding: 12, background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.12em', marginBottom: 8, textTransform: 'uppercase' }}>
               Month Index Map (0-based!)
             </div>
@@ -649,8 +649,8 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
                   padding: '4px 8px',
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
-                  background: i === now.getMonth() ? '#fff' : 'transparent',
-                  color: i === now.getMonth() ? '#000' : 'var(--nothing-text-dim)',
+                  background: i === now.getMonth() ? 'var(--nothing-text)' : 'transparent',
+                  color: i === now.getMonth() ? 'var(--nothing-bg)' : 'var(--nothing-text-dim)',
                   border: '1px solid var(--nothing-border)',
                 }}>
                   {i}:{m}
@@ -669,8 +669,8 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
 
         <p style={S.p}>
           The Web Storage API provides two mechanisms for storing key-value pairs in the browser:
-          <strong style={{ color: '#fff' }}> localStorage</strong> (persists until explicitly cleared) and
-          <strong style={{ color: '#fff' }}> sessionStorage</strong> (cleared when the tab/window closes).
+          <strong style={{ color: 'var(--nothing-text)' }}> localStorage</strong> (persists until explicitly cleared) and
+          <strong style={{ color: 'var(--nothing-text)' }}> sessionStorage</strong> (cleared when the tab/window closes).
           Both share the same API but differ in lifecycle and scope.
         </p>
 
@@ -696,7 +696,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
                 ['Survives browser close?', 'Yes', 'No'],
               ] as string[][]).map(([f, l, s], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, fontWeight: 600, color: '#fff' }}>{f}</td>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{f}</td>
                   <td style={S.td}>{l}</td>
                   <td style={S.td}>{s}</td>
                 </tr>
@@ -727,7 +727,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
                 ['.length', '—', 'number', 'Number of stored key-value pairs.'],
               ] as string[][]).map(([m, p, r, d], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, color: '#fff', fontWeight: 600 }}>{m}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text)', fontWeight: 600 }}>{m}</td>
                   <td style={S.td}>{p}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{r}</td>
                   <td style={S.td}>{d}</td>
@@ -873,14 +873,14 @@ window.addEventListener("storage", (event) => {
               localStorage.removeItem(storageKey); refreshStorage();
               setStorageResult(`Removed "${storageKey}"`);
             }}>removeItem</button>
-            <button style={{ ...S.btn, background: '#d71921', color: '#fff' }} onClick={() => {
+            <button style={{ ...S.btn, background: '#d71921', color: 'var(--nothing-text)' }} onClick={() => {
               localStorage.clear(); refreshStorage();
               setStorageResult('Cleared all localStorage');
             }}>clear()</button>
           </div>
 
           {storageResult && (
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-muted)', marginBottom: 12, padding: '8px 12px', background: '#000', border: '1px solid var(--nothing-border)' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-muted)', marginBottom: 12, padding: '8px 12px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
               → {storageResult}
             </div>
           )}
@@ -888,14 +888,14 @@ window.addEventListener("storage", (event) => {
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--nothing-text-dim)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
             Current localStorage Contents ({storageItems.length} items)
           </div>
-          <div style={{ background: '#000', border: '1px solid var(--nothing-border)', padding: 12, maxHeight: 200, overflowY: 'auto' }}>
+          <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: 12, maxHeight: 200, overflowY: 'auto' }}>
             {storageItems.length === 0 ? (
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--nothing-text-dim)' }}>
                 (empty)
               </div>
             ) : storageItems.map(([k, v], i) => (
               <div key={i} style={S.resultRow}>
-                <span style={{ color: '#fff' }}>{k}</span>
+                <span style={{ color: 'var(--nothing-text)' }}>{k}</span>
                 <span style={{ color: 'var(--nothing-text-muted)', maxWidth: '60%', textAlign: 'right', wordBreak: 'break-all' }}>{v}</span>
               </div>
             ))}
@@ -938,7 +938,7 @@ window.addEventListener("storage", (event) => {
                 ['concat(...s)', '"a".concat("b","c")', '"abc"'],
               ] as string[][]).map(([m, ex, res], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, fontWeight: 600, color: '#fff' }}>{m}</td>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{m}</td>
                   <td style={S.td}>{ex}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{res}</td>
                 </tr>
@@ -971,7 +971,7 @@ window.addEventListener("storage", (event) => {
                 ['toISOString()', 'd.toISOString()', 'ISO 8601 format'],
               ] as string[][]).map(([m, ex, note], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, fontWeight: 600, color: '#fff' }}>{m}</td>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{m}</td>
                   <td style={S.td}>{ex}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{note}</td>
                 </tr>
@@ -1002,7 +1002,7 @@ window.addEventListener("storage", (event) => {
                 ['Retrieve object', 'JSON.parse(localStorage.getItem("k"))', 'Must parse'],
               ] as string[][]).map(([op, code, note], i) => (
                 <tr key={i}>
-                  <td style={{ ...S.td, fontWeight: 600, color: '#fff' }}>{op}</td>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{op}</td>
                   <td style={S.td}>{code}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{note}</td>
                 </tr>
@@ -1102,7 +1102,7 @@ window.addEventListener("storage", (event) => {
                       fontFamily: 'var(--font-mono)',
                       fontSize: 12,
                       background: selected && !showQuizResults ? 'rgba(255,255,255,0.08)' : bg,
-                      border: `1px solid ${selected && !showQuizResults ? '#fff' : borderColor}`,
+                      border: `1px solid ${selected && !showQuizResults ? 'var(--nothing-text)' : borderColor}`,
                       color: 'var(--nothing-text)',
                       cursor: showQuizResults ? 'default' : 'pointer',
                     }}

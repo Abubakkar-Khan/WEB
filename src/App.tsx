@@ -27,11 +27,19 @@ const LoadingFallback = () => (
 
 function App() {
   const [activeChapter, setActiveChapter] = useState('ch11');
-  const { checkStreak } = useStore();
+  const { checkStreak, theme } = useStore();
 
   React.useEffect(() => {
     checkStreak();
   }, [checkStreak]);
+
+  React.useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-theme');
+    } else {
+      document.documentElement.classList.remove('light-theme');
+    }
+  }, [theme]);
 
   const renderChapter = () => {
     switch (activeChapter) {

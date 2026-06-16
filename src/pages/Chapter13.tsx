@@ -46,7 +46,7 @@ const tdStyle: React.CSSProperties = {
   verticalAlign: 'top',
 };
 const codeBlock: React.CSSProperties = {
-  background: '#000',
+  background: 'var(--nothing-bg)',
   border: '1px solid var(--nothing-border)',
   padding: '16px',
   fontFamily: 'var(--font-mono)',
@@ -288,7 +288,7 @@ export const Chapter13: React.FC = () => {
         <h2 style={sectionTitle}><Zap size={22} /> Event Object Properties</h2>
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '14px', marginBottom: '20px', lineHeight: 1.7 }}>
-          Every event handler receives an <strong style={{ color: '#fff' }}>Event object</strong> containing metadata about what happened. Mouse events carry coordinates; keyboard events carry key info; all events share a common base set of properties.
+          Every event handler receives an <strong style={{ color: 'var(--nothing-text)' }}>Event object</strong> containing metadata about what happened. Mouse events carry coordinates; keyboard events carry key info; all events share a common base set of properties.
         </p>
 
         <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
@@ -320,7 +320,7 @@ export const Chapter13: React.FC = () => {
                 ['repeat', 'boolean', 'true if key is being held down (auto-repeat)'],
               ].map(([prop, type, desc], i) => (
                 <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
-                  <td style={{ ...tdStyle, color: '#fff', fontWeight: 600 }}>{prop}</td>
+                  <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{prop}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-dim)' }}>{type}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{desc}</td>
                 </tr>
@@ -332,8 +332,8 @@ export const Chapter13: React.FC = () => {
         <div style={pitfallBox}>
           <div style={labelMono}>⚠ Pitfall: target vs currentTarget</div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-            <strong style={{ color: '#fff' }}>event.target</strong> is the element that <em>originated</em> the event (e.g. the clicked button).
-            <strong style={{ color: '#fff' }}> event.currentTarget</strong> is the element the handler is <em>attached to</em> (may be a parent if bubbling). They are the same only when the listener is on the exact target element.
+            <strong style={{ color: 'var(--nothing-text)' }}>event.target</strong> is the element that <em>originated</em> the event (e.g. the clicked button).
+            <strong style={{ color: 'var(--nothing-text)' }}> event.currentTarget</strong> is the element the handler is <em>attached to</em> (may be a parent if bubbling). They are the same only when the listener is on the exact target element.
           </p>
         </div>
 
@@ -353,7 +353,7 @@ export const Chapter13: React.FC = () => {
           onKeyUp={handleRadarKey}
           style={{
             border: '1px solid var(--nothing-border)',
-            background: '#050505',
+            background: 'var(--nothing-surface)',
             minHeight: '340px',
             padding: '20px',
             cursor: 'crosshair',
@@ -371,7 +371,7 @@ export const Chapter13: React.FC = () => {
           {Object.entries(radarData).map(([k, v]) => (
             <div key={k} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', padding: '6px 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--nothing-border)' }}>
               <span style={{ color: 'var(--nothing-text-dim)', marginRight: '6px' }}>{k}:</span>
-              <span style={{ color: v !== '—' ? '#fff' : 'var(--nothing-text-dim)' }}>{v}</span>
+              <span style={{ color: v !== '—' ? 'var(--nothing-text)' : 'var(--nothing-text-dim)' }}>{v}</span>
             </div>
           ))}
         </div>
@@ -405,7 +405,7 @@ export const Chapter13: React.FC = () => {
                 ['contextmenu', 'Right-click / context menu', 'Yes', 'preventDefault() to suppress menu'],
               ].map(([evt, when, bubbles, notes], i) => (
                 <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
-                  <td style={{ ...tdStyle, color: '#fff', fontWeight: 600 }}>{evt}</td>
+                  <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{evt}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{when}</td>
                   <td style={{ ...tdStyle, color: bubbles.includes('No') ? 'var(--nothing-red)' : '#2a6' }}>{bubbles}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-dim)', fontSize: '12px' }}>{notes}</td>
@@ -418,8 +418,8 @@ export const Chapter13: React.FC = () => {
         <div style={pitfallBox}>
           <div style={labelMono}>⚠ mouseover vs mouseenter</div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-            <strong style={{ color: '#fff' }}>mouseover</strong> BUBBLES — it fires again when entering child elements.
-            <strong style={{ color: '#fff' }}> mouseenter</strong> does NOT bubble — it fires ONLY once when entering the element. Use mouseenter for hover effects, mouseover for delegation.
+            <strong style={{ color: 'var(--nothing-text)' }}>mouseover</strong> BUBBLES — it fires again when entering child elements.
+            <strong style={{ color: 'var(--nothing-text)' }}> mouseenter</strong> does NOT bubble — it fires ONLY once when entering the element. Use mouseenter for hover effects, mouseover for delegation.
           </p>
         </div>
 
@@ -487,7 +487,7 @@ element.addEventListener('dblclick',  () => console.log('4. dblclick'));`}</pre>
                 ['keypress', 'Character key is pressed', 'Yes', '⚠ DEPRECATED – Do not use. Use keydown instead.'],
               ].map(([evt, when, repeats, notes], i) => (
                 <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
-                  <td style={{ ...tdStyle, color: '#fff', fontWeight: 600 }}>{evt}</td>
+                  <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{evt}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{when}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{repeats}</td>
                   <td style={{ ...tdStyle, color: notes.includes('DEPRECATED') ? 'var(--nothing-red)' : 'var(--nothing-text-dim)', fontSize: '12px' }}>{notes}</td>
@@ -500,20 +500,20 @@ element.addEventListener('dblclick',  () => console.log('4. dblclick'));`}</pre>
         <div style={cardStyle}>
           <div style={labelMono}>event.key vs event.code</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-            <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, marginBottom: '8px', color: '#fff' }}>event.key</div>
+            <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, marginBottom: '8px', color: 'var(--nothing-text)' }}>event.key</div>
               <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-                The <strong style={{ color: '#fff' }}>character produced</strong> by the key press. Affected by Shift and keyboard layout.
+                The <strong style={{ color: 'var(--nothing-text)' }}>character produced</strong> by the key press. Affected by Shift and keyboard layout.
               </p>
               <pre style={{ ...codeBlock, margin: '8px 0 0', border: 'none', padding: '10px' }}>{`// Press 'a'      → key = "a"
 // Press Shift+'a' → key = "A"
 // Press Enter     → key = "Enter"
 // Press Shift     → key = "Shift"`}</pre>
             </div>
-            <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: '#000' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, marginBottom: '8px', color: '#fff' }}>event.code</div>
+            <div style={{ padding: '16px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, marginBottom: '8px', color: 'var(--nothing-text)' }}>event.code</div>
               <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-                The <strong style={{ color: '#fff' }}>physical key position</strong> on the keyboard. NOT affected by Shift or layout.
+                The <strong style={{ color: 'var(--nothing-text)' }}>physical key position</strong> on the keyboard. NOT affected by Shift or layout.
               </p>
               <pre style={{ ...codeBlock, margin: '8px 0 0', border: 'none', padding: '10px' }}>{`// Press 'a'      → code = "KeyA"
 // Press Shift+'a' → code = "KeyA"
@@ -526,7 +526,7 @@ element.addEventListener('dblclick',  () => console.log('4. dblclick'));`}</pre>
         <div style={pitfallBox}>
           <div style={labelMono}>⚠ Pitfall: keyCode is deprecated</div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-            <code style={{ color: '#fff' }}>event.keyCode</code> returns a numeric code (e.g., 13 for Enter, 65 for 'A'). It is <strong style={{ color: 'var(--nothing-red)' }}>DEPRECATED</strong> and inconsistent across browsers. Always use <code style={{ color: '#fff' }}>event.key</code> or <code style={{ color: '#fff' }}>event.code</code> instead.
+            <code style={{ color: 'var(--nothing-text)' }}>event.keyCode</code> returns a numeric code (e.g., 13 for Enter, 65 for 'A'). It is <strong style={{ color: 'var(--nothing-red)' }}>DEPRECATED</strong> and inconsistent across browsers. Always use <code style={{ color: 'var(--nothing-text)' }}>event.key</code> or <code style={{ color: 'var(--nothing-text)' }}>event.code</code> instead.
           </p>
         </div>
 
@@ -579,7 +579,7 @@ document.addEventListener('keyup', function(e) {
                 ['input', 'Value is being changed', 'Yes', 'Fires in REAL-TIME on every keystroke'],
               ].map(([evt, when, bubbles, notes], i) => (
                 <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
-                  <td style={{ ...tdStyle, color: '#fff', fontWeight: 600 }}>{evt}</td>
+                  <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{evt}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{when}</td>
                   <td style={{ ...tdStyle, color: bubbles.includes('No') ? 'var(--nothing-red)' : '#2a6' }}>{bubbles}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-dim)', fontSize: '12px' }}>{notes}</td>
@@ -592,15 +592,15 @@ document.addEventListener('keyup', function(e) {
         <div style={pitfallBox}>
           <div style={labelMono}>⚠ Pitfall: change vs input</div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-            <strong style={{ color: '#fff' }}>change</strong> fires only when the element loses focus (on blur) — NOT while typing.
-            <strong style={{ color: '#fff' }}> input</strong> fires in <em>real-time</em> on every character typed. For live validation or search-as-you-type, use <code style={{ color: '#fff' }}>input</code>.
+            <strong style={{ color: 'var(--nothing-text)' }}>change</strong> fires only when the element loses focus (on blur) — NOT while typing.
+            <strong style={{ color: 'var(--nothing-text)' }}> input</strong> fires in <em>real-time</em> on every character typed. For live validation or search-as-you-type, use <code style={{ color: 'var(--nothing-text)' }}>input</code>.
           </p>
         </div>
 
         <div style={pitfallBox}>
           <div style={labelMono}>⚠ Pitfall: focus/blur don't bubble</div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-            <code style={{ color: '#fff' }}>focus</code> and <code style={{ color: '#fff' }}>blur</code> do NOT bubble. If you need to listen on a parent (event delegation), use <code style={{ color: '#fff' }}>focusin</code> and <code style={{ color: '#fff' }}>focusout</code> instead.
+            <code style={{ color: 'var(--nothing-text)' }}>focus</code> and <code style={{ color: 'var(--nothing-text)' }}>blur</code> do NOT bubble. If you need to listen on a parent (event delegation), use <code style={{ color: 'var(--nothing-text)' }}>focusin</code> and <code style={{ color: 'var(--nothing-text)' }}>focusout</code> instead.
           </p>
         </div>
 
@@ -626,9 +626,9 @@ document.addEventListener('keyup', function(e) {
                       rows={3}
                       style={{
                         width: '100%',
-                        background: '#000',
-                        border: `1px solid ${formErrors[field] ? 'var(--nothing-red)' : formFocus === field ? '#fff' : 'var(--nothing-border)'}`,
-                        color: '#fff',
+                        background: 'var(--nothing-bg)',
+                        border: `1px solid ${formErrors[field] ? 'var(--nothing-red)' : formFocus === field ? 'var(--nothing-text)' : 'var(--nothing-border)'}`,
+                        color: 'var(--nothing-text)',
                         padding: '10px 12px',
                         fontFamily: 'var(--font-mono)',
                         fontSize: '13px',
@@ -644,9 +644,9 @@ document.addEventListener('keyup', function(e) {
                       onBlur={() => handleFormBlur(field)}
                       style={{
                         width: '100%',
-                        background: '#000',
-                        border: `1px solid ${formErrors[field] ? 'var(--nothing-red)' : formFocus === field ? '#fff' : 'var(--nothing-border)'}`,
-                        color: '#fff',
+                        background: 'var(--nothing-bg)',
+                        border: `1px solid ${formErrors[field] ? 'var(--nothing-red)' : formFocus === field ? 'var(--nothing-text)' : 'var(--nothing-border)'}`,
+                        color: 'var(--nothing-text)',
                         padding: '10px 12px',
                         fontFamily: 'var(--font-mono)',
                         fontSize: '13px',
@@ -725,14 +725,14 @@ form.addEventListener('reset', function(e) {
         <h2 style={sectionTitle}><Layers size={22} /> Event Bubbling & Capturing</h2>
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '14px', marginBottom: '24px', lineHeight: 1.7 }}>
-          When an event occurs, it doesn't just fire on the target element — it travels through the entire DOM tree in <strong style={{ color: '#fff' }}>three phases</strong>.
+          When an event occurs, it doesn't just fire on the target element — it travels through the entire DOM tree in <strong style={{ color: 'var(--nothing-text)' }}>three phases</strong>.
         </p>
 
         {/* ── THREE PHASES DIAGRAM ── */}
         <div style={labelMono}>Three Phases of Event Propagation</div>
         <div style={{
           border: '1px solid var(--nothing-border)',
-          background: '#050505',
+          background: 'var(--nothing-surface)',
           padding: '32px',
           marginBottom: '24px',
           overflowX: 'auto',
@@ -814,7 +814,7 @@ element.addEventListener('click', handler, {
 
         <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', alignItems: 'center' }}>
           <label style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--nothing-text-muted)', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-            <input type="checkbox" checked={stopProp} onChange={e => setStopProp(e.target.checked)} style={{ accentColor: '#fff' }} />
+            <input type="checkbox" checked={stopProp} onChange={e => setStopProp(e.target.checked)} style={{ accentColor: 'var(--nothing-text)' }} />
             stopPropagation on INNER
           </label>
           <button
@@ -879,7 +879,7 @@ element.addEventListener('click', handler, {
           {/* Log panel */}
           <div style={{
             border: '1px solid var(--nothing-border)',
-            background: '#000',
+            background: 'var(--nothing-bg)',
             padding: '16px',
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
@@ -916,7 +916,7 @@ element.addEventListener('click', handler, {
               stopPropagation()
             </div>
             <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, marginBottom: '12px' }}>
-              Stops the event from traveling <strong style={{ color: '#fff' }}>up (bubbling) or down (capturing)</strong> the DOM tree. Other handlers on the <em>same</em> element still fire.
+              Stops the event from traveling <strong style={{ color: 'var(--nothing-text)' }}>up (bubbling) or down (capturing)</strong> the DOM tree. Other handlers on the <em>same</em> element still fire.
             </p>
             <pre style={{ ...codeBlock, border: 'none', padding: '10px' }}>{`inner.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -929,7 +929,7 @@ element.addEventListener('click', handler, {
               preventDefault()
             </div>
             <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, marginBottom: '12px' }}>
-              Prevents the <strong style={{ color: '#fff' }}>browser's default action</strong> for the event (e.g., form submit, link navigation, checkbox toggle). Does NOT affect propagation.
+              Prevents the <strong style={{ color: 'var(--nothing-text)' }}>browser's default action</strong> for the event (e.g., form submit, link navigation, checkbox toggle). Does NOT affect propagation.
             </p>
             <pre style={{ ...codeBlock, border: 'none', padding: '10px' }}>{`form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -944,7 +944,7 @@ element.addEventListener('click', handler, {
             stopImmediatePropagation()
           </div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.7, marginBottom: '12px' }}>
-            Does everything <code style={{ color: '#fff' }}>stopPropagation()</code> does <strong style={{ color: '#fff' }}>PLUS</strong> prevents other handlers <em>on the same element</em> from executing.
+            Does everything <code style={{ color: 'var(--nothing-text)' }}>stopPropagation()</code> does <strong style={{ color: 'var(--nothing-text)' }}>PLUS</strong> prevents other handlers <em>on the same element</em> from executing.
           </p>
           <pre style={{ ...codeBlock, border: 'none', padding: '10px' }}>{`// Two handlers on the same element:
 btn.addEventListener('click', (e) => {
@@ -961,11 +961,11 @@ btn.addEventListener('click', (e) => {
           <div style={labelMono}>🔑 Key Insight</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '8px' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.7 }}>
-              <strong style={{ color: '#fff' }}>preventDefault()</strong> does <strong style={{ color: 'var(--nothing-red)' }}>NOT</strong> stop propagation.
+              <strong style={{ color: 'var(--nothing-text)' }}>preventDefault()</strong> does <strong style={{ color: 'var(--nothing-red)' }}>NOT</strong> stop propagation.
               <br />The event still bubbles up to parent handlers.
             </div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.7 }}>
-              <strong style={{ color: '#fff' }}>stopPropagation()</strong> does <strong style={{ color: 'var(--nothing-red)' }}>NOT</strong> prevent the default action.
+              <strong style={{ color: 'var(--nothing-text)' }}>stopPropagation()</strong> does <strong style={{ color: 'var(--nothing-red)' }}>NOT</strong> prevent the default action.
               <br />The browser's default behavior still happens.
             </div>
           </div>
@@ -989,7 +989,7 @@ btn.addEventListener('click', (e) => {
                 ['preventDefault()', 'No ✗', 'No ✗', 'Yes ✓'],
               ].map(([method, prop, same, def], i) => (
                 <tr key={i}>
-                  <td style={{ ...tdStyle, color: '#fff', fontWeight: 600 }}>{method}</td>
+                  <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{method}</td>
                   <td style={{ ...tdStyle, color: prop.includes('Yes') ? '#2a6' : 'var(--nothing-red)' }}>{prop}</td>
                   <td style={{ ...tdStyle, color: same.includes('Yes') ? '#2a6' : 'var(--nothing-red)' }}>{same}</td>
                   <td style={{ ...tdStyle, color: def.includes('Yes') ? '#2a6' : 'var(--nothing-red)' }}>{def}</td>
@@ -1005,7 +1005,7 @@ btn.addEventListener('click', (e) => {
         <h2 style={sectionTitle}><GitMerge size={22} /> Event Delegation</h2>
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '14px', marginBottom: '20px', lineHeight: 1.7 }}>
-          Instead of attaching a listener to <em>every</em> child element, attach <strong style={{ color: '#fff' }}>ONE listener to the parent</strong> and use <code style={{ color: '#fff' }}>event.target</code> to determine which child was clicked. This leverages event bubbling.
+          Instead of attaching a listener to <em>every</em> child element, attach <strong style={{ color: 'var(--nothing-text)' }}>ONE listener to the parent</strong> and use <code style={{ color: 'var(--nothing-text)' }}>event.target</code> to determine which child was clicked. This leverages event bubbling.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '24px' }}>
@@ -1015,7 +1015,7 @@ btn.addEventListener('click', (e) => {
             { title: 'Centralized Logic', desc: 'All event handling in one place, easier to maintain.' },
           ].map((b, i) => (
             <div key={i} style={{ ...cardStyle, padding: '16px' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>{b.title}</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 700, color: 'var(--nothing-text)', marginBottom: '6px' }}>{b.title}</div>
               <p style={{ fontSize: '12px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>{b.desc}</p>
             </div>
           ))}
@@ -1024,7 +1024,7 @@ btn.addEventListener('click', (e) => {
         <div style={pitfallBox}>
           <div style={labelMono}>⚠ Limitation: focus/blur don't bubble</div>
           <p style={{ fontSize: '13px', color: 'var(--nothing-text-muted)', lineHeight: 1.6 }}>
-            <code style={{ color: '#fff' }}>focus</code> and <code style={{ color: '#fff' }}>blur</code> do NOT bubble, so delegation won't work with them. Use <code style={{ color: '#fff' }}>focusin</code> and <code style={{ color: '#fff' }}>focusout</code> instead (they bubble).
+            <code style={{ color: 'var(--nothing-text)' }}>focus</code> and <code style={{ color: 'var(--nothing-text)' }}>blur</code> do NOT bubble, so delegation won't work with them. Use <code style={{ color: 'var(--nothing-text)' }}>focusin</code> and <code style={{ color: 'var(--nothing-text)' }}>focusout</code> instead (they bubble).
           </p>
         </div>
 
@@ -1069,7 +1069,7 @@ toolbar.appendChild(newBtn);
                 listStyle: 'none',
                 padding: 0,
                 border: '1px solid var(--nothing-border)',
-                background: '#050505',
+                background: 'var(--nothing-surface)',
               }}
             >
               {delegationItems.map((item, i) => (
@@ -1081,7 +1081,7 @@ toolbar.appendChild(newBtn);
                     cursor: 'pointer',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '13px',
-                    color: '#fff',
+                    color: 'var(--nothing-text)',
                     transition: 'background 0.15s',
                   }}
                   onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
@@ -1100,7 +1100,7 @@ toolbar.appendChild(newBtn);
           </div>
           <div style={{
             border: '1px solid var(--nothing-border)',
-            background: '#000',
+            background: 'var(--nothing-bg)',
             padding: '16px',
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
@@ -1294,7 +1294,7 @@ parent.addEventListener('click', (e) => {
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', textTransform: 'uppercase', marginBottom: '8px' }}>
                 Question {qi + 1}
               </div>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: '#fff', marginBottom: '16px', lineHeight: 1.6 }}>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'var(--nothing-text)', marginBottom: '16px', lineHeight: 1.6 }}>
                 {q.q}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1328,13 +1328,13 @@ parent.addEventListener('click', (e) => {
                       <span style={{
                         width: '20px',
                         height: '20px',
-                        border: `1px solid ${selected ? '#fff' : 'var(--nothing-border)'}`,
+                        border: `1px solid ${selected ? 'var(--nothing-text)' : 'var(--nothing-border)'}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '10px',
                         flexShrink: 0,
-                        color: selected ? '#fff' : 'var(--nothing-text-dim)',
+                        color: selected ? 'var(--nothing-text)' : 'var(--nothing-text-dim)',
                       }}>
                         {String.fromCharCode(65 + oi)}
                       </span>
@@ -1358,7 +1358,7 @@ parent.addEventListener('click', (e) => {
                     lineHeight: 1.6,
                   }}
                 >
-                  <strong style={{ color: '#fff' }}>Explanation:</strong> {q.explain}
+                  <strong style={{ color: 'var(--nothing-text)' }}>Explanation:</strong> {q.explain}
                 </motion.div>
               )}
             </div>

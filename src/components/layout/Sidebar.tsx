@@ -32,9 +32,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeChapter, setActiveChapte
               INTERACTIVE STUDY
             </span>
           </h1>
-          <div className="status-pill">
-            NO COLOR<br/>NO NOISE
-          </div>
         </div>
 
         <div style={{ display: 'grid', gap: '6px', marginTop: '12px' }}>

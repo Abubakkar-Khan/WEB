@@ -21,7 +21,7 @@ const monoLabel: React.CSSProperties = {
   letterSpacing: '0.12em', textTransform: 'uppercase' as const, marginBottom: 6,
 };
 const codeBlock: React.CSSProperties = {
-  background: '#000', padding: 14, fontFamily: 'var(--font-mono)', fontSize: 12,
+  background: 'var(--nothing-bg)', padding: 14, fontFamily: 'var(--font-mono)', fontSize: 12,
   border: '1px solid var(--nothing-border)', overflowX: 'auto', lineHeight: 1.7,
   color: 'var(--nothing-text)', whiteSpace: 'pre',
 };
@@ -48,7 +48,7 @@ const btnStyle: React.CSSProperties = {
   background: 'transparent', color: 'var(--nothing-text)', cursor: 'pointer',
 };
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '10px 14px', background: '#000', border: '1px solid var(--nothing-border)',
+  width: '100%', padding: '10px 14px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)',
   color: 'var(--nothing-text)', fontFamily: 'var(--font-mono)', fontSize: 13,
 };
 
@@ -188,7 +188,7 @@ export const BonusChapter: React.FC = () => {
                       <div style={monoLabel}>EXAMPLE</div>
                       <pre style={{ ...codeBlock, marginBottom: 12, color: '#d71921' }}>{item.example}</pre>
                       <div style={monoLabel}>PREVENTION</div>
-                      <p style={{ fontSize: 13, color: 'var(--nothing-text)', lineHeight: 1.6, padding: '8px 12px', background: '#0a0a0a', border: '1px solid var(--nothing-border)' }}>{item.prevention}</p>
+                      <p style={{ fontSize: 13, color: 'var(--nothing-text)', lineHeight: 1.6, padding: '8px 12px', background: 'var(--nothing-surface)', border: '1px solid var(--nothing-border)' }}>{item.prevention}</p>
                     </motion.div>
                   )}
                 </motion.div>
@@ -255,7 +255,7 @@ export const BonusChapter: React.FC = () => {
               </div>
               <div style={{ ...tagStyle('var(--nothing-text-muted)'), marginBottom: 12 }}>WHO ARE YOU?</div>
               <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
-                The process of verifying a user's <strong style={{ color: '#fff' }}>identity</strong>. It answers: "Are you who you say you are?"
+                The process of verifying a user's <strong style={{ color: 'var(--nothing-text)' }}>identity</strong>. It answers: "Are you who you say you are?"
               </p>
               <div style={monoLabel}>METHODS</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 13, lineHeight: 2 }}>
@@ -273,7 +273,7 @@ export const BonusChapter: React.FC = () => {
               </div>
               <div style={{ ...tagStyle('var(--nothing-text-muted)'), marginBottom: 12 }}>WHAT CAN YOU DO?</div>
               <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
-                The process of verifying what <strong style={{ color: '#fff' }}>permissions</strong> a user has. It answers: "Are you allowed to do this?"
+                The process of verifying what <strong style={{ color: 'var(--nothing-text)' }}>permissions</strong> a user has. It answers: "Are you allowed to do this?"
               </p>
               <div style={monoLabel}>MECHANISMS</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 13, lineHeight: 2 }}>
@@ -302,7 +302,7 @@ export const BonusChapter: React.FC = () => {
             <div style={{ ...cardStyle, borderLeft: '3px solid #d71921' }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#d71921' }}>HTTP</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 2 }}>
-                <li>Data sent in <strong style={{ color: '#fff' }}>plaintext</strong></li>
+                <li>Data sent in <strong style={{ color: 'var(--nothing-text)' }}>plaintext</strong></li>
                 <li>Vulnerable to eavesdropping</li>
                 <li>No server identity verification</li>
                 <li>Port 80</li>
@@ -312,7 +312,7 @@ export const BonusChapter: React.FC = () => {
             <div style={{ ...cardStyle, borderLeft: '3px solid #0f0' }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#0f0' }}>HTTPS</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 13, lineHeight: 2 }}>
-                <li>Data <strong style={{ color: '#fff' }}>encrypted</strong> via TLS</li>
+                <li>Data <strong style={{ color: 'var(--nothing-text)' }}>encrypted</strong> via TLS</li>
                 <li>Confidentiality guaranteed</li>
                 <li>Server authenticated via certificate</li>
                 <li>Port 443</li>
@@ -356,7 +356,7 @@ export const BonusChapter: React.FC = () => {
             ))}
           </div>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginTop: 12, lineHeight: 1.6 }}>
-            <strong style={{ color: '#fff' }}>Why TLS matters:</strong> Encryption (nobody can read data), Integrity (nobody can tamper), Authentication (server is who it claims to be).
+            <strong style={{ color: 'var(--nothing-text)' }}>Why TLS matters:</strong> Encryption (nobody can read data), Integrity (nobody can tamper), Authentication (server is who it claims to be).
           </p>
         </div>
       </section>
@@ -419,7 +419,7 @@ export const BonusChapter: React.FC = () => {
                 ['Volume', 'Persistent storage that survives container restarts.'],
                 ['docker-compose', 'Tool to define and run multi-container apps with a YAML file.'],
               ].map(([c, d]) => (
-                <tr key={c}><td style={{ ...tdStyle, fontWeight: 600, color: '#fff' }}>{c}</td><td style={tdStyle}>{d}</td></tr>
+                <tr key={c}><td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{c}</td><td style={tdStyle}>{d}</td></tr>
               ))}
             </tbody>
           </table>
@@ -471,7 +471,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
                 ['Maintenance', 'Platform handles patching & updates', 'You manage OS, security, updates'],
               ].map(([aspect, paas, iaas]) => (
                 <tr key={aspect}>
-                  <td style={{ ...tdStyle, fontWeight: 600, color: '#fff' }}>{aspect}</td>
+                  <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{aspect}</td>
                   <td style={tdStyle}>{paas}</td>
                   <td style={tdStyle}>{iaas}</td>
                 </tr>
@@ -515,8 +515,8 @@ $ docker run -p 3000:3000 my-app`}</pre>
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>CI/CD Pipeline</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16, lineHeight: 1.7 }}>
-            <strong style={{ color: '#fff' }}>Continuous Integration (CI):</strong> Automatically build and test code on every commit.{' '}
-            <strong style={{ color: '#fff' }}>Continuous Deployment (CD):</strong> Automatically deploy tested code to production.
+            <strong style={{ color: 'var(--nothing-text)' }}>Continuous Integration (CI):</strong> Automatically build and test code on every commit.{' '}
+            <strong style={{ color: 'var(--nothing-text)' }}>Continuous Deployment (CD):</strong> Automatically deploy tested code to production.
           </p>
           <div style={monoLabel}>CI/CD PIPELINE FLOW</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 0, overflowX: 'auto', padding: '16px 0' }}>
@@ -632,7 +632,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
                 ['Data', 'Single shared database', 'Database per service'],
               ].map(([a, m, ms]) => (
                 <tr key={a}>
-                  <td style={{ ...tdStyle, fontWeight: 600, color: '#fff' }}>{a}</td>
+                  <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{a}</td>
                   <td style={tdStyle}>{m}</td>
                   <td style={tdStyle}>{ms}</td>
                 </tr>
@@ -645,7 +645,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
         <div style={{ marginBottom: 36 }}>
           <h3 style={subHeadingStyle}>Serverless Architecture</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 13, marginBottom: 16, lineHeight: 1.7 }}>
-            Serverless doesn't mean "no servers" — it means <strong style={{ color: '#fff' }}>you don't manage servers</strong>. The cloud provider handles provisioning, scaling, and maintenance. You write functions that run in response to events.
+            Serverless doesn't mean "no servers" — it means <strong style={{ color: 'var(--nothing-text)' }}>you don't manage servers</strong>. The cloud provider handles provisioning, scaling, and maintenance. You write functions that run in response to events.
           </p>
 
           {/* Execution Flow */}
@@ -654,7 +654,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
             {[
               { label: 'EVENT TRIGGER', sub: 'HTTP request, schedule, queue message', color: 'var(--nothing-text-muted)' },
               { label: 'COLD START', sub: 'Container spins up (if needed)', color: '#d71921' },
-              { label: 'FUNCTION RUNS', sub: 'Your code executes', color: '#fff' },
+              { label: 'FUNCTION RUNS', sub: 'Your code executes', color: 'var(--nothing-text)' },
               { label: 'RETURNS', sub: 'Response sent back', color: '#0f0' },
               { label: 'SCALES TO ZERO', sub: 'No charge when idle', color: 'var(--nothing-text-dim)' },
             ].map((step, i, arr) => (
@@ -734,7 +734,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               ].map(([m, e, d, b]) => (
                 <tr key={`${m}-${e}`}>
                   <td style={{ ...tdStyle, fontWeight: 700, color: m === 'GET' ? '#0f0' : m === 'POST' ? '#00bfff' : m === 'PUT' ? '#ff0' : '#d71921' }}>{m}</td>
-                  <td style={{ ...tdStyle, color: '#fff' }}>{e}</td>
+                  <td style={{ ...tdStyle, color: 'var(--nothing-text)' }}>{e}</td>
                   <td style={tdStyle}>{d}</td>
                   <td style={{ ...tdStyle, fontSize: 11 }}>{b}</td>
                 </tr>
@@ -786,7 +786,7 @@ app.post('/api/posts', async (req, res) => {
                   ['CSP', 'Content Security Policy — restrict script sources'],
                   ['OWASP', 'Open Web Application Security Project'],
                 ].map(([term, def]) => (
-                  <tr key={term}><td style={{ ...tdStyle, fontWeight: 700, color: '#fff', width: 70 }}>{term}</td><td style={tdStyle}>{def}</td></tr>
+                  <tr key={term}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)', width: 70 }}>{term}</td><td style={tdStyle}>{def}</td></tr>
                 ))}
               </tbody>
             </table>
@@ -825,7 +825,7 @@ docker-compose up -d         # Start services`}</pre>
                   ['PaaS', 'Quick deployment, no infra management'],
                   ['IaaS', 'Full control, custom infrastructure'],
                 ].map(([p, u]) => (
-                  <tr key={p}><td style={{ ...tdStyle, fontWeight: 700, color: '#fff' }}>{p}</td><td style={tdStyle}>{u}</td></tr>
+                  <tr key={p}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)' }}>{p}</td><td style={tdStyle}>{u}</td></tr>
                 ))}
               </tbody>
             </table>
