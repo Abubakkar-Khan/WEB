@@ -126,6 +126,66 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
   );
 };
 
+
+interface UnifiedQuizQuestion {
+  q: string;
+  opts: string[];
+  ans: number;
+  explain: string;
+}
+
+const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions }) => {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
+
+  return (
+    <div className="nt-quiz-container">
+      {questions.map((q, qi) => (
+        <div key={qi} className="nt-quiz-question-card">
+          <div className="nt-quiz-question-text">
+            <span className="nt-quiz-question-no">Q{qi + 1}.</span> {q.q}
+          </div>
+          <div>
+            {q.opts.map((opt, oi) => {
+              const chosen = answers[qi] === oi;
+              const isCorrect = showResults && oi === q.ans;
+              const isWrong = showResults && chosen && oi !== q.ans;
+              return (
+                <div
+                  key={oi}
+                  onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
+                  className={`nt-quiz-option ${chosen ? 'chosen' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'incorrect' : ''} ${showResults ? 'disabled' : ''}`}
+                >
+                  {showResults && isCorrect && <span style={{ marginRight: '8px', color: 'var(--nothing-green)' }}>✓</span>}
+                  {showResults && isWrong && <span style={{ marginRight: '8px', color: 'var(--nothing-red)' }}>✗</span>}
+                  <span style={{ color: 'var(--nothing-text-dim)', marginRight: '8px' }}>{String.fromCharCode(65 + oi)}.</span>
+                  {opt}
+                </div>
+              );
+            })}
+          </div>
+          {showResults && (
+            <div className="nt-quiz-explanation">
+              <strong>Explanation: </strong> {q.explain}
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="nt-quiz-actions">
+        <button className="nt-button" onClick={() => setShowResults(true)}>Check Answers</button>
+        <button className="nt-button-secondary" onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
+        {showResults && (
+          <span className="nt-quiz-score">
+            Score: {score} / {questions.length}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export const BonusChapter: React.FC = () => {
   /* SQL Injection Demo state */
   const [sqlUser, setSqlUser] = useState('');
@@ -181,7 +241,7 @@ export const BonusChapter: React.FC = () => {
 
   /* ═══════════ RENDER ═══════════ */
   return (
-    <div style={{ padding: 32, maxWidth: 1100, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 48 }}>
+    <div className="nt-page">
 
       {/* ──────── CHAPTER HEADER ──────── */}
       <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
@@ -199,13 +259,13 @@ export const BonusChapter: React.FC = () => {
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 1: WEB SECURITY                                    ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="01" title="Web Security" icon={<Shield size={22} />} />
 
         {/* ── OWASP Top 10 ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>OWASP Top 10 Vulnerabilities</h3>
-          <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginBottom: 20, lineHeight: 1.9 }}>
+          <h3 className="nt-sub-header">OWASP Top 10 Vulnerabilities</h3>
+          <p className="nt-prose">
             The Open Web Application Security Project (OWASP) publishes a list of the ten most critical web application security risks. Understanding these is essential for building secure software.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
@@ -240,7 +300,7 @@ export const BonusChapter: React.FC = () => {
 
         {/* ── Interactive SQL Injection Demo ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>🛡️ Interactive: SQL Injection Demo</h3>
+          <h3 className="nt-sub-header">🛡️ Interactive: SQL Injection Demo</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             Type into the fields below to see how user input becomes part of a SQL query. Try typing <code style={{ color: '#d71921' }}>' OR '1'='1</code> into the username field.
           </p>
@@ -287,7 +347,7 @@ export const BonusChapter: React.FC = () => {
 
         {/* ── Authentication vs Authorization ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>Authentication vs Authorization</h3>
+          <h3 className="nt-sub-header">Authentication vs Authorization</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
             <div style={{ ...cardStyle, borderTop: '3px solid #fff' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -336,7 +396,7 @@ export const BonusChapter: React.FC = () => {
 
         {/* ── HTTPS / TLS ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>HTTPS & TLS Handshake</h3>
+          <h3 className="nt-sub-header">HTTPS & TLS Handshake</h3>
 
           {/* HTTP vs HTTPS comparison */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
@@ -405,7 +465,7 @@ export const BonusChapter: React.FC = () => {
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 2: DEVOPS & DEPLOYMENT                             ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <Rocket size={28} />
           <h2 style={{ ...headingStyle, marginBottom: 0 }}>02 — MODERN DEPLOYMENT & DEVOPS</h2>
@@ -413,7 +473,7 @@ export const BonusChapter: React.FC = () => {
 
         {/* ── Docker / Containers ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>Containerization (Docker)</h3>
+          <h3 className="nt-sub-header">Containerization (Docker)</h3>
 
           {/* VM vs Container */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
@@ -447,9 +507,9 @@ export const BonusChapter: React.FC = () => {
 
           {/* Key Docker Concepts */}
           <div style={monoLabel}>KEY DOCKER CONCEPTS</div>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead><tr>
-              <th style={thStyle}>Concept</th><th style={thStyle}>Description</th>
+              <th className="nt-th">Concept</th><th className="nt-th">Description</th>
             </tr></thead>
             <tbody>
               {[
@@ -460,7 +520,7 @@ export const BonusChapter: React.FC = () => {
                 ['Volume', 'Persistent storage that survives container restarts.'],
                 ['docker-compose', 'Tool to define and run multi-container apps with a YAML file.'],
               ].map(([c, d]) => (
-                <tr key={c}><td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{c}</td><td style={tdStyle}>{d}</td></tr>
+                <tr key={c}><td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{c}</td><td className="nt-td">{d}</td></tr>
               ))}
             </tbody>
           </table>
@@ -494,12 +554,12 @@ $ docker run -p 3000:3000 my-app`}</pre>
 
         {/* ── Cloud Hosting ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>Cloud Hosting: PaaS vs IaaS</h3>
-          <table style={tableStyle}>
+          <h3 className="nt-sub-header">Cloud Hosting: PaaS vs IaaS</h3>
+          <table className="nt-table">
             <thead><tr>
-              <th style={thStyle}>Aspect</th>
+              <th className="nt-th">Aspect</th>
               <th style={{ ...thStyle, color: 'var(--nothing-green)' }}>PaaS (Platform-as-a-Service)</th>
-              <th style={thStyle}>IaaS (Infrastructure-as-a-Service)</th>
+              <th className="nt-th">IaaS (Infrastructure-as-a-Service)</th>
             </tr></thead>
             <tbody>
               {[
@@ -513,8 +573,8 @@ $ docker run -p 3000:3000 my-app`}</pre>
               ].map(([aspect, paas, iaas]) => (
                 <tr key={aspect}>
                   <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{aspect}</td>
-                  <td style={tdStyle}>{paas}</td>
-                  <td style={tdStyle}>{iaas}</td>
+                  <td className="nt-td">{paas}</td>
+                  <td className="nt-td">{iaas}</td>
                 </tr>
               ))}
             </tbody>
@@ -554,7 +614,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
 
         {/* ── CI/CD Pipeline ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>CI/CD Pipeline</h3>
+          <h3 className="nt-sub-header">CI/CD Pipeline</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             <strong style={{ color: 'var(--nothing-text)' }}>Continuous Integration (CI):</strong> Automatically build and test code on every commit.{' '}
             <strong style={{ color: 'var(--nothing-text)' }}>Continuous Deployment (CD):</strong> Automatically deploy tested code to production.
@@ -606,7 +666,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 3: WEB ARCHITECTURE & FUTURE TRENDS                ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <Layers size={28} />
           <h2 style={{ ...headingStyle, marginBottom: 0 }}>03 — WEB ARCHITECTURE & FUTURE TRENDS</h2>
@@ -614,7 +674,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
 
         {/* ── Monolith vs Microservices ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>Monolith vs Microservices</h3>
+          <h3 className="nt-sub-header">Monolith vs Microservices</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
             {/* Monolith Diagram */}
             <div style={cardStyle}>
@@ -658,9 +718,9 @@ $ docker run -p 3000:3000 my-app`}</pre>
           </div>
 
           {/* Comparison table */}
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead><tr>
-              <th style={thStyle}>Aspect</th><th style={thStyle}>Monolith</th><th style={thStyle}>Microservices</th>
+              <th className="nt-th">Aspect</th><th className="nt-th">Monolith</th><th className="nt-th">Microservices</th>
             </tr></thead>
             <tbody>
               {[
@@ -674,8 +734,8 @@ $ docker run -p 3000:3000 my-app`}</pre>
               ].map(([a, m, ms]) => (
                 <tr key={a}>
                   <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--nothing-text)' }}>{a}</td>
-                  <td style={tdStyle}>{m}</td>
-                  <td style={tdStyle}>{ms}</td>
+                  <td className="nt-td">{m}</td>
+                  <td className="nt-td">{ms}</td>
                 </tr>
               ))}
             </tbody>
@@ -684,7 +744,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
 
         {/* ── Serverless ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>Serverless Architecture</h3>
+          <h3 className="nt-sub-header">Serverless Architecture</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             Serverless doesn't mean "no servers" — it means <strong style={{ color: 'var(--nothing-text)' }}>you don't manage servers</strong>. The cloud provider handles provisioning, scaling, and maintenance. You write functions that run in response to events.
           </p>
@@ -738,7 +798,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
 
         {/* ── API-Driven Design ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 style={subHeadingStyle}>API-Driven Design (REST)</h3>
+          <h3 className="nt-sub-header">API-Driven Design (REST)</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
             REST (Representational State Transfer) is an architectural style for designing APIs. Resources are identified by URLs, manipulated using standard HTTP methods, and the server is stateless.
           </p>
@@ -759,9 +819,9 @@ $ docker run -p 3000:3000 my-app`}</pre>
           </div>
 
           <div style={monoLabel}>EXAMPLE: BLOG API ENDPOINTS</div>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead><tr>
-              <th style={thStyle}>Method</th><th style={thStyle}>Endpoint</th><th style={thStyle}>Description</th><th style={thStyle}>Request Body</th>
+              <th className="nt-th">Method</th><th className="nt-th">Endpoint</th><th className="nt-th">Description</th><th className="nt-th">Request Body</th>
             </tr></thead>
             <tbody>
               {[
@@ -776,7 +836,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
                 <tr key={`${m}-${e}`}>
                   <td style={{ ...tdStyle, fontWeight: 700, color: m === 'GET' ? '#0f0' : m === 'POST' ? '#00bfff' : m === 'PUT' ? '#ff0' : '#d71921' }}>{m}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)' }}>{e}</td>
-                  <td style={tdStyle}>{d}</td>
+                  <td className="nt-td">{d}</td>
                   <td style={{ ...tdStyle, fontSize: 15 }}>{b}</td>
                 </tr>
               ))}
@@ -803,7 +863,7 @@ app.post('/api/posts', async (req, res) => {
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 4: CHEAT SHEET                                     ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <BookOpen size={28} />
           <SectionHeader no="04" title="Cheat Sheet" icon={<BookOpen size={22} />} />
@@ -827,7 +887,7 @@ app.post('/api/posts', async (req, res) => {
                   ['CSP', 'Content Security Policy — restrict script sources'],
                   ['OWASP', 'Open Web Application Security Project'],
                 ].map(([term, def]) => (
-                  <tr key={term}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)', width: 70 }}>{term}</td><td style={tdStyle}>{def}</td></tr>
+                  <tr key={term}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)', width: 70 }}>{term}</td><td className="nt-td">{def}</td></tr>
                 ))}
               </tbody>
             </table>
@@ -866,7 +926,7 @@ docker-compose up -d         # Start services`}</pre>
                   ['PaaS', 'Quick deployment, no infra management'],
                   ['IaaS', 'Full control, custom infrastructure'],
                 ].map(([p, u]) => (
-                  <tr key={p}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)' }}>{p}</td><td style={tdStyle}>{u}</td></tr>
+                  <tr key={p}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)' }}>{p}</td><td className="nt-td">{u}</td></tr>
                 ))}
               </tbody>
             </table>
@@ -877,7 +937,7 @@ docker-compose up -d         # Start services`}</pre>
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 5: QUIZ                                            ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <Zap size={28} />
           <SectionHeader no="05" title="Quiz" icon={<HelpCircle size={22} />} />
@@ -945,7 +1005,7 @@ docker-compose up -d         # Start services`}</pre>
               }}>
                 SCORE: {quizScore} / {quizQuestions.length} ({Math.round(quizScore / quizQuestions.length * 100)}%)
               </div>
-              <button style={btnStyle} onClick={() => { setQuizAnswers(new Array(quizQuestions.length).fill(null)); setQuizSubmitted(false); }}>
+              <button className="nt-button" onClick={() => { setQuizAnswers(new Array(quizQuestions.length).fill(null)); setQuizSubmitted(false); }}>
                 RETRY
               </button>
             </>

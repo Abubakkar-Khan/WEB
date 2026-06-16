@@ -544,92 +544,7 @@ const quizData: QuizQuestion[] = [
 ];
 
 const Quiz: React.FC = () => {
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [showResults, setShowResults] = useState(false);
-
-  const handleSelect = (qi: number, oi: number) => {
-    if (showResults) return;
-    setAnswers(prev => ({ ...prev, [qi]: oi }));
-  };
-
-  const score = Object.entries(answers).filter(([qi, oi]) => quizData[Number(qi)].answer === oi).length;
-
-  return (
-    <div>
-      {quizData.map((q, qi) => (
-        <div key={qi} style={{ marginBottom: '44px', padding: '20px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: '18px', marginBottom: '12px', color: 'var(--nothing-text)' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-dim)', marginRight: '8px' }}>Q{qi + 1}.</span>
-            {q.q}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {q.options.map((opt, oi) => {
-              const isSelected = answers[qi] === oi;
-              const isCorrect = q.answer === oi;
-              let bg = 'transparent';
-              let borderColor = 'var(--nothing-border)';
-              if (showResults && isSelected && isCorrect) { bg = 'var(--nothing-green-bg)'; borderColor = '#4f4'; }
-              else if (showResults && isSelected && !isCorrect) { bg = 'rgba(215,25,33,0.08)'; borderColor = '#d71921'; }
-              else if (showResults && isCorrect) { bg = 'var(--nothing-green-bg)'; borderColor = 'var(--nothing-green-bg)'; }
-              else if (isSelected) { bg = 'var(--nothing-surface-hover)'; borderColor = 'var(--nothing-text)'; }
-
-              return (
-                <div
-                  key={oi}
-                  onClick={() => handleSelect(qi, oi)}
-                  style={{
-                    padding: '10px 14px',
-                    border: `1px solid ${borderColor}`,
-                    background: bg,
-                    cursor: showResults ? 'default' : 'pointer',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '18px',
-                    color: 'var(--nothing-text-muted)',
-                    transition: 'all 0.15s',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                  }}
-                >
-                  <span style={{ color: 'var(--nothing-text-dim)', width: '16px' }}>{String.fromCharCode(65 + oi)}.</span>
-                  {opt}
-                  {showResults && isCorrect && <CheckCircle size={13} color="#4f4" style={{ marginLeft: 'auto' }} />}
-                  {showResults && isSelected && !isCorrect && <XCircle size={13} color="#d71921" style={{ marginLeft: 'auto' }} />}
-                </div>
-              );
-            })}
-          </div>
-          {showResults && (
-            <div style={{ marginTop: '10px', padding: '16px', background: 'var(--nothing-surface)', fontFamily: 'var(--font-sans)', fontSize: '18px', color: 'var(--nothing-text-muted)', borderLeft: '2px solid var(--nothing-text-dim)' }}>
-              {q.explanation}
-            </div>
-          )}
-        </div>
-      ))}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <button
-          onClick={() => setShowResults(true)}
-          disabled={Object.keys(answers).length < quizData.length}
-          style={{
-            ...btnStyle,
-            opacity: Object.keys(answers).length < quizData.length ? 0.4 : 1,
-            background: 'var(--nothing-text)',
-            color: 'var(--nothing-bg)',
-          }}
-        >
-          Check Answers
-        </button>
-        <button onClick={() => { setAnswers({}); setShowResults(false); }} style={btnStyle}>
-          Reset
-        </button>
-        {showResults && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: score === quizData.length ? '#4f4' : 'var(--nothing-text)' }}>
-            {score}/{quizData.length} correct
-          </span>
-        )}
-      </div>
-    </div>
-  );
+  return <UnifiedQuiz questions={quizData.map(q => ({ q: q.q, opts: q.options, ans: q.answer, explain: q.explanation }))} />;
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -680,9 +595,271 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
   );
 };
 
+
+interface UnifiedQuizQuestion {
+  q: string;
+  opts: string[];
+  ans: number;
+  explain: string;
+}
+
+const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions }) => {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
+
+  return (
+    <div className="nt-quiz-container">
+      {questions.map((q, qi) => (
+        <div key={qi} className="nt-quiz-question-card">
+          <div className="nt-quiz-question-text">
+            <span className="nt-quiz-question-no">Q{qi + 1}.</span> {q.q}
+          </div>
+          <div>
+            {q.opts.map((opt, oi) => {
+              const chosen = answers[qi] === oi;
+              const isCorrect = showResults && oi === q.ans;
+              const isWrong = showResults && chosen && oi !== q.ans;
+              return (
+                <div
+                  key={oi}
+                  onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
+                  className={`nt-quiz-option ${chosen ? 'chosen' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'incorrect' : ''} ${showResults ? 'disabled' : ''}`}
+                >
+                  {showResults && isCorrect && <span style={{ marginRight: '8px', color: 'var(--nothing-green)' }}>✓</span>}
+                  {showResults && isWrong && <span style={{ marginRight: '8px', color: 'var(--nothing-red)' }}>✗</span>}
+                  <span style={{ color: 'var(--nothing-text-dim)', marginRight: '8px' }}>{String.fromCharCode(65 + oi)}.</span>
+                  {opt}
+                </div>
+              );
+            })}
+          </div>
+          {showResults && (
+            <div className="nt-quiz-explanation">
+              <strong>Explanation: </strong> {q.explain}
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="nt-quiz-actions">
+        <button className="nt-button" onClick={() => setShowResults(true)}>Check Answers</button>
+        <button className="nt-button-secondary" onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
+        {showResults && (
+          <span className="nt-quiz-score">
+            Score: {score} / {questions.length}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
+const AjaxRequestCycle: React.FC = () => {
+  const [step, setStep] = useState(0);
+  const [logs, setLogs] = useState<string[]>([]);
+  const [isSimulating, setIsSimulating] = useState(false);
+
+  const steps = [
+    { id: 1, side: 'client', title: 'new XMLHttpRequest()', desc: 'Initialize XHR object. readyState = 0 (UNSENT)' },
+    { id: 2, side: 'client', title: 'xhr.open("GET", "/api/data", true)', desc: 'Configure request method, URL, async flag. readyState = 1 (OPENED)' },
+    { id: 3, side: 'network-to', title: 'xhr.send()', desc: 'Send HTTP Request over network. readyState = 1' },
+    { id: 4, side: 'server', title: 'Receive & Process Request', desc: 'Server receives headers, queries DB, processes payload.' },
+    { id: 5, side: 'network-from', title: 'Send Response Packet', desc: 'Server sends HTTP response. Content-Type: application/json.' },
+    { id: 6, side: 'client', title: 'onreadystatechange fires', desc: 'Callback triggered as download progresses. readyState = 3 (LOADING)' },
+    { id: 7, side: 'client', title: 'Verify: readyState === 4 && status === 200', desc: 'Verify completed download (readyState 4) and success status (200).' },
+    { id: 8, side: 'client', title: 'JSON.parse(xhr.responseText)', desc: 'Parse the response JSON string into a native JS object.' },
+    { id: 9, side: 'client', title: 'Update DOM surgically', desc: 'Inject parsed data into the web page without reloading.' },
+  ];
+
+  const logMessages = [
+    "[CLIENT] Initialized XMLHttpRequest object. readyState: 0",
+    "[CLIENT] Configured request. Method: GET, Target: /api/data. readyState: 1",
+    "[NETWORK] Transmitting HTTP GET Request headers to server...",
+    "[SERVER] Connection established. Processing requested resource /api/data...",
+    "[SERVER] Database lookup complete. Transmitting HTTP/1.1 200 OK (256 bytes)...",
+    "[CLIENT] Downloading packet. readyState: 3 (LOADING)",
+    "[CLIENT] Connection closed. Download complete. readyState: 4 (DONE), status: 200 (OK)",
+    "[CLIENT] Parsing string: '{\"id\": 101, \"status\": \"success\"}'",
+    "[CLIENT] Surgical DOM injection complete! Text updated."
+  ];
+
+  const triggerNext = (s: number) => {
+    if (s > steps.length) return;
+    setStep(s);
+    if (s > 0) {
+      setLogs(prev => [...prev, logMessages[s - 1]]);
+    }
+  };
+
+  const runFull = async () => {
+    if (isSimulating) return;
+    setIsSimulating(true);
+    setStep(0);
+    setLogs([]);
+    for (let i = 1; i <= steps.length; i++) {
+      triggerNext(i);
+      await new Promise(r => setTimeout(r, 1200));
+    }
+    setIsSimulating(false);
+  };
+
+  const reset = () => {
+    setStep(0);
+    setLogs([]);
+    setIsSimulating(false);
+  };
+
+  return (
+    <div style={{ background: 'var(--nothing-surface)', border: '1px solid var(--nothing-border)', padding: '24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '24px', flexWrap: 'wrap' }}>
+        
+        {/* Client Box */}
+        <div style={{ flex: '1 1 300px', border: '1px solid var(--nothing-border)', padding: '16px', background: 'var(--nothing-bg)', position: 'relative' }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '14px', letterSpacing: '0.1em', textTransform: 'uppercase', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '8px', marginBottom: '12px' }}>
+            🖥️ Client (Browser)
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {steps.filter(s => s.side === 'client' || s.id === 3).map(s => {
+              const active = step >= s.id;
+              const current = step === s.id;
+              return (
+                <div key={s.id} style={{
+                  padding: '8px 12px',
+                  border: `1px solid ${current ? 'var(--nothing-text)' : active ? 'var(--nothing-border-hover)' : 'var(--nothing-border)'}`,
+                  background: current ? 'var(--nothing-surface-hover)' : 'transparent',
+                  opacity: active ? 1 : 0.4,
+                  transition: 'all 0.3s ease',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '12px'
+                }}>
+                  <div style={{ fontWeight: 'bold', color: current ? 'var(--nothing-text)' : 'var(--nothing-text-muted)' }}>
+                    Step {s.id}: {s.title}
+                  </div>
+                  {current && <div style={{ fontSize: '11px', color: 'var(--nothing-text-dim)', marginTop: '4px' }}>{s.desc}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Network link in middle */}
+        <div style={{ width: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', textTransform: 'uppercase', color: 'var(--nothing-text-dim)', marginBottom: '8px' }}>
+            Network
+          </div>
+          <div style={{ width: '2px', flex: 1, background: 'var(--nothing-border)', position: 'relative' }}>
+            {/* Packet animation */}
+            {step === 3 && (
+              <div className="packet-dot-to" style={{
+                position: 'absolute',
+                width: '8px',
+                height: '8px',
+                background: 'var(--nothing-text)',
+                left: '-3px',
+                animation: 'travel-to 1.2s infinite linear'
+              }} />
+            )}
+            {step === 5 && (
+              <div className="packet-dot-from" style={{
+                position: 'absolute',
+                width: '8px',
+                height: '8px',
+                background: 'var(--nothing-green)',
+                left: '-3px',
+                animation: 'travel-from 1.2s infinite linear'
+              }} />
+            )}
+          </div>
+          <style>{`
+            @keyframes travel-to {
+              0% { top: 10%; opacity: 1; }
+              100% { top: 90%; opacity: 0; }
+            }
+            @keyframes travel-from {
+              0% { top: 90%; opacity: 1; }
+              100% { top: 10%; opacity: 0; }
+            }
+          `}</style>
+        </div>
+
+        {/* Server Box */}
+        <div style={{ flex: '1 1 300px', border: '1px solid var(--nothing-border)', padding: '16px', background: 'var(--nothing-bg)' }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '14px', letterSpacing: '0.1em', textTransform: 'uppercase', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '8px', marginBottom: '12px' }}>
+            🔀 Server
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {steps.filter(s => s.side === 'server' || s.id === 5).map(s => {
+              const active = step >= s.id;
+              const current = step === s.id;
+              return (
+                <div key={s.id} style={{
+                  padding: '8px 12px',
+                  border: `1px solid ${current ? 'var(--nothing-text)' : active ? 'var(--nothing-border-hover)' : 'var(--nothing-border)'}`,
+                  background: current ? 'var(--nothing-surface-hover)' : 'transparent',
+                  opacity: active ? 1 : 0.4,
+                  transition: 'all 0.3s ease',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '12px'
+                }}>
+                  <div style={{ fontWeight: 'bold', color: current ? 'var(--nothing-text)' : 'var(--nothing-text-muted)' }}>
+                    Step {s.id}: {s.title}
+                  </div>
+                  {current && <div style={{ fontSize: '11px', color: 'var(--nothing-text-dim)', marginTop: '4px' }}>{s.desc}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+
+      {/* Control buttons */}
+      <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+        <button className="nt-button" onClick={runFull} disabled={isSimulating}>
+          {isSimulating ? 'Simulating...' : 'Run Simulation'}
+        </button>
+        <button className="nt-button-secondary" onClick={() => triggerNext(Math.min(step + 1, steps.length))} disabled={isSimulating || step === steps.length}>
+          Step Next
+        </button>
+        <button className="nt-button-secondary" onClick={reset}>
+          Reset
+        </button>
+      </div>
+
+      {/* Terminal log panel */}
+      <div style={{ marginTop: '24px', background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '6px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
+          <span>CONSOLE LOGS</span>
+          <span style={{ color: 'var(--nothing-green)' }}>● ONLINE</span>
+        </div>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', minHeight: '120px', maxHeight: '200px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          {logs.length === 0 ? (
+            <div style={{ color: 'var(--nothing-text-dim)' }}>Console empty. Click "Run Simulation" or "Step Next" to start...</div>
+          ) : (
+            logs.map((log, li) => {
+              let color = 'var(--nothing-text-muted)';
+              if (log.startsWith('[CLIENT]')) color = 'var(--nothing-text)';
+              if (log.startsWith('[SERVER]')) color = 'var(--nothing-yellow)';
+              if (log.includes('complete') || log.includes('success')) color = 'var(--nothing-green)';
+              return (
+                <div key={li} style={{ color }}>
+                  {log}
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
 export const Chapter16: React.FC = () => {
   return (
-    <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '0px' }}>
+    <div className="nt-page">
       {/* ── Chapter Header ────────────────────────────────────────── */}
       <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
@@ -699,17 +876,17 @@ export const Chapter16: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 1: WHAT IS AJAX                                  */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="01" title="What Is Ajax" icon={<Globe size={18} />} />
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           <strong style={{ color: 'var(--nothing-text)' }}>AJAX</strong> stands for <strong style={{ color: 'var(--nothing-text)' }}>Asynchronous JavaScript and XML</strong>. Despite the name, modern Ajax typically uses JSON rather than XML. The core idea: <em>send HTTP requests in the background and update only part of the page, without a full reload</em>.
         </p>
-        <p style={bodyText}>
+        <p className="nt-prose">
           Before Ajax, every user interaction required the server to send a complete new HTML page. With Ajax, JavaScript can request data from the server asynchronously, process the response, and surgically update just the relevant DOM elements — resulting in faster, more responsive web applications.
         </p>
 
-        <h3 style={subHeading}>Traditional Model vs. Ajax Model</h3>
+        <h3 className="nt-sub-header">Traditional Model vs. Ajax Model</h3>
         {/* Diagram: Traditional vs Ajax */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginTop: '16px' }}>
           {/* Traditional */}
@@ -765,17 +942,17 @@ export const Chapter16: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 2: XMLHttpRequest OBJECT                         */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <Send size={18} />
           <span>02 — XMLHttpRequest Object</span>
         </div>
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           The <code style={{ color: 'var(--nothing-text)' }}>XMLHttpRequest</code> (XHR) object is the original browser API for making HTTP requests from JavaScript. While modern code often uses <code>fetch()</code>, XHR remains foundational and is still widely used and tested.
         </p>
 
-        <h3 style={subHeading}>Full Lifecycle Example</h3>
+        <h3 className="nt-sub-header">Full Lifecycle Example</h3>
         <pre style={codeBlock}>
 {`// 1. Create the XHR object
 const xhr = new XMLHttpRequest();
@@ -801,14 +978,14 @@ xhr.open("GET", "/api/data", true);    // true = async
 xhr.send();`}
         </pre>
 
-        <h3 style={subHeading}>Properties &amp; Methods Reference</h3>
+        <h3 className="nt-sub-header">Properties &amp; Methods Reference</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={thStyle}>Member</th>
-                <th style={thStyle}>Type</th>
-                <th style={thStyle}>Description</th>
+                <th className="nt-th">Member</th>
+                <th className="nt-th">Type</th>
+                <th className="nt-th">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -829,7 +1006,7 @@ xhr.send();`}
                 <tr key={i}>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)', whiteSpace: 'nowrap' }}>{member}</td>
                   <td style={{ ...tdStyle, fontSize: '18px', color: 'var(--nothing-text-dim)' }}>{type}</td>
-                  <td style={tdStyle}>{desc}</td>
+                  <td className="nt-td">{desc}</td>
                 </tr>
               ))}
             </tbody>
@@ -840,23 +1017,23 @@ xhr.send();`}
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 3: readyState VALUES                             */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <Zap size={18} />
           <span>03 — readyState Values</span>
         </div>
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           The <code style={{ color: 'var(--nothing-text)' }}>readyState</code> property tracks the lifecycle of an XHR request through five discrete stages. The <code>onreadystatechange</code> handler fires at each transition.
         </p>
 
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
               <th style={{ ...thStyle, width: '60px' }}>Value</th>
               <th style={{ ...thStyle, width: '180px' }}>Constant</th>
-              <th style={thStyle}>Description</th>
-              <th style={thStyle}>Available Data</th>
+              <th className="nt-th">Description</th>
+              <th className="nt-th">Available Data</th>
             </tr>
           </thead>
           <tbody>
@@ -870,14 +1047,14 @@ xhr.send();`}
               <tr key={i}>
                 <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontSize: '18px', fontWeight: 700, textAlign: 'center' }}>{val}</td>
                 <td style={{ ...tdStyle, color: 'var(--nothing-text)' }}>{constant}</td>
-                <td style={tdStyle}>{desc}</td>
+                <td className="nt-td">{desc}</td>
                 <td style={{ ...tdStyle, fontSize: '17px' }}>{data}</td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        <h3 style={subHeading}>Interactive Ajax Simulator</h3>
+        <h3 className="nt-sub-header">Interactive Ajax Simulator</h3>
         <p style={{ ...bodyText, marginBottom: '44px' }}>
           Click the button to simulate an asynchronous XMLHttpRequest. Watch <code>readyState</code> progress from 0 → 4 in real time.
         </p>
@@ -887,10 +1064,10 @@ xhr.send();`}
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 4: HTTP STATUS CODES                             */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="04" title="HTTP Status Codes" icon={<Database size={18} />} />
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           When a server responds, it includes a numeric status code indicating the result. These are grouped by category. You must always check <code style={{ color: 'var(--nothing-text)' }}>xhr.status</code> in your Ajax callbacks.
         </p>
 
@@ -934,13 +1111,13 @@ xhr.send();`}
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: cat.color, marginBottom: '8px', letterSpacing: '0.06em' }}>
               {cat.group}
             </div>
-            <table style={tableStyle}>
+            <table className="nt-table">
               <tbody>
                 {cat.codes.map(([code, text, desc], i) => (
                   <tr key={i}>
                     <td style={{ ...tdStyle, width: '60px', color: cat.color, fontWeight: 700 }}>{code}</td>
                     <td style={{ ...tdStyle, width: '180px', color: 'var(--nothing-text)' }}>{text}</td>
-                    <td style={tdStyle}>{desc}</td>
+                    <td className="nt-td">{desc}</td>
                   </tr>
                 ))}
               </tbody>
@@ -952,7 +1129,7 @@ xhr.send();`}
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 5: GET vs POST                                   */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <ArrowRight size={18} />
           <span>05 — GET vs POST Requests</span>
@@ -961,8 +1138,8 @@ xhr.send();`}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           {/* GET */}
           <div>
-            <h3 style={subHeading}>GET Request</h3>
-            <p style={bodyText}>
+            <h3 className="nt-sub-header">GET Request</h3>
+            <p className="nt-prose">
               Used to <strong style={{ color: 'var(--nothing-text)' }}>retrieve</strong> data. Parameters go in the URL query string. No request body.
             </p>
             <pre style={codeBlock}>
@@ -991,8 +1168,8 @@ xhr.send();  // No body for GET`}
 
           {/* POST */}
           <div>
-            <h3 style={subHeading}>POST Request</h3>
-            <p style={bodyText}>
+            <h3 className="nt-sub-header">POST Request</h3>
+            <p className="nt-prose">
               Used to <strong style={{ color: 'var(--nothing-text)' }}>send/create</strong> data. Data goes in the request body. Must set Content-Type header.
             </p>
             <pre style={codeBlock}>
@@ -1042,17 +1219,17 @@ xhr.send(payload);  // Body with data`}
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 6: JSON FORMAT                                   */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '18px' }}>&#123;&#125;</span>
           <span>06 — JSON Format</span>
         </div>
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           <strong style={{ color: 'var(--nothing-text)' }}>JSON</strong> (JavaScript Object Notation) is a lightweight text-based data interchange format. It's language-independent but uses conventions familiar to JavaScript programmers.
         </p>
 
-        <h3 style={subHeading}>JSON Syntax Rules</h3>
+        <h3 className="nt-sub-header">JSON Syntax Rules</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
           <div style={{ padding: '24px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-green)', marginBottom: '10px' }}>✓ VALID JSON</div>
@@ -1089,8 +1266,8 @@ xhr.send(payload);  // Body with data`}
           <strong style={{ color: '#d71921' }}>NOT allowed:</strong> undefined, functions, Symbol, comments, trailing commas, single quotes, unquoted keys
         </div>
 
-        <h3 style={subHeading}>JSON.parse(text, reviver?)</h3>
-        <p style={bodyText}>Converts a JSON string into a JavaScript object.</p>
+        <h3 className="nt-sub-header">JSON.parse(text, reviver?)</h3>
+        <p className="nt-prose">Converts a JSON string into a JavaScript object.</p>
         <pre style={codeBlock}>
 {`const jsonString = '{"name":"Alice","age":30,"scores":[95,88]}';
 const obj = JSON.parse(jsonString);
@@ -1106,8 +1283,8 @@ const data = JSON.parse('{"date":"2026-01-15"}', (key, value) => {
 console.log(data.date instanceof Date); // true`}
         </pre>
 
-        <h3 style={subHeading}>JSON.stringify(value, replacer?, space?)</h3>
-        <p style={bodyText}>Converts a JavaScript value to a JSON string.</p>
+        <h3 className="nt-sub-header">JSON.stringify(value, replacer?, space?)</h3>
+        <p className="nt-prose">Converts a JavaScript value to a JSON string.</p>
         <pre style={codeBlock}>
 {`const obj = { name: "Bob", age: 25, active: true };
 
@@ -1146,7 +1323,7 @@ JSON.stringify(obj, (key, value) => {
           </div>
         </div>
 
-        <h3 style={subHeading}>Interactive JSON Playground</h3>
+        <h3 className="nt-sub-header">Interactive JSON Playground</h3>
         <p style={{ ...bodyText, marginBottom: '44px' }}>
           Try parsing JSON strings and stringifying JS objects. Experiment with valid and invalid inputs to see the errors.
         </p>
@@ -1156,13 +1333,13 @@ JSON.stringify(obj, (key, value) => {
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 7: AJAX REQUEST LIFECYCLE DIAGRAM                */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <Clock size={18} />
           <span>07 — Ajax Request Lifecycle</span>
         </div>
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           Complete visual walkthrough of every step in an Ajax request/response cycle:
         </p>
 
@@ -1237,17 +1414,17 @@ JSON.stringify(obj, (key, value) => {
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 8: FULL APPLICATION PATTERN                      */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <User size={18} />
           <span>08 — Full Application Pattern: Address Book</span>
         </div>
 
-        <p style={bodyText}>
+        <p className="nt-prose">
           A realistic Ajax application pattern: load contacts from a "server" (simulated), render them as a searchable list with typeahead filtering, and show detail views on selection. This demonstrates the complete data flow from request → parse → render → interact.
         </p>
 
-        <h3 style={subHeading}>The Pattern (Real Code)</h3>
+        <h3 className="nt-sub-header">The Pattern (Real Code)</h3>
         <pre style={codeBlock}>
 {`// 1. Create XHR and fetch contact list
 function loadContacts() {
@@ -1298,7 +1475,7 @@ function showDetail(contact) {
 }`}
         </pre>
 
-        <h3 style={subHeading}>Interactive Address Book Demo</h3>
+        <h3 className="nt-sub-header">Interactive Address Book Demo</h3>
         <p style={{ ...bodyText, marginBottom: '44px' }}>
           Click "Fetch Contacts" to simulate an Ajax request. Then use the typeahead search and click contacts to view details.
         </p>
@@ -1319,7 +1496,7 @@ function showDetail(contact) {
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 9: CHEAT SHEET                                   */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <CheckCircle size={18} />
           <span>09 — Cheat Sheet</span>
@@ -1420,7 +1597,7 @@ xhr.send(JSON.stringify(data));`}
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 10: QUIZ                                         */}
       {/* ══════════════════════════════════════════════════════════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <div style={sectionTitle}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '18px' }}>?</span>
           <span>10 — Quiz</span>

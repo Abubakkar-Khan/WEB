@@ -174,3 +174,205 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--nothing-text-muted);
 }
+
+/* ==========================================================================
+   UNIFIED NOTHING DESIGN CLASSES
+   ========================================================================== */
+
+.nt-page {
+  padding: 48px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.nt-section {
+  background: var(--nothing-surface);
+  border: 1px solid var(--nothing-border);
+  padding: 32px;
+  margin-bottom: 44px;
+}
+
+.nt-prose {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--nothing-text-muted);
+  margin-bottom: 20px;
+}
+
+.nt-sub-header {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--nothing-text);
+  margin-top: 32px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--nothing-border);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.nt-th {
+  background: var(--nothing-surface-hover);
+  color: var(--nothing-text);
+  border: 1px solid var(--nothing-border);
+  padding: 12px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nt-td {
+  border: 1px solid var(--nothing-border);
+  padding: 12px;
+  color: var(--nothing-text-muted);
+  line-height: 1.5;
+}
+
+.nt-button {
+  background: var(--nothing-text);
+  color: var(--nothing-bg);
+  border: 1px solid var(--nothing-text);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.nt-button:hover {
+  background: transparent;
+  color: var(--nothing-text);
+}
+
+.nt-button-secondary {
+  background: transparent;
+  color: var(--nothing-text);
+  border: 1px solid var(--nothing-border);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.nt-button-secondary:hover {
+  border-color: var(--nothing-text);
+  background: var(--nothing-surface-hover);
+}
+
+.nt-trap {
+  border-left: 3px solid var(--nothing-red);
+  padding: 20px;
+  background: rgba(239, 68, 68, 0.04);
+  margin-bottom: 24px;
+}
+
+.nt-trap-title {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--nothing-red);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+/* Quiz Style Unification */
+.nt-quiz-question-card {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: var(--nothing-surface);
+  border: 1px solid var(--nothing-border);
+}
+
+.nt-quiz-question-text {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--nothing-text);
+  margin-bottom: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.nt-quiz-question-no {
+  color: var(--nothing-text-dim);
+  margin-right: 8px;
+}
+
+.nt-quiz-option {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--nothing-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.15s ease;
+}
+
+.nt-quiz-option:hover {
+  background: var(--nothing-surface-hover);
+  border-color: var(--nothing-border-hover);
+  color: var(--nothing-text);
+}
+
+.nt-quiz-option.chosen {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--nothing-text-dim);
+  color: var(--nothing-text);
+}
+
+.nt-quiz-option.correct {
+  background: var(--nothing-green-bg) !important;
+  border-color: var(--nothing-green) !important;
+  color: var(--nothing-green) !important;
+}
+
+.nt-quiz-option.incorrect {
+  background: rgba(239, 68, 68, 0.08) !important;
+  border-color: var(--nothing-red) !important;
+  color: var(--nothing-red) !important;
+}
+
+.nt-quiz-explanation {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--nothing-text-dim);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--nothing-border);
+  line-height: 1.6;
+}
+

@@ -289,16 +289,16 @@ const DomSurgeon: React.FC = () => {
             style={{ ...btnStyle, flex: 1, padding: '4px 8px', background: 'var(--nothing-bg)' }} />
         </div>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          <button style={btnStyle} onClick={handleAppendChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
+          <button className="nt-button" onClick={handleAppendChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
             appendChild
           </button>
-          <button style={btnStyle} onClick={handleInsertBefore} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
+          <button className="nt-button" onClick={handleInsertBefore} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
             insertBefore
           </button>
-          <button style={btnStyle} onClick={handleRemoveChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
+          <button className="nt-button" onClick={handleRemoveChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
             removeChild
           </button>
-          <button style={btnStyle} onClick={handleReplaceChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
+          <button className="nt-button" onClick={handleReplaceChild} onMouseOver={e=>(e.currentTarget.style.borderColor='#888')} onMouseOut={e=>(e.currentTarget.style.borderColor='var(--nothing-border)')}>
             replaceChild
           </button>
           <button style={{ ...btnStyle, color: 'var(--nothing-red)' }} onClick={handleReset}>
@@ -465,65 +465,7 @@ const quizData: QuizQ[] = [
 ];
 
 const Quiz: React.FC = () => {
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [showResults, setShowResults] = useState(false);
-
-  const score = quizData.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
-
-  return (
-    <div>
-      {quizData.map((q, qi) => (
-        <div key={qi} style={{ marginBottom: '44px', padding: '24px', background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-text)', marginBottom: '12px' }}>
-            <span style={{ color: 'var(--nothing-text-dim)' }}>Q{qi + 1}.</span> {q.q}
-          </div>
-          {q.opts.map((opt, oi) => {
-            const chosen = answers[qi] === oi;
-            const isCorrect = showResults && oi === q.ans;
-            const isWrong = showResults && chosen && oi !== q.ans;
-            return (
-              <div
-                key={oi}
-                onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '18px',
-                  padding: '10px 16px',
-                  marginBottom: '4px',
-                  cursor: showResults ? 'default' : 'pointer',
-                  background: isCorrect ? 'var(--nothing-green-bg)' : isWrong ? 'rgba(215,25,33,0.1)' : chosen ? 'rgba(255,255,255,0.08)' : 'transparent',
-                  border: `1px solid ${isCorrect ? 'var(--nothing-green-bg)' : isWrong ? 'rgba(215,25,33,0.4)' : chosen ? 'var(--nothing-text-dim)' : 'transparent'}`,
-                  color: isCorrect ? '#0f0' : isWrong ? 'var(--nothing-red)' : 'var(--nothing-text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                {showResults && isCorrect && <Check size={14} />}
-                {showResults && isWrong && <X size={14} />}
-                <span style={{ color: 'var(--nothing-text-dim)', marginRight: 4 }}>{String.fromCharCode(65 + oi)}.</span>
-                {opt}
-              </div>
-            );
-          })}
-          {showResults && (
-            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '18px', color: 'var(--nothing-text-dim)', marginTop: '8px', padding: '8px', borderTop: '1px solid var(--nothing-border)' }}>
-              {q.explain}
-            </div>
-          )}
-        </div>
-      ))}
-      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-        <button style={btnStyle} onClick={() => setShowResults(true)}>Check Answers</button>
-        <button style={btnStyle} onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
-        {showResults && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: score === quizData.length ? 'var(--nothing-green)' : 'var(--nothing-text-muted)' }}>
-            Score: {score}/{quizData.length}
-          </span>
-        )}
-      </div>
-    </div>
-  );
+  return <UnifiedQuiz questions={quizData} />;
 };
 
 /* ═══════════════════════ MAIN CHAPTER COMPONENT ═══════════════════════ */
@@ -572,9 +514,69 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
   );
 };
 
+
+interface UnifiedQuizQuestion {
+  q: string;
+  opts: string[];
+  ans: number;
+  explain: string;
+}
+
+const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions }) => {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
+
+  return (
+    <div className="nt-quiz-container">
+      {questions.map((q, qi) => (
+        <div key={qi} className="nt-quiz-question-card">
+          <div className="nt-quiz-question-text">
+            <span className="nt-quiz-question-no">Q{qi + 1}.</span> {q.q}
+          </div>
+          <div>
+            {q.opts.map((opt, oi) => {
+              const chosen = answers[qi] === oi;
+              const isCorrect = showResults && oi === q.ans;
+              const isWrong = showResults && chosen && oi !== q.ans;
+              return (
+                <div
+                  key={oi}
+                  onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
+                  className={`nt-quiz-option ${chosen ? 'chosen' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'incorrect' : ''} ${showResults ? 'disabled' : ''}`}
+                >
+                  {showResults && isCorrect && <span style={{ marginRight: '8px', color: 'var(--nothing-green)' }}>✓</span>}
+                  {showResults && isWrong && <span style={{ marginRight: '8px', color: 'var(--nothing-red)' }}>✗</span>}
+                  <span style={{ color: 'var(--nothing-text-dim)', marginRight: '8px' }}>{String.fromCharCode(65 + oi)}.</span>
+                  {opt}
+                </div>
+              );
+            })}
+          </div>
+          {showResults && (
+            <div className="nt-quiz-explanation">
+              <strong>Explanation: </strong> {q.explain}
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="nt-quiz-actions">
+        <button className="nt-button" onClick={() => setShowResults(true)}>Check Answers</button>
+        <button className="nt-button-secondary" onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
+        {showResults && (
+          <span className="nt-quiz-score">
+            Score: {score} / {questions.length}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export const Chapter12: React.FC = () => {
   return (
-    <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div className="nt-page">
       {/* ── HEADER ── */}
       <div style={{ marginBottom: '44px' }}>
         <div style={{ fontFamily: 'var(--font-dot)', fontSize: '60px', letterSpacing: '0.08em', lineHeight: 0.9, textTransform: 'uppercase' }}>
@@ -589,31 +591,31 @@ export const Chapter12: React.FC = () => {
       </div>
 
       {/* ═══════ SECTION 1: DOM TREE STRUCTURE ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="01" title="DOM Tree Structure" icon={<TreePine size={20} />} />
 
-        <p style={prose}>
+        <p className="nt-prose">
           When a browser loads an HTML page, it parses the markup and constructs a tree data structure called the
           <strong style={{ color: 'var(--nothing-text)' }}> Document Object Model (DOM)</strong>. Every element, text node, comment, and attribute
           becomes a <strong style={{ color: 'var(--nothing-text)' }}>node</strong> in this tree. JavaScript can then traverse, query, and
           manipulate this tree to dynamically change the page content, structure, and appearance.
         </p>
 
-        <p style={prose}>
+        <p className="nt-prose">
           The DOM is <strong style={{ color: 'var(--nothing-text)' }}>not</strong> your HTML source code — it's the browser's living, in-memory
           representation. If JavaScript modifies the DOM, the page updates immediately but the source file on disk stays unchanged.
         </p>
 
         {/* Node Types Table */}
         <div style={labelTag}>Node Types</div>
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
-              <th style={thStyle}>Type</th>
-              <th style={thStyle}>nodeType</th>
-              <th style={thStyle}>Example</th>
-              <th style={thStyle}>nodeName</th>
-              <th style={thStyle}>nodeValue</th>
+              <th className="nt-th">Type</th>
+              <th className="nt-th">nodeType</th>
+              <th className="nt-th">Example</th>
+              <th className="nt-th">nodeName</th>
+              <th className="nt-th">nodeValue</th>
             </tr>
           </thead>
           <tbody>
@@ -625,7 +627,7 @@ export const Chapter12: React.FC = () => {
               ['Attribute', '2', 'class="foo"', 'Attribute name', 'Attribute value'],
             ].map((row, i) => (
               <tr key={i}>
-                {row.map((cell, j) => <td key={j} style={tdStyle}>{cell}</td>)}
+                {row.map((cell, j) => <td key={j} className="nt-td">{cell}</td>)}
               </tr>
             ))}
           </tbody>
@@ -676,12 +678,12 @@ export const Chapter12: React.FC = () => {
 
         {/* Node Properties Table */}
         <div style={labelTag}>Node Navigation Properties</div>
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
-              <th style={thStyle}>Property</th>
-              <th style={thStyle}>Returns</th>
-              <th style={thStyle}>Notes</th>
+              <th className="nt-th">Property</th>
+              <th className="nt-th">Returns</th>
+              <th className="nt-th">Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -746,22 +748,22 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
       </div>
 
       {/* ═══════ SECTION 2: SELECTING ELEMENTS ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="02" title="Selecting Elements" icon={<Search size={20} />} />
 
-        <p style={prose}>
+        <p className="nt-prose">
           Before you can manipulate an element, you need a reference to it. The DOM provides several methods on
           <code style={{ color: 'var(--nothing-text)' }}> document</code> (and on elements) to find nodes.
         </p>
 
         <div style={labelTag}>Selection Methods</div>
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
-              <th style={thStyle}>Method</th>
-              <th style={thStyle}>Signature</th>
-              <th style={thStyle}>Returns</th>
-              <th style={thStyle}>Collection</th>
+              <th className="nt-th">Method</th>
+              <th className="nt-th">Signature</th>
+              <th className="nt-th">Returns</th>
+              <th className="nt-th">Collection</th>
             </tr>
           </thead>
           <tbody>
@@ -861,22 +863,22 @@ divArr.forEach(div => div.remove()); // Works correctly`}</pre>
       </div>
 
       {/* ═══════ SECTION 3: CREATING / INSERTING / REMOVING ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="03" title="Creating, Inserting & Removing Nodes" icon={<PlusCircle size={20} />} />
 
-        <p style={prose}>
+        <p className="nt-prose">
           The DOM API lets you create new nodes, insert them at specific positions, replace existing nodes,
           remove nodes, and clone subtrees — all programmatically.
         </p>
 
         <div style={labelTag}>Mutation Methods</div>
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
-              <th style={thStyle}>Method</th>
-              <th style={thStyle}>Signature</th>
-              <th style={thStyle}>Returns</th>
-              <th style={thStyle}>Key Behavior</th>
+              <th className="nt-th">Method</th>
+              <th className="nt-th">Signature</th>
+              <th className="nt-th">Returns</th>
+              <th className="nt-th">Key Behavior</th>
             </tr>
           </thead>
           <tbody>
@@ -980,21 +982,21 @@ document.body.appendChild(deepCopy);`}</pre>
       </div>
 
       {/* ═══════ SECTION 4: DOCUMENT COLLECTIONS ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="04" title="Document Collections" icon={<Layers size={20} />} />
 
-        <p style={prose}>
+        <p className="nt-prose">
           The <code style={{ color: 'var(--nothing-text)' }}>document</code> object provides built-in HTMLCollections for commonly accessed element types.
           These are <strong style={{ color: 'var(--nothing-text)' }}>live collections</strong> that update automatically.
         </p>
 
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
-              <th style={thStyle}>Collection</th>
-              <th style={thStyle}>Contains</th>
-              <th style={thStyle}>Access</th>
-              <th style={thStyle}>Status</th>
+              <th className="nt-th">Collection</th>
+              <th className="nt-th">Contains</th>
+              <th className="nt-th">Access</th>
+              <th className="nt-th">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -1044,10 +1046,10 @@ console.log(email.value);
       </div>
 
       {/* ═══════ SECTION 5: DYNAMIC STYLING ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="05" title="Dynamic Styling" icon={<Paintbrush size={20} />} />
 
-        <p style={prose}>
+        <p className="nt-prose">
           JavaScript can dynamically change an element's visual appearance by modifying its
           <strong style={{ color: 'var(--nothing-text)' }}> inline styles</strong> (via <code style={{ color: 'var(--nothing-text)' }}>element.style</code>)
           or by toggling <strong style={{ color: 'var(--nothing-text)' }}>CSS classes</strong> (via <code style={{ color: 'var(--nothing-text)' }}>element.classList</code>).
@@ -1055,13 +1057,13 @@ console.log(email.value);
         </p>
 
         <div style={labelTag}>classList API</div>
-        <table style={tableStyle}>
+        <table className="nt-table">
           <thead>
             <tr>
-              <th style={thStyle}>Method</th>
-              <th style={thStyle}>Signature</th>
-              <th style={thStyle}>Returns</th>
-              <th style={thStyle}>Description</th>
+              <th className="nt-th">Method</th>
+              <th className="nt-th">Signature</th>
+              <th className="nt-th">Returns</th>
+              <th className="nt-th">Description</th>
             </tr>
           </thead>
           <tbody>
@@ -1141,7 +1143,7 @@ requestAnimationFrame(animate);`}</pre>
       </div>
 
       {/* ═══════ SECTION 6: CHEAT SHEET ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="06" title="Cheat Sheet" icon={<BookOpen size={20} />} />
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
@@ -1267,7 +1269,7 @@ document.anchors       → DEPRECATED`}
       </div>
 
       {/* ═══════ SECTION 7: QUIZ ═══════ */}
-      <div style={sectionStyle}>
+      <div className="nt-section">
         <SectionHeader no="07" title="Quiz" icon={<HelpCircle size={20} />} />
         <p style={{ ...prose, marginBottom: '20px' }}>
           Test your understanding of the Document Object Model. Select one answer per question, then click <strong style={{ color: 'var(--nothing-text)' }}>Check Answers</strong>.

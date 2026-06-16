@@ -135,6 +135,66 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
   );
 };
 
+
+interface UnifiedQuizQuestion {
+  q: string;
+  opts: string[];
+  ans: number;
+  explain: string;
+}
+
+const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions }) => {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
+
+  return (
+    <div className="nt-quiz-container">
+      {questions.map((q, qi) => (
+        <div key={qi} className="nt-quiz-question-card">
+          <div className="nt-quiz-question-text">
+            <span className="nt-quiz-question-no">Q{qi + 1}.</span> {q.q}
+          </div>
+          <div>
+            {q.opts.map((opt, oi) => {
+              const chosen = answers[qi] === oi;
+              const isCorrect = showResults && oi === q.ans;
+              const isWrong = showResults && chosen && oi !== q.ans;
+              return (
+                <div
+                  key={oi}
+                  onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
+                  className={`nt-quiz-option ${chosen ? 'chosen' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'incorrect' : ''} ${showResults ? 'disabled' : ''}`}
+                >
+                  {showResults && isCorrect && <span style={{ marginRight: '8px', color: 'var(--nothing-green)' }}>✓</span>}
+                  {showResults && isWrong && <span style={{ marginRight: '8px', color: 'var(--nothing-red)' }}>✗</span>}
+                  <span style={{ color: 'var(--nothing-text-dim)', marginRight: '8px' }}>{String.fromCharCode(65 + oi)}.</span>
+                  {opt}
+                </div>
+              );
+            })}
+          </div>
+          {showResults && (
+            <div className="nt-quiz-explanation">
+              <strong>Explanation: </strong> {q.explain}
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="nt-quiz-actions">
+        <button className="nt-button" onClick={() => setShowResults(true)}>Check Answers</button>
+        <button className="nt-button-secondary" onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
+        {showResults && (
+          <span className="nt-quiz-score">
+            Score: {score} / {questions.length}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export const Chapter13: React.FC = () => {
   /* ── Section 1 – Event Radar state ── */
   const [radarData, setRadarData] = useState<Record<string, string>>({
@@ -314,7 +374,7 @@ export const Chapter13: React.FC = () => {
 
   /* ─────────────────── RENDER ─────────────────── */
   return (
-    <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div className="nt-page">
       {/* ═══ HEADER ═══ */}
       <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
@@ -329,20 +389,20 @@ export const Chapter13: React.FC = () => {
       </div>
 
       {/* ═══ SECTION 1 — EVENT OBJECT PROPERTIES ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="01" title="Event Object Properties" icon={<Zap size={22} />} />
 
-        <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '18px', marginBottom: '20px', lineHeight: 1.9 }}>
+        <p className="nt-prose">
           Every event handler receives an <strong style={{ color: 'var(--nothing-text)' }}>Event object</strong> containing metadata about what happened. Mouse events carry coordinates; keyboard events carry key info; all events share a common base set of properties.
         </p>
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={thStyle}>Property</th>
-                <th style={thStyle}>Type</th>
-                <th style={thStyle}>Description</th>
+                <th className="nt-th">Property</th>
+                <th className="nt-th">Type</th>
+                <th className="nt-th">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -423,17 +483,17 @@ export const Chapter13: React.FC = () => {
       </section>
 
       {/* ═══ SECTION 2 — MOUSE EVENTS ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="02" title="Mouse Events" icon={<MousePointer size={22} />} />
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={thStyle}>Event</th>
-                <th style={thStyle}>Fires When</th>
-                <th style={thStyle}>Bubbles?</th>
-                <th style={thStyle}>Notes</th>
+                <th className="nt-th">Event</th>
+                <th className="nt-th">Fires When</th>
+                <th className="nt-th">Bubbles?</th>
+                <th className="nt-th">Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -512,17 +572,17 @@ element.addEventListener('dblclick',  () => console.log('4. dblclick'));`}</pre>
       </section>
 
       {/* ═══ SECTION 3 — KEYBOARD EVENTS ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="03" title="Keyboard Events" icon={<Keyboard size={22} />} />
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={thStyle}>Event</th>
-                <th style={thStyle}>Fires When</th>
-                <th style={thStyle}>Repeats?</th>
-                <th style={thStyle}>Notes</th>
+                <th className="nt-th">Event</th>
+                <th className="nt-th">Fires When</th>
+                <th className="nt-th">Repeats?</th>
+                <th className="nt-th">Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -599,17 +659,17 @@ document.addEventListener('keyup', function(e) {
       </section>
 
       {/* ═══ SECTION 4 — FORM EVENTS ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="04" title="Form Events" icon={<FileText size={22} />} />
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={thStyle}>Event</th>
-                <th style={thStyle}>Fires When</th>
-                <th style={thStyle}>Bubbles?</th>
-                <th style={thStyle}>Notes</th>
+                <th className="nt-th">Event</th>
+                <th className="nt-th">Fires When</th>
+                <th className="nt-th">Bubbles?</th>
+                <th className="nt-th">Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -716,7 +776,7 @@ document.addEventListener('keyup', function(e) {
               ))}
 
               <div style={{ display: 'flex', gap: '12px' }}>
-                <button type="submit" style={btnStyle}>Submit</button>
+                <button type="submit" className="nt-button">Submit</button>
                 <button type="reset" style={{ ...btnStyle, background: 'transparent', color: 'var(--nothing-text-muted)', border: '1px solid var(--nothing-border)' }}>Reset</button>
               </div>
             </div>
@@ -766,7 +826,7 @@ form.addEventListener('reset', function(e) {
       </section>
 
       {/* ═══ SECTION 5 — BUBBLING & CAPTURING ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="05" title="Event Bubbling & Capturing" icon={<Layers size={22} />} />
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '18px', marginBottom: '44px', lineHeight: 1.9 }}>
@@ -952,7 +1012,7 @@ element.addEventListener('click', handler, {
       </section>
 
       {/* ═══ SECTION 6 — stopPropagation vs preventDefault ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="06" title="stopPropagation vs preventDefault" icon={<ShieldOff size={22} />} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '44px' }}>
@@ -1018,13 +1078,13 @@ btn.addEventListener('click', (e) => {
 
         <div style={cardStyle}>
           <div style={labelMono}>Comparison Table</div>
-          <table style={tableStyle}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={thStyle}>Method</th>
-                <th style={thStyle}>Stops Propagation?</th>
-                <th style={thStyle}>Stops Same-Element Handlers?</th>
-                <th style={thStyle}>Prevents Default?</th>
+                <th className="nt-th">Method</th>
+                <th className="nt-th">Stops Propagation?</th>
+                <th className="nt-th">Stops Same-Element Handlers?</th>
+                <th className="nt-th">Prevents Default?</th>
               </tr>
             </thead>
             <tbody>
@@ -1046,10 +1106,10 @@ btn.addEventListener('click', (e) => {
       </section>
 
       {/* ═══ SECTION 7 — EVENT DELEGATION ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="07" title="Event Delegation" icon={<GitMerge size={22} />} />
 
-        <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '18px', marginBottom: '20px', lineHeight: 1.9 }}>
+        <p className="nt-prose">
           Instead of attaching a listener to <em>every</em> child element, attach <strong style={{ color: 'var(--nothing-text)' }}>ONE listener to the parent</strong> and use <code style={{ color: 'var(--nothing-text)' }}>event.target</code> to determine which child was clicked. This leverages event bubbling.
         </p>
 
@@ -1169,7 +1229,7 @@ toolbar.appendChild(newBtn);
       </section>
 
       {/* ═══ SECTION 8 — CHEAT SHEET ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="08" title="Cheat Sheet" icon={<BookOpen size={22} />} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
@@ -1330,105 +1390,9 @@ parent.addEventListener('click', (e) => {
       </section>
 
       {/* ═══ SECTION 9 — QUIZ ═══ */}
-      <section style={sectionStyle}>
+      <section className="nt-section">
         <SectionHeader no="09" title="Quiz" icon={<HelpCircle size={22} />} />
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {questions.map((q, qi) => (
-            <div key={qi} style={{ ...cardStyle, borderColor: quizRevealed ? (quizAnswers[qi] === q.ans ? '#2a6' : 'var(--nothing-red)') : 'var(--nothing-border)' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-text-dim)', textTransform: 'uppercase', marginBottom: '8px' }}>
-                Question {qi + 1}
-              </div>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: '18px', color: 'var(--nothing-text)', marginBottom: '44px', lineHeight: 1.9 }}>
-                {q.q}
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {q.opts.map((opt, oi) => {
-                  const selected = quizAnswers[qi] === oi;
-                  const isCorrect = oi === q.ans;
-                  let bg = 'transparent';
-                  let border = 'var(--nothing-border)';
-                  if (quizRevealed && isCorrect) { bg = 'rgba(34,170,102,0.1)'; border = '#2a6'; }
-                  else if (quizRevealed && selected && !isCorrect) { bg = 'rgba(215,25,33,0.1)'; border = 'var(--nothing-red)'; }
-                  else if (selected) { bg = 'rgba(255,255,255,0.05)'; border = '#fff'; }
-
-                  return (
-                    <div
-                      key={oi}
-                      onClick={() => !quizRevealed && setQuizAnswers(prev => { const n = [...prev]; n[qi] = oi; return n; })}
-                      style={{
-                        padding: '10px 14px',
-                        border: `1px solid ${border}`,
-                        background: bg,
-                        cursor: quizRevealed ? 'default' : 'pointer',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '17px',
-                        color: 'var(--nothing-text-muted)',
-                        transition: 'all 0.15s',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                      }}
-                    >
-                      <span style={{
-                        width: '20px',
-                        height: '20px',
-                        border: `1px solid ${selected ? 'var(--nothing-text)' : 'var(--nothing-border)'}`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '18px',
-                        flexShrink: 0,
-                        color: selected ? 'var(--nothing-text)' : 'var(--nothing-text-dim)',
-                      }}>
-                        {String.fromCharCode(65 + oi)}
-                      </span>
-                      {opt}
-                    </div>
-                  );
-                })}
-              </div>
-              {quizRevealed && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  style={{
-                    marginTop: '12px',
-                    padding: '18px',
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid var(--nothing-border)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '18px',
-                    color: 'var(--nothing-text-muted)',
-                    lineHeight: 1.9,
-                  }}
-                >
-                  <strong style={{ color: 'var(--nothing-text)' }}>Explanation:</strong> {q.explain}
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div style={{ marginTop: '24px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <button
-            onClick={() => setQuizRevealed(true)}
-            style={btnStyle}
-          >
-            Check Answers
-          </button>
-          <button
-            onClick={() => { setQuizRevealed(false); setQuizAnswers(new Array(questions.length).fill(null)); }}
-            style={{ ...btnStyle, background: 'transparent', color: 'var(--nothing-text-muted)', border: '1px solid var(--nothing-border)' }}
-          >
-            Reset Quiz
-          </button>
-          {quizRevealed && (
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-text-muted)' }}>
-              Score: {quizAnswers.filter((a, i) => a === questions[i].ans).length} / {questions.length}
-            </span>
-          )}
-        </div>
+        <UnifiedQuiz questions={questions} />
       </section>
     </div>
   );

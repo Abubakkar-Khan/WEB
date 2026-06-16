@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Code2, Calendar, Database, FileText, HelpCircle } from 'lucide-react';
 
-/* ──────────────────────────────────────────────────────────────
-   Chapter 11 — JavaScript Built-in Objects
-   String · Date · Web Storage
-   ────────────────────────────────────────────────────────────── */
-
 // ─── Reusable inline-style tokens ────────────────────────────
 const S = {
   page: {
@@ -188,6 +183,66 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
   );
 };
 
+
+interface UnifiedQuizQuestion {
+  q: string;
+  opts: string[];
+  ans: number;
+  explain: string;
+}
+
+const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions }) => {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
+
+  return (
+    <div className="nt-quiz-container">
+      {questions.map((q, qi) => (
+        <div key={qi} className="nt-quiz-question-card">
+          <div className="nt-quiz-question-text">
+            <span className="nt-quiz-question-no">Q{qi + 1}.</span> {q.q}
+          </div>
+          <div>
+            {q.opts.map((opt, oi) => {
+              const chosen = answers[qi] === oi;
+              const isCorrect = showResults && oi === q.ans;
+              const isWrong = showResults && chosen && oi !== q.ans;
+              return (
+                <div
+                  key={oi}
+                  onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
+                  className={`nt-quiz-option ${chosen ? 'chosen' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'incorrect' : ''} ${showResults ? 'disabled' : ''}`}
+                >
+                  {showResults && isCorrect && <span style={{ marginRight: '8px', color: 'var(--nothing-green)' }}>✓</span>}
+                  {showResults && isWrong && <span style={{ marginRight: '8px', color: 'var(--nothing-red)' }}>✗</span>}
+                  <span style={{ color: 'var(--nothing-text-dim)', marginRight: '8px' }}>{String.fromCharCode(65 + oi)}.</span>
+                  {opt}
+                </div>
+              );
+            })}
+          </div>
+          {showResults && (
+            <div className="nt-quiz-explanation">
+              <strong>Explanation: </strong> {q.explain}
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="nt-quiz-actions">
+        <button className="nt-button" onClick={() => setShowResults(true)}>Check Answers</button>
+        <button className="nt-button-secondary" onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
+        {showResults && (
+          <span className="nt-quiz-score">
+            Score: {score} / {questions.length}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export const Chapter11: React.FC = () => {
   // ── String Console state ───────────────────────────────────
   const [strInput, setStrInput] = useState('Hello, World!');
@@ -244,7 +299,7 @@ export const Chapter11: React.FC = () => {
      RENDER
      ════════════════════════════════════════════════════════════ */
   return (
-    <div style={S.page}>
+    <div className="nt-page">
       {/* ──────────── CHAPTER HEADER ──────────── */}
       <header>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, letterSpacing: '0.2em', color: 'var(--nothing-text-dim)', marginBottom: 8 }}>
@@ -265,10 +320,10 @@ export const Chapter11: React.FC = () => {
       {/* ╔══════════════════════════════════════════════════════╗
          ║  SECTION 1 — STRING OBJECT                          ║
          ╚══════════════════════════════════════════════════════╝ */}
-      <section>
+      <section className="nt-section">
         <SectionHeader no="01" title="String Object" icon={<Code2 size={20} />} />
 
-        <p style={S.p}>
+        <p className="nt-prose">
           JavaScript strings are <strong style={{ color: 'var(--nothing-text)' }}>immutable</strong> sequences of UTF-16 code units.
           Primitive strings are auto-boxed to <code>String</code> objects when you call methods on them.
           Every method returns a <strong style={{ color: 'var(--nothing-text)' }}>new</strong> string — the original is never modified.
@@ -292,15 +347,15 @@ console.log(s);    // "Hello" (original unchanged)
 "ABCDE".length; // 5`}</pre>
 
         {/* ── String Methods Table ── */}
-        <h3 style={S.subHeader}>Complete String Method Reference</h3>
+        <h3 className="nt-sub-header">Complete String Method Reference</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Method</th>
-                <th style={S.th}>Parameters</th>
-                <th style={S.th}>Returns</th>
-                <th style={S.th}>Description</th>
+                <th className="nt-th">Method</th>
+                <th className="nt-th">Parameters</th>
+                <th className="nt-th">Returns</th>
+                <th className="nt-th">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -333,7 +388,7 @@ console.log(s);    // "Hello" (original unchanged)
         </div>
 
         {/* ── Per-method Code Examples ── */}
-        <h3 style={S.subHeader}>charAt &amp; charCodeAt</h3>
+        <h3 className="nt-sub-header">charAt &amp; charCodeAt</h3>
         <pre style={S.code}>{`const str = "JavaScript";
 
 str.charAt(0);    // "J"
@@ -346,7 +401,7 @@ str.charCodeAt(4);  // 83  (Unicode for 'S')
 "a".charCodeAt(0);  // 97
 "€".charCodeAt(0);  // 8364`}</pre>
 
-        <h3 style={S.subHeader}>indexOf &amp; lastIndexOf</h3>
+        <h3 className="nt-sub-header">indexOf &amp; lastIndexOf</h3>
         <pre style={S.code}>{`const str = "banana";
 
 str.indexOf("a");         // 1   (first occurrence)
@@ -362,14 +417,14 @@ if (str.indexOf("nan") !== -1) {
 }
 // WRONG: if (str.indexOf("nan")) — 0 is falsy!`}</pre>
 
-        <h3 style={S.subHeader}>split</h3>
+        <h3 className="nt-sub-header">split</h3>
         <pre style={S.code}>{`"a,b,c".split(",");        // ["a", "b", "c"]
 "a,b,c".split(",", 2);    // ["a", "b"]         ← limit
 "hello".split("");         // ["h","e","l","l","o"]  ← every char
 "hello".split();           // ["hello"]          ← no separator = whole string
 "a--b--c".split("--");    // ["a", "b", "c"]`}</pre>
 
-        <h3 style={S.subHeader}>substring &amp; slice</h3>
+        <h3 className="nt-sub-header">substring &amp; slice</h3>
         <pre style={S.code}>{`const str = "Hello, World!";
 
 // substring(start, end)  — end is EXCLUSIVE
@@ -386,7 +441,7 @@ str.slice(-6, -1);  // "orld"
 str.substring(5, 0);  // "Hello" ← swaps arguments if start > end
 str.slice(5, 0);      // ""      ← returns empty string`}</pre>
 
-        <h3 style={S.subHeader}>toUpperCase, toLowerCase &amp; trim</h3>
+        <h3 className="nt-sub-header">toUpperCase, toLowerCase &amp; trim</h3>
         <pre style={S.code}>{`"hello".toUpperCase();         // "HELLO"
 "WORLD".toLowerCase();         // "world"
 
@@ -399,7 +454,7 @@ const x = "abc";
 x.toUpperCase();   // "ABC"
 console.log(x);    // "abc" (unchanged)`}</pre>
 
-        <h3 style={S.subHeader}>replace, includes, startsWith, endsWith</h3>
+        <h3 className="nt-sub-header">replace, includes, startsWith, endsWith</h3>
         <pre style={S.code}>{`// replace — first occurrence only (without /g regex)
 "aabaa".replace("a", "X");   // "Xabaa"  ← only first 'a'
 "aabaa".replace(/a/g, "X");  // "XXbXX"  ← all occurrences
@@ -413,7 +468,7 @@ console.log(x);    // "abc" (unchanged)`}</pre>
 "index.html".endsWith(".html");     // true
 "index.html".startsWith("Index");   // false  ← case-sensitive`}</pre>
 
-        <h3 style={S.subHeader}>concat</h3>
+        <h3 className="nt-sub-header">concat</h3>
         <pre style={S.code}>{`"Hello".concat(" ", "World");    // "Hello World"
 "a".concat("b", "c", "d");      // "abcd"
 
@@ -422,31 +477,31 @@ const name = "Alice";
 \`Hello, \${name}!\`;    // "Hello, Alice!"`}</pre>
 
         {/* ── String Traps ── */}
-        <h3 style={S.subHeader}>⚠ Common String Traps</h3>
-        <div style={S.trap}>
+        <h3 className="nt-sub-header">⚠ Common String Traps</h3>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 1:</strong> <code>indexOf</code> returns <strong>-1</strong>, not <code>false</code> or <code>undefined</code>.
           Using it in a boolean context is dangerous because <code>0</code> (valid index) is falsy.
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 2:</strong> <code>substring(start, end)</code> — the <strong>end index is exclusive</strong>.
           <code>"abc".substring(0, 2)</code> → <code>"ab"</code> (not <code>"abc"</code>).
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 3:</strong> <code>"hello".split("")</code> splits into <strong>every single character</strong>.
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 4:</strong> All string methods are <strong>CASE SENSITIVE</strong>.
           <code>"Hello".includes("hello")</code> → <code>false</code>.
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 5:</strong> <code>charAt()</code> out of range returns <strong>""</strong> (empty string), not <code>undefined</code>.
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 6:</strong> Strings are <strong>IMMUTABLE</strong>. Methods always return <strong>new</strong> strings; the original is never modified.
         </div>
 
         {/* ── Interactive String Console ── */}
-        <h3 style={S.subHeader}>Interactive String Console</h3>
+        <h3 className="nt-sub-header">Interactive String Console</h3>
         <div style={S.interactive}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
             <div>
@@ -493,15 +548,15 @@ const name = "Alice";
       {/* ╔══════════════════════════════════════════════════════╗
          ║  SECTION 2 — DATE OBJECT                            ║
          ╚══════════════════════════════════════════════════════╝ */}
-      <section>
+      <section className="nt-section">
         <SectionHeader no="02" title="Date Object" icon={<Calendar size={20} />} />
 
-        <p style={S.p}>
+        <p className="nt-prose">
           The <code>Date</code> object represents a single point in time, stored internally as the number of <strong style={{ color: 'var(--nothing-text)' }}>milliseconds since January 1, 1970 00:00:00 UTC</strong> (the Unix Epoch).
         </p>
 
         {/* ── Construction ── */}
-        <h3 style={S.subHeader}>Date Construction</h3>
+        <h3 className="nt-sub-header">Date Construction</h3>
         <pre style={S.code}>{`// 1. No arguments — current date and time
 const now = new Date();
 
@@ -522,15 +577,15 @@ new Date(2026, 0, 1);   // January 1, 2026
 new Date(2026, 11, 31); // December 31, 2026`}</pre>
 
         {/* ── Getter Methods Table ── */}
-        <h3 style={S.subHeader}>Date Getter Methods</h3>
+        <h3 className="nt-sub-header">Date Getter Methods</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Method</th>
-                <th style={S.th}>Returns</th>
-                <th style={S.th}>Range</th>
-                <th style={S.th}>Description</th>
+                <th className="nt-th">Method</th>
+                <th className="nt-th">Returns</th>
+                <th className="nt-th">Range</th>
+                <th className="nt-th">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -557,7 +612,7 @@ new Date(2026, 11, 31); // December 31, 2026`}</pre>
           </table>
         </div>
 
-        <h3 style={S.subHeader}>Setter Methods</h3>
+        <h3 className="nt-sub-header">Setter Methods</h3>
         <pre style={S.code}>{`const d = new Date();
 d.setFullYear(2030);      // Set year
 d.setMonth(5);            // Set month (June, 0-based)
@@ -569,7 +624,7 @@ d.setMilliseconds(0);     // Set milliseconds
 d.setTime(0);             // Set to epoch`}</pre>
 
         {/* ── UTC Methods ── */}
-        <h3 style={S.subHeader}>UTC Methods</h3>
+        <h3 className="nt-sub-header">UTC Methods</h3>
         <pre style={S.code}>{`const d = new Date();
 
 // UTC getters — same as local getters but in UTC timezone
@@ -582,7 +637,7 @@ d.getUTCMinutes();     // Minutes in UTC
 d.getUTCSeconds();     // Seconds in UTC`}</pre>
 
         {/* ── Static Methods ── */}
-        <h3 style={S.subHeader}>Static Methods</h3>
+        <h3 className="nt-sub-header">Static Methods</h3>
         <pre style={S.code}>{`// Date.now() — ms since epoch (no need to create a Date object)
 const timestamp = Date.now();   // e.g. 1781743200000
 
@@ -594,7 +649,7 @@ const d = new Date(utcMs);
 Date.parse("2026-06-15");    // ms since epoch`}</pre>
 
         {/* ── Formatting ── */}
-        <h3 style={S.subHeader}>Date Formatting Methods</h3>
+        <h3 className="nt-sub-header">Date Formatting Methods</h3>
         <pre style={S.code}>{`const d = new Date(2026, 5, 15, 14, 30, 0);
 
 d.toString();          // "Mon Jun 15 2026 14:30:00 GMT+0500 ..."
@@ -606,7 +661,7 @@ d.toLocaleTimeString();// locale-dependent, e.g. "2:30:00 PM"
 d.toJSON();            // same as toISOString()`}</pre>
 
         {/* ── Date Arithmetic ── */}
-        <h3 style={S.subHeader}>Date Arithmetic</h3>
+        <h3 className="nt-sub-header">Date Arithmetic</h3>
         <pre style={S.code}>{`// Difference between two dates (in ms)
 const d1 = new Date(2026, 0, 1);
 const d2 = new Date(2026, 5, 15);
@@ -622,26 +677,26 @@ if (d2 > d1) { console.log("d2 is later"); }
 if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
 
         {/* ── Date Traps ── */}
-        <h3 style={S.subHeader}>⚠ Common Date Traps</h3>
-        <div style={S.trap}>
+        <h3 className="nt-sub-header">⚠ Common Date Traps</h3>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 1:</strong> Months are <strong>0-indexed</strong>! January = 0, December = 11.
           <code style={{ display: 'block', marginTop: 4 }}>new Date(2026, 1, 1)</code> → <strong>February</strong> 1, not January.
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 2:</strong> <code>getDate()</code> returns the <strong>day of the month</strong> (1-31).
           <code>getDay()</code> returns the <strong>day of the week</strong> (0 = Sunday, 6 = Saturday). Don't confuse them!
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 3:</strong> <code>getYear()</code> is <strong>DEPRECATED</strong>. Always use <code>getFullYear()</code>.
           <code>getYear()</code> returns years since 1900 (e.g., 126 for 2026).
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 4:</strong> <code>new Date()</code> without <code>new</code> → returns a <strong>string</strong>, not a Date object.
           <code>Date()</code> → string. <code>new Date()</code> → Date object.
         </div>
 
         {/* ── Interactive Date Explorer ── */}
-        <h3 style={S.subHeader}>Interactive Date Explorer — Live Clock</h3>
+        <h3 className="nt-sub-header">Interactive Date Explorer — Live Clock</h3>
         <div style={S.interactive}>
           <div style={{
             fontFamily: 'var(--font-dot)',
@@ -710,10 +765,10 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
       {/* ╔══════════════════════════════════════════════════════╗
          ║  SECTION 3 — WEB STORAGE                            ║
          ╚══════════════════════════════════════════════════════╝ */}
-      <section>
+      <section className="nt-section">
         <SectionHeader no="03" title="Web Storage API" icon={<Database size={20} />} />
 
-        <p style={S.p}>
+        <p className="nt-prose">
           The Web Storage API provides two mechanisms for storing key-value pairs in the browser:
           <strong style={{ color: 'var(--nothing-text)' }}> localStorage</strong> (persists until explicitly cleared) and
           <strong style={{ color: 'var(--nothing-text)' }}> sessionStorage</strong> (cleared when the tab/window closes).
@@ -721,14 +776,14 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
         </p>
 
         {/* ── Comparison Table ── */}
-        <h3 style={S.subHeader}>localStorage vs sessionStorage</h3>
+        <h3 className="nt-sub-header">localStorage vs sessionStorage</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Feature</th>
-                <th style={S.th}>localStorage</th>
-                <th style={S.th}>sessionStorage</th>
+                <th className="nt-th">Feature</th>
+                <th className="nt-th">localStorage</th>
+                <th className="nt-th">sessionStorage</th>
               </tr>
             </thead>
             <tbody>
@@ -752,15 +807,15 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
         </div>
 
         {/* ── API Methods Table ── */}
-        <h3 style={S.subHeader}>Storage API Methods</h3>
+        <h3 className="nt-sub-header">Storage API Methods</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Method / Property</th>
-                <th style={S.th}>Parameters</th>
-                <th style={S.th}>Returns</th>
-                <th style={S.th}>Description</th>
+                <th className="nt-th">Method / Property</th>
+                <th className="nt-th">Parameters</th>
+                <th className="nt-th">Returns</th>
+                <th className="nt-th">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -784,7 +839,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
         </div>
 
         {/* ── Usage Examples ── */}
-        <h3 style={S.subHeader}>Basic Usage</h3>
+        <h3 className="nt-sub-header">Basic Usage</h3>
         <pre style={S.code}>{`// Store
 localStorage.setItem("username", "Alice");
 localStorage.setItem("theme", "dark");
@@ -806,7 +861,7 @@ localStorage.key(0);  // "username"
 localStorage.clear();`}</pre>
 
         {/* ── JSON Pattern ── */}
-        <h3 style={S.subHeader}>JSON Integration Pattern</h3>
+        <h3 className="nt-sub-header">JSON Integration Pattern</h3>
         <pre style={S.code}>{`// ⚠ Web Storage only stores STRINGS!
 // To store objects or arrays, use JSON.stringify / JSON.parse
 
@@ -835,7 +890,7 @@ function getStoredData(key) {
 // ⚠ JSON.parse("")        → THROWS!     (dangerous!)`}</pre>
 
         {/* ── sessionStorage ── */}
-        <h3 style={S.subHeader}>sessionStorage Example</h3>
+        <h3 className="nt-sub-header">sessionStorage Example</h3>
         <pre style={S.code}>{`// Exact same API as localStorage
 sessionStorage.setItem("tempData", "123");
 sessionStorage.getItem("tempData");   // "123"
@@ -846,7 +901,7 @@ sessionStorage.clear();
 sessionStorage.setItem("step", "3");`}</pre>
 
         {/* ── Iterating Storage ── */}
-        <h3 style={S.subHeader}>Iterating Over All Stored Items</h3>
+        <h3 className="nt-sub-header">Iterating Over All Stored Items</h3>
         <pre style={S.code}>{`// Method 1: for loop with key()
 for (let i = 0; i < localStorage.length; i++) {
   const key = localStorage.key(i);
@@ -860,30 +915,30 @@ Object.keys(localStorage).forEach(key => {
 });`}</pre>
 
         {/* ── Storage Traps ── */}
-        <h3 style={S.subHeader}>⚠ Common Web Storage Traps</h3>
-        <div style={S.trap}>
+        <h3 className="nt-sub-header">⚠ Common Web Storage Traps</h3>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 1:</strong> Storage only stores <strong>STRINGS</strong>.
           <code>localStorage.setItem("num", 42)</code> stores the string <code>"42"</code>.
           <code>localStorage.getItem("num") === 42</code> → <code>false</code> (it's <code>"42"</code>).
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 2:</strong> <code>JSON.parse(null)</code> returns <code>null</code> (safe).
           <code>JSON.parse(undefined)</code> <strong>throws a SyntaxError</strong>!
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 3:</strong> <strong>Never store passwords or sensitive data</strong> in Web Storage.
           It's accessible to any JavaScript on the same origin (XSS vulnerable).
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 4:</strong> All storage operations are <strong>synchronous</strong> and block the main thread.
           Avoid storing very large amounts of data.
         </div>
-        <div style={S.trap}>
+        <div className="nt-trap">
           <strong style={{ color: '#d71921' }}>TRAP 5:</strong> <code>getItem()</code> returns <code>null</code> (not <code>undefined</code>) for missing keys.
         </div>
 
         {/* ── Storage Event ── */}
-        <h3 style={S.subHeader}>The storage Event</h3>
+        <h3 className="nt-sub-header">The storage Event</h3>
         <pre style={S.code}>{`// Fires in OTHER tabs/windows when localStorage changes
 window.addEventListener("storage", (event) => {
   console.log("Key changed:", event.key);
@@ -895,7 +950,7 @@ window.addEventListener("storage", (event) => {
 // NOTE: Does NOT fire in the same tab that made the change!`}</pre>
 
         {/* ── Interactive Storage Lab ── */}
-        <h3 style={S.subHeader}>Interactive Storage Lab</h3>
+        <h3 className="nt-sub-header">Interactive Storage Lab</h3>
         <div style={S.interactive}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
             <div>
@@ -908,14 +963,14 @@ window.addEventListener("storage", (event) => {
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-            <button style={S.btn} onClick={() => {
+            <button className="nt-button" onClick={() => {
               if (storageKey) { localStorage.setItem(storageKey, storageValue); refreshStorage(); setStorageResult(`Set "${storageKey}" = "${storageValue}"`); }
             }}>setItem</button>
-            <button style={S.btn} onClick={() => {
+            <button className="nt-button" onClick={() => {
               const v = localStorage.getItem(storageKey);
               setStorageResult(`getItem("${storageKey}") → ${v === null ? 'null' : `"${v}"`}`);
             }}>getItem</button>
-            <button style={S.btn} onClick={() => {
+            <button className="nt-button" onClick={() => {
               localStorage.removeItem(storageKey); refreshStorage();
               setStorageResult(`Removed "${storageKey}"`);
             }}>removeItem</button>
@@ -952,17 +1007,17 @@ window.addEventListener("storage", (event) => {
       {/* ╔══════════════════════════════════════════════════════╗
          ║  SECTION 4 — CHEAT SHEET                            ║
          ╚══════════════════════════════════════════════════════╝ */}
-      <section>
+      <section className="nt-section">
         <SectionHeader no="04" title="Cheat Sheet" icon={<FileText size={20} />} />
 
-        <h3 style={S.subHeader}>String Methods</h3>
+        <h3 className="nt-sub-header">String Methods</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Method</th>
-                <th style={S.th}>Example</th>
-                <th style={S.th}>Result</th>
+                <th className="nt-th">Method</th>
+                <th className="nt-th">Example</th>
+                <th className="nt-th">Result</th>
               </tr>
             </thead>
             <tbody>
@@ -993,14 +1048,14 @@ window.addEventListener("storage", (event) => {
           </table>
         </div>
 
-        <h3 style={S.subHeader}>Date Quick Reference</h3>
+        <h3 className="nt-sub-header">Date Quick Reference</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Method</th>
-                <th style={S.th}>Example</th>
-                <th style={S.th}>Note</th>
+                <th className="nt-th">Method</th>
+                <th className="nt-th">Example</th>
+                <th className="nt-th">Note</th>
               </tr>
             </thead>
             <tbody>
@@ -1026,14 +1081,14 @@ window.addEventListener("storage", (event) => {
           </table>
         </div>
 
-        <h3 style={S.subHeader}>Web Storage Quick Reference</h3>
+        <h3 className="nt-sub-header">Web Storage Quick Reference</h3>
         <div style={{ overflowX: 'auto' }}>
-          <table style={S.table}>
+          <table className="nt-table">
             <thead>
               <tr>
-                <th style={S.th}>Operation</th>
-                <th style={S.th}>Code</th>
-                <th style={S.th}>Note</th>
+                <th className="nt-th">Operation</th>
+                <th className="nt-th">Code</th>
+                <th className="nt-th">Note</th>
               </tr>
             </thead>
             <tbody>
@@ -1058,7 +1113,7 @@ window.addEventListener("storage", (event) => {
         </div>
 
         {/* ── Visual Diagram: Storage Lifecycle ── */}
-        <h3 style={S.subHeader}>Storage Lifecycle Diagram</h3>
+        <h3 className="nt-sub-header">Storage Lifecycle Diagram</h3>
         <div style={{ ...S.interactive, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 32 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 15 }}>
             <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start' }}>
@@ -1112,9 +1167,9 @@ window.addEventListener("storage", (event) => {
       {/* ╔══════════════════════════════════════════════════════╗
          ║  SECTION 5 — QUIZ                                   ║
          ╚══════════════════════════════════════════════════════╝ */}
-      <section>
+      <section className="nt-section">
         <SectionHeader no="05" title="Quiz" icon={<HelpCircle size={20} />} />
-        <p style={S.p}>
+        <p className="nt-prose">
           Test your understanding of String, Date, and Web Storage. Select an answer for each question, then check your results.
         </p>
 
@@ -1168,13 +1223,13 @@ window.addEventListener("storage", (event) => {
 
         <div style={{ display: 'flex', gap: 12 }}>
           <button
-            style={S.btn}
+            className="nt-button"
             onClick={() => setShowQuizResults(true)}
           >
             Check Answers
           </button>
           <button
-            style={S.btnOutline}
+            className="nt-button-secondary"
             onClick={() => { setQuizAnswers({}); setShowQuizResults(false); }}
           >
             Reset
