@@ -1,0 +1,51 @@
+1. JS Objects Character Processing
+2. String Methods: SearchStrings
+3. String Methods: Split and Substring
+4. Date Time
+5. Favorite Twitter Search
+
+
+
+Class Assessments
+1.
+ 
+	1. Why use Web application frameworks as opposed to hand-coding your Web app components (benefits if using the frameworks)
+	2. Make an exhaustive list of the contemporary Web development frameworks, including the underlying language as well
+	3. Provide a detailed comparison if any three of the, covering things like, the underlying language, learning curve, popularity, etc.
+
+2. 
+	- Make a Web Form that gets the user's IIUI email 
+	- Verify that a valid email has been provided
+	- Check for the presence of valid iiu domain: @iiu.edu.pk	
+	- From the provided, email extract student info: Reg#, Name, Degree Title,
+
+
+Assigments
+
+1.
+ 	
+	1.1 Install / enable web server in your computer
+	1.2 Host a test web page showing your name and Reg#
+	1.3 Add a 3-field data entry form	
+	    -NAME, REG, DOB, EMAIL
+	1.4 Create a  database table for user information, enter dummy data
+	
+2. 
+	2.1 Specify your best pick from the frameworks discussed in CT--PM-1, and provide a detailed review of the same. List down its key features	
+	    Elaborate on its pros and cons
+	2.2 List down the reasons why you'd like to use it yourself	
+
+
+3. 	
+	Obtain free web hosting and domain name for your personal web page
+	Host a personal web page containing your
+   	> Reg No
+   	> Name
+   	> List of Group Members
+   	> Recent Picture
+	Provide the URL of your web page to the sheet linked.
+	SUBMISSION: A pdf containing the URL and a screenshot of your web page
+
+	
+
+	

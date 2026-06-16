@@ -1,0 +1,70 @@
+.nothing-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid var(--nothing-border);
+}
+
+.btn-primary {
+  background: var(--nothing-text);
+  color: var(--nothing-bg);
+  border-color: var(--nothing-text);
+}
+
+.btn-primary:hover {
+  background: var(--nothing-bg);
+  color: var(--nothing-text);
+}
+
+.btn-secondary {
+  background: var(--nothing-surface);
+  color: var(--nothing-text);
+}
+
+.btn-secondary:hover {
+  background: var(--nothing-surface-hover);
+  border-color: var(--nothing-text);
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--nothing-text-muted);
+}
+
+.btn-ghost:hover {
+  color: var(--nothing-text);
+  background: rgba(255,255,255,0.05);
+}
+
+.btn-danger {
+  border-color: var(--nothing-red);
+  color: var(--nothing-red);
+}
+
+.btn-danger:hover {
+  background: var(--nothing-red);
+  color: var(--nothing-bg);
+}
+
+.btn-sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 10px;
+}
+
+.btn-md {
+  height: 40px;
+  padding: 0 16px;
+  font-size: 11px;
+}
+
+.btn-lg {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 13px;
+}

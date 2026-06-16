@@ -1,0 +1,30 @@
+.nothing-app {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.nothing-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nothing-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .nothing-app {
+    grid-template-columns: 1fr;
+  }
+  
+  .nothing-sidebar {
+    height: auto;
+    position: relative;
+  }
+}

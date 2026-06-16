@@ -1,0 +1,83 @@
+.nothing-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 64px;
+  border-bottom: 1px solid var(--nothing-border);
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  gap: 24px;
+}
+
+.search-container {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--nothing-text-muted);
+}
+
+.search-input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--nothing-border);
+  background: var(--nothing-surface);
+  padding: 0 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--nothing-text);
+  transition: 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--nothing-text);
+  background: var(--nothing-bg);
+}
+
+.search-shortcut {
+  position: absolute;
+  right: 8px;
+  border: 1px solid var(--nothing-border-hover);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 8px;
+  color: var(--nothing-text-muted);
+  background: var(--nothing-bg);
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.topbtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  border: 1px solid var(--nothing-border);
+  padding: 0 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--nothing-text-muted);
+  background: var(--nothing-surface);
+  transition: 0.2s ease;
+}
+
+.topbtn:hover {
+  background: var(--nothing-text);
+  color: var(--nothing-bg);
+  border-color: var(--nothing-text);
+}
