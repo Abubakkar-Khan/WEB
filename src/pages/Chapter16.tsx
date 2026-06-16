@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Globe, Send, ArrowRight, CheckCircle, XCircle, AlertTriangle, Search, User, ChevronDown, ChevronUp, Zap, Clock, Database } from 'lucide-react';
+import { Globe, Send, ArrowRight, CheckCircle, XCircle, AlertTriangle, Search, User, ChevronDown, ChevronUp, Zap, Clock, Database, Code2, Server, BookOpen, FileText, HelpCircle, Activity, RefreshCw } from 'lucide-react';
 
 // ─── Style Constants ────────────────────────────────────────────────
 const sectionStyle: React.CSSProperties = {
@@ -233,7 +233,7 @@ const AjaxSimulator: React.FC = () => {
       {responseText && (
         <div style={{ marginBottom: '44px' }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-dim)', marginBottom: '4px' }}>responseText</div>
-          <pre style={{ ...codeBlock, marginBottom: 0, color: '#4f4', fontSize: '17px' }}>{responseText}</pre>
+          <pre style={{ ...codeBlock, marginBottom: 0, color: 'var(--nothing-green)', fontSize: '17px' }}>{responseText}</pre>
         </div>
       )}
 
@@ -302,7 +302,7 @@ const JSONPlayground: React.FC = () => {
           </div>
         )}
         {parseResult && (
-          <pre style={{ ...codeBlock, marginBottom: 0, color: '#4f4', fontSize: '17px' }}>{parseResult}</pre>
+          <pre style={{ ...codeBlock, marginBottom: 0, color: 'var(--nothing-green)', fontSize: '17px' }}>{parseResult}</pre>
         )}
       </div>
 
@@ -320,7 +320,7 @@ const JSONPlayground: React.FC = () => {
         />
         <button onClick={handleStringify} style={{ ...btnStyle, marginBottom: '12px' }}>Stringify Object</button>
         {stringifyResult && (
-          <pre style={{ ...codeBlock, marginBottom: 0, color: '#4f4', fontSize: '17px' }}>{stringifyResult}</pre>
+          <pre style={{ ...codeBlock, marginBottom: 0, color: 'var(--nothing-green)', fontSize: '17px' }}>{stringifyResult}</pre>
         )}
       </div>
     </div>
@@ -384,7 +384,7 @@ const AddressBook: React.FC = () => {
           {loading ? '⟳ Loading...' : loaded ? '↻ Reload Contacts' : '▶ Fetch Contacts (Ajax)'}
         </button>
         {loaded && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: '#4f4' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-green)' }}>
             <CheckCircle size={12} style={{ marginRight: 4, verticalAlign: -1 }} />
             {contacts.length} contacts loaded
           </span>
@@ -568,9 +568,9 @@ const Quiz: React.FC = () => {
               const isCorrect = q.answer === oi;
               let bg = 'transparent';
               let borderColor = 'var(--nothing-border)';
-              if (showResults && isSelected && isCorrect) { bg = 'rgba(0,255,0,0.08)'; borderColor = '#4f4'; }
+              if (showResults && isSelected && isCorrect) { bg = 'var(--nothing-green-bg)'; borderColor = '#4f4'; }
               else if (showResults && isSelected && !isCorrect) { bg = 'rgba(215,25,33,0.08)'; borderColor = '#d71921'; }
-              else if (showResults && isCorrect) { bg = 'rgba(0,255,0,0.04)'; borderColor = 'rgba(0,255,0,0.3)'; }
+              else if (showResults && isCorrect) { bg = 'var(--nothing-green-bg)'; borderColor = 'var(--nothing-green-bg)'; }
               else if (isSelected) { bg = 'var(--nothing-surface-hover)'; borderColor = 'var(--nothing-text)'; }
 
               return (
@@ -635,36 +635,72 @@ const Quiz: React.FC = () => {
 // ═══════════════════════════════════════════════════════════════════
 // MAIN CHAPTER COMPONENT
 // ═══════════════════════════════════════════════════════════════════
+
+interface SectionHeaderProps {
+  no: string;
+  title: string;
+  icon?: React.ReactNode;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginBottom: '24px',
+      borderBottom: '1px solid var(--nothing-border)',
+      paddingBottom: '16px',
+      marginTop: '16px'
+    }}>
+      {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '11px',
+        color: 'var(--nothing-text-muted)',
+        border: '1px solid var(--nothing-border)',
+        padding: '2px 6px',
+        fontWeight: 400,
+        background: 'var(--nothing-surface-hover)',
+      }}>
+        {no}
+      </span>
+      <h2 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: '22px',
+        fontWeight: 700,
+        letterSpacing: '-0.015em',
+        color: 'var(--nothing-text)',
+        textTransform: 'uppercase',
+        margin: 0,
+      }}>
+        {title}
+      </h2>
+    </div>
+  );
+};
+
 export const Chapter16: React.FC = () => {
   return (
     <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '0px' }}>
       {/* ── Chapter Header ────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        style={{ marginBottom: '48px' }}
-      >
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-dim)', letterSpacing: '0.15em', marginBottom: '8px' }}>
-          CHAPTER
+      <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+          Chapter Sixteen
         </div>
-        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '64px', margin: 0, lineHeight: 0.95, letterSpacing: '0.08em' }}>
-          16 AJAX &amp; JSON
+        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }}>
+          16 · Ajax &amp; JSON
         </h1>
-        <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '18px', letterSpacing: '0.1em', marginTop: '12px' }}>
+        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
           XMLHttpRequest · Asynchronous Requests · Data Interchange
-        </div>
-        <div style={{ height: '1px', background: 'var(--nothing-border)', marginTop: '24px' }} />
-      </motion.div>
+        </p>
+      </div>
 
       {/* ══════════════════════════════════════════════════════════ */}
       {/* SECTION 1: WHAT IS AJAX                                  */}
       {/* ══════════════════════════════════════════════════════════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <Globe size={18} />
-          <span>01 — What Is Ajax</span>
-        </div>
+        <SectionHeader no="01" title="What Is Ajax" icon={<Globe size={18} />} />
 
         <p style={bodyText}>
           <strong style={{ color: 'var(--nothing-text)' }}>AJAX</strong> stands for <strong style={{ color: 'var(--nothing-text)' }}>Asynchronous JavaScript and XML</strong>. Despite the name, modern Ajax typically uses JSON rather than XML. The core idea: <em>send HTTP requests in the background and update only part of the page, without a full reload</em>.
@@ -719,7 +755,7 @@ export const Chapter16: React.FC = () => {
                 </span>
               </div>
             ))}
-            <div style={{ marginTop: '12px', padding: '8px', background: 'rgba(0,255,0,0.05)', border: '1px solid rgba(0,255,0,0.2)', fontFamily: 'var(--font-mono)', fontSize: '18px', color: '#4f4', textAlign: 'center' }}>
+            <div style={{ marginTop: '12px', padding: '8px', background: 'var(--nothing-green-bg)', border: '1px solid var(--nothing-green-bg)', fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-green)', textAlign: 'center' }}>
               ✓ Seamless, no page flicker
             </div>
           </div>
@@ -852,10 +888,7 @@ xhr.send();`}
       {/* SECTION 4: HTTP STATUS CODES                             */}
       {/* ══════════════════════════════════════════════════════════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <Database size={18} />
-          <span>04 — HTTP Status Codes</span>
-        </div>
+        <SectionHeader no="04" title="HTTP Status Codes" icon={<Database size={18} />} />
 
         <p style={bodyText}>
           When a server responds, it includes a numeric status code indicating the result. These are grouped by category. You must always check <code style={{ color: 'var(--nothing-text)' }}>xhr.status</code> in your Ajax callbacks.
@@ -864,7 +897,7 @@ xhr.send();`}
         {[
           {
             group: '2xx — Success',
-            color: '#4f4',
+            color: 'var(--nothing-green)',
             codes: [
               ['200', 'OK', 'Standard success response. The request was fulfilled.'],
               ['201', 'Created', 'Resource successfully created (typically after POST).'],
@@ -872,7 +905,7 @@ xhr.send();`}
           },
           {
             group: '3xx — Redirection',
-            color: '#ff0',
+            color: 'var(--nothing-yellow)',
             codes: [
               ['301', 'Moved Permanently', 'Resource has a new permanent URL. Update bookmarks.'],
               ['304', 'Not Modified', 'Resource unchanged since last request. Use cached version.'],
@@ -880,7 +913,7 @@ xhr.send();`}
           },
           {
             group: '4xx — Client Error',
-            color: '#f80',
+            color: 'var(--nothing-yellow)',
             codes: [
               ['400', 'Bad Request', 'Server cannot process the request due to client error (malformed syntax).'],
               ['401', 'Unauthorized', 'Authentication required. User is not logged in.'],
@@ -1022,7 +1055,7 @@ xhr.send(payload);  // Body with data`}
         <h3 style={subHeading}>JSON Syntax Rules</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
           <div style={{ padding: '24px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: '#4f4', marginBottom: '10px' }}>✓ VALID JSON</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-green)', marginBottom: '10px' }}>✓ VALID JSON</div>
             <pre style={{ ...codeBlock, border: 'none', padding: 0, marginBottom: 0 }}>
 {`{
   "name": "Alice",

@@ -491,8 +491,8 @@ const Quiz: React.FC = () => {
                   padding: '10px 16px',
                   marginBottom: '4px',
                   cursor: showResults ? 'default' : 'pointer',
-                  background: isCorrect ? 'rgba(0,255,100,0.1)' : isWrong ? 'rgba(215,25,33,0.1)' : chosen ? 'rgba(255,255,255,0.08)' : 'transparent',
-                  border: `1px solid ${isCorrect ? 'rgba(0,255,100,0.4)' : isWrong ? 'rgba(215,25,33,0.4)' : chosen ? 'var(--nothing-text-dim)' : 'transparent'}`,
+                  background: isCorrect ? 'var(--nothing-green-bg)' : isWrong ? 'rgba(215,25,33,0.1)' : chosen ? 'rgba(255,255,255,0.08)' : 'transparent',
+                  border: `1px solid ${isCorrect ? 'var(--nothing-green-bg)' : isWrong ? 'rgba(215,25,33,0.4)' : chosen ? 'var(--nothing-text-dim)' : 'transparent'}`,
                   color: isCorrect ? '#0f0' : isWrong ? 'var(--nothing-red)' : 'var(--nothing-text-muted)',
                   display: 'flex',
                   alignItems: 'center',
@@ -517,7 +517,7 @@ const Quiz: React.FC = () => {
         <button style={btnStyle} onClick={() => setShowResults(true)}>Check Answers</button>
         <button style={btnStyle} onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
         {showResults && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: score === quizData.length ? '#0f0' : 'var(--nothing-text-muted)' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: score === quizData.length ? 'var(--nothing-green)' : 'var(--nothing-text-muted)' }}>
             Score: {score}/{quizData.length}
           </span>
         )}
@@ -527,6 +527,51 @@ const Quiz: React.FC = () => {
 };
 
 /* ═══════════════════════ MAIN CHAPTER COMPONENT ═══════════════════════ */
+
+interface SectionHeaderProps {
+  no: string;
+  title: string;
+  icon?: React.ReactNode;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginBottom: '24px',
+      borderBottom: '1px solid var(--nothing-border)',
+      paddingBottom: '16px',
+      marginTop: '16px'
+    }}>
+      {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '11px',
+        color: 'var(--nothing-text-muted)',
+        border: '1px solid var(--nothing-border)',
+        padding: '2px 6px',
+        fontWeight: 400,
+        background: 'var(--nothing-surface-hover)',
+      }}>
+        {no}
+      </span>
+      <h2 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: '22px',
+        fontWeight: 700,
+        letterSpacing: '-0.015em',
+        color: 'var(--nothing-text)',
+        textTransform: 'uppercase',
+        margin: 0,
+      }}>
+        {title}
+      </h2>
+    </div>
+  );
+};
+
 export const Chapter12: React.FC = () => {
   return (
     <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -545,9 +590,7 @@ export const Chapter12: React.FC = () => {
 
       {/* ═══════ SECTION 1: DOM TREE STRUCTURE ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <TreePine size={20} /> 01 · DOM Tree Structure
-        </div>
+        <SectionHeader no="01" title="DOM Tree Structure" icon={<TreePine size={20} />} />
 
         <p style={prose}>
           When a browser loads an HTML page, it parses the markup and constructs a tree data structure called the
@@ -704,9 +747,7 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
 
       {/* ═══════ SECTION 2: SELECTING ELEMENTS ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <Search size={20} /> 02 · Selecting Elements
-        </div>
+        <SectionHeader no="02" title="Selecting Elements" icon={<Search size={20} />} />
 
         <p style={prose}>
           Before you can manipulate an element, you need a reference to it. The DOM provides several methods on
@@ -747,7 +788,7 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
         {/* Live vs Static explanation */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '44px' }}>
           <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '24px' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: '#0f0', marginBottom: '8px', fontWeight: 600 }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-green)', marginBottom: '8px', fontWeight: 600 }}>
               LIVE Collection (HTMLCollection)
             </div>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '18px', color: 'var(--nothing-text-muted)', lineHeight: 1.9 }}>
@@ -757,7 +798,7 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
             </p>
           </div>
           <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '24px' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: '#ff0', marginBottom: '8px', fontWeight: 600 }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-yellow)', marginBottom: '8px', fontWeight: 600 }}>
               STATIC Collection (NodeList)
             </div>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '18px', color: 'var(--nothing-text-muted)', lineHeight: 1.9 }}>
@@ -821,9 +862,7 @@ divArr.forEach(div => div.remove()); // Works correctly`}</pre>
 
       {/* ═══════ SECTION 3: CREATING / INSERTING / REMOVING ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <PlusCircle size={20} /> 03 · Creating, Inserting & Removing Nodes
-        </div>
+        <SectionHeader no="03" title="Creating, Inserting & Removing Nodes" icon={<PlusCircle size={20} />} />
 
         <p style={prose}>
           The DOM API lets you create new nodes, insert them at specific positions, replace existing nodes,
@@ -942,9 +981,7 @@ document.body.appendChild(deepCopy);`}</pre>
 
       {/* ═══════ SECTION 4: DOCUMENT COLLECTIONS ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <Layers size={20} /> 04 · Document Collections
-        </div>
+        <SectionHeader no="04" title="Document Collections" icon={<Layers size={20} />} />
 
         <p style={prose}>
           The <code style={{ color: 'var(--nothing-text)' }}>document</code> object provides built-in HTMLCollections for commonly accessed element types.
@@ -1008,9 +1045,7 @@ console.log(email.value);
 
       {/* ═══════ SECTION 5: DYNAMIC STYLING ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <Paintbrush size={20} /> 05 · Dynamic Styling
-        </div>
+        <SectionHeader no="05" title="Dynamic Styling" icon={<Paintbrush size={20} />} />
 
         <p style={prose}>
           JavaScript can dynamically change an element's visual appearance by modifying its
@@ -1107,9 +1142,7 @@ requestAnimationFrame(animate);`}</pre>
 
       {/* ═══════ SECTION 6: CHEAT SHEET ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <BookOpen size={20} /> 06 · Cheat Sheet
-        </div>
+        <SectionHeader no="06" title="Cheat Sheet" icon={<BookOpen size={20} />} />
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
           {/* Selecting */}
@@ -1235,9 +1268,7 @@ document.anchors       → DEPRECATED`}
 
       {/* ═══════ SECTION 7: QUIZ ═══════ */}
       <div style={sectionStyle}>
-        <div style={sectionTitle}>
-          <HelpCircle size={20} /> 07 · Quiz
-        </div>
+        <SectionHeader no="07" title="Quiz" icon={<HelpCircle size={20} />} />
         <p style={{ ...prose, marginBottom: '20px' }}>
           Test your understanding of the Document Object Model. Select one answer per question, then click <strong style={{ color: 'var(--nothing-text)' }}>Check Answers</strong>.
         </p>

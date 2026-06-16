@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Server, Cloud, Lock, AlertTriangle, Database, Eye, Key, Bug, FileWarning, MonitorX, Globe, Container, Rocket, GitBranch, Layers, Zap, BookOpen, CheckCircle, XCircle } from 'lucide-react';
+import { Shield, Server, Cloud, Lock, AlertTriangle, Database, Eye, Key, Bug, FileWarning, MonitorX, Globe, Container, Rocket, GitBranch, Layers, Zap, BookOpen, CheckCircle, XCircle, HelpCircle, Cpu } from 'lucide-react';
 
 /* ───────── shared inline style helpers ───────── */
 const sectionStyle: React.CSSProperties = { marginBottom: 48 };
@@ -81,6 +81,51 @@ const quizQuestions = [
 /* ═══════════════════════════════════════════════════════════════
    COMPONENT
    ═══════════════════════════════════════════════════════════════ */
+
+interface SectionHeaderProps {
+  no: string;
+  title: string;
+  icon?: React.ReactNode;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginBottom: '24px',
+      borderBottom: '1px solid var(--nothing-border)',
+      paddingBottom: '16px',
+      marginTop: '16px'
+    }}>
+      {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '11px',
+        color: 'var(--nothing-text-muted)',
+        border: '1px solid var(--nothing-border)',
+        padding: '2px 6px',
+        fontWeight: 400,
+        background: 'var(--nothing-surface-hover)',
+      }}>
+        {no}
+      </span>
+      <h2 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: '22px',
+        fontWeight: 700,
+        letterSpacing: '-0.015em',
+        color: 'var(--nothing-text)',
+        textTransform: 'uppercase',
+        margin: 0,
+      }}>
+        {title}
+      </h2>
+    </div>
+  );
+};
+
 export const BonusChapter: React.FC = () => {
   /* SQL Injection Demo state */
   const [sqlUser, setSqlUser] = useState('');
@@ -139,27 +184,23 @@ export const BonusChapter: React.FC = () => {
     <div style={{ padding: 32, maxWidth: 1100, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 48 }}>
 
       {/* ──────── CHAPTER HEADER ──────── */}
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <div style={{ marginBottom: 8 }}>
-          <span style={monoLabel}>BONUS MODULE</span>
+      <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+          Bonus Module
         </div>
-        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: 44, letterSpacing: '0.08em', textTransform: 'uppercase', margin: 0, lineHeight: 1 }}>
-          SECURITY · DEVOPS · ARCHITECTURE
+        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }}>
+          ++ · Security &amp; DevOps
         </h1>
-        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: 15, marginTop: 10, letterSpacing: '0.05em' }}>
-          Web Security Fundamentals · Modern Deployment · Architecture Patterns · Future Trends
+        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+          Web Security · Modern Deployment · Architecture &amp; Trends
         </p>
-        <div style={{ height: 2, background: 'linear-gradient(90deg, var(--nothing-text), transparent)', marginTop: 16 }} />
-      </motion.div>
+      </div>
 
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 1: WEB SECURITY                                    ║
          ╚══════════════════════════════════════════════════════════════╝ */}
       <section style={sectionStyle}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-          <Shield size={28} />
-          <h2 style={{ ...headingStyle, marginBottom: 0 }}>01 — WEB SECURITY</h2>
-        </div>
+        <SectionHeader no="01" title="Web Security" icon={<Shield size={22} />} />
 
         {/* ── OWASP Top 10 ── */}
         <div style={{ marginBottom: 36 }}>
@@ -234,7 +275,7 @@ export const BonusChapter: React.FC = () => {
           {showSanitized && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <div style={monoLabel}>PARAMETERIZED QUERY (SAFE)</div>
-              <pre style={{ ...codeBlock, borderColor: '#0f0' }}>
+              <pre style={{ ...codeBlock, borderColor: 'var(--nothing-green)' }}>
 {sanitizedQuery}
               </pre>
               <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 8 }}>
@@ -299,7 +340,7 @@ export const BonusChapter: React.FC = () => {
 
           {/* HTTP vs HTTPS comparison */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
-            <div style={{ ...cardStyle, borderLeft: '3px solid #d71921' }}>
+            <div style={{ ...cardStyle, borderLeft: '3px solid var(--nothing-red)' }}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#d71921' }}>HTTP</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 2 }}>
                 <li>Data sent in <strong style={{ color: 'var(--nothing-text)' }}>plaintext</strong></li>
@@ -309,8 +350,8 @@ export const BonusChapter: React.FC = () => {
                 <li>Man-in-the-middle attacks possible</li>
               </ul>
             </div>
-            <div style={{ ...cardStyle, borderLeft: '3px solid #0f0' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#0f0' }}>HTTPS</div>
+            <div style={{ ...cardStyle, borderLeft: '3px solid var(--nothing-green)' }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: 'var(--nothing-green)' }}>HTTPS</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 2 }}>
                 <li>Data <strong style={{ color: 'var(--nothing-text)' }}>encrypted</strong> via TLS</li>
                 <li>Confidentiality guaranteed</li>
@@ -396,7 +437,7 @@ export const BonusChapter: React.FC = () => {
                     <div key={l} style={{ padding: '10px 16px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
                   ))}
                 </div>
-                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid #0f0', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: '#0f0' }}>CONTAINER ENGINE (Docker)</div>
+                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid var(--nothing-green)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: 'var(--nothing-green)' }}>CONTAINER ENGINE (Docker)</div>
                 <div style={{ padding: '10px 16px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS (shared kernel)</div>
                 <div style={{ padding: '10px 16px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
               </div>
@@ -457,7 +498,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
           <table style={tableStyle}>
             <thead><tr>
               <th style={thStyle}>Aspect</th>
-              <th style={{ ...thStyle, color: '#0f0' }}>PaaS (Platform-as-a-Service)</th>
+              <th style={{ ...thStyle, color: 'var(--nothing-green)' }}>PaaS (Platform-as-a-Service)</th>
               <th style={thStyle}>IaaS (Infrastructure-as-a-Service)</th>
             </tr></thead>
             <tbody>
@@ -494,15 +535,15 @@ $ docker run -p 3000:3000 my-app`}</pre>
                   <div style={{ ...monoLabel, marginBottom: 8 }}>QUESTION {advisorStep + 1} OF {advisorQuestions.length}</div>
                   <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginBottom: 16 }}>{advisorQuestions[advisorStep].q}</p>
                   <div style={{ display: 'flex', gap: 12 }}>
-                    <button style={{ ...btnStyle, borderColor: '#0f0', color: '#0f0' }} onClick={() => handleAdvisorAnswer(true)}>YES</button>
-                    <button style={{ ...btnStyle, borderColor: '#d71921', color: '#d71921' }} onClick={() => handleAdvisorAnswer(false)}>NO</button>
+                    <button style={{ ...btnStyle, borderColor: 'var(--nothing-green)', color: 'var(--nothing-green)' }} onClick={() => handleAdvisorAnswer(true)}>YES</button>
+                    <button style={{ ...btnStyle, borderColor: 'var(--nothing-red)', color: '#d71921' }} onClick={() => handleAdvisorAnswer(false)}>NO</button>
                   </div>
                 </div>
               </div>
             ) : (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                <div style={{ padding: 20, border: '2px solid #0f0', background: 'rgba(0,255,0,0.04)' }}>
-                  <div style={{ ...monoLabel, color: '#0f0' }}>RECOMMENDATION</div>
+                <div style={{ padding: 20, border: '2px solid #0f0', background: 'var(--nothing-green-bg)' }}>
+                  <div style={{ ...monoLabel, color: 'var(--nothing-green)' }}>RECOMMENDATION</div>
                   <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginTop: 8 }}>{advisorResult}</p>
                 </div>
                 <button style={{ ...btnStyle, marginTop: 16 }} onClick={resetAdvisor}>TRY AGAIN</button>
@@ -549,7 +590,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)' }}>CI (Integration)</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <div style={{ width: 12, height: 12, border: '1px solid #0f0' }} />
+              <div style={{ width: 12, height: 12, border: '1px solid var(--nothing-green)' }} />
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)' }}>CD (Deployment)</span>
             </div>
           </div>
@@ -655,7 +696,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               { label: 'EVENT TRIGGER', sub: 'HTTP request, schedule, queue message', color: 'var(--nothing-text-muted)' },
               { label: 'COLD START', sub: 'Container spins up (if needed)', color: '#d71921' },
               { label: 'FUNCTION RUNS', sub: 'Your code executes', color: 'var(--nothing-text)' },
-              { label: 'RETURNS', sub: 'Response sent back', color: '#0f0' },
+              { label: 'RETURNS', sub: 'Response sent back', color: 'var(--nothing-green)' },
               { label: 'SCALES TO ZERO', sub: 'No charge when idle', color: 'var(--nothing-text-dim)' },
             ].map((step, i, arr) => (
               <React.Fragment key={step.label}>
@@ -765,7 +806,7 @@ app.post('/api/posts', async (req, res) => {
       <section style={sectionStyle}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <BookOpen size={28} />
-          <h2 style={{ ...headingStyle, marginBottom: 0 }}>04 — CHEAT SHEET</h2>
+          <SectionHeader no="04" title="Cheat Sheet" icon={<BookOpen size={22} />} />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
@@ -839,7 +880,7 @@ docker-compose up -d         # Start services`}</pre>
       <section style={sectionStyle}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <Zap size={28} />
-          <h2 style={{ ...headingStyle, marginBottom: 0 }}>05 — QUIZ</h2>
+          <SectionHeader no="05" title="Quiz" icon={<HelpCircle size={22} />} />
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -862,7 +903,7 @@ docker-compose up -d         # Start services`}</pre>
                     let borderColor = 'var(--nothing-border)';
                     let bg = 'transparent';
                     if (quizSubmitted) {
-                      if (isAnswer) { borderColor = '#0f0'; bg = 'rgba(0,255,0,0.06)'; }
+                      if (isAnswer) { borderColor = '#0f0'; bg = 'var(--nothing-green-bg)'; }
                       else if (isSelected && !isAnswer) { borderColor = '#d71921'; bg = 'rgba(215,25,33,0.06)'; }
                     } else if (isSelected) {
                       borderColor = '#fff'; bg = 'rgba(255,255,255,0.04)';
@@ -891,7 +932,7 @@ docker-compose up -d         # Start services`}</pre>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 24 }}>
           {!quizSubmitted ? (
-            <button style={{ ...btnStyle, borderColor: '#0f0', color: '#0f0' }}
+            <button style={{ ...btnStyle, borderColor: 'var(--nothing-green)', color: 'var(--nothing-green)' }}
               onClick={() => { if (quizAnswers.every(a => a !== null)) setQuizSubmitted(true); }}
             >
               SUBMIT QUIZ

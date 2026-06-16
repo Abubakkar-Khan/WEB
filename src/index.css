@@ -12,6 +12,10 @@
   --nothing-text-dim: #71717a;
   --nothing-accent: #f4f4f5;
   --nothing-red: #ef4444;
+  --nothing-green: #34d399;
+  --nothing-green-bg: rgba(52, 211, 153, 0.08);
+  --nothing-yellow: #f59e0b;
+  --nothing-yellow-bg: rgba(245, 158, 11, 0.08);
   --scanline-color: rgba(255, 255, 255, 0.015);
 
   /* Typography */
@@ -33,6 +37,10 @@
   --nothing-text-dim: #71717a;
   --nothing-accent: #18181b;
   --nothing-red: #dc2626;
+  --nothing-green: #059669;
+  --nothing-green-bg: rgba(5, 150, 105, 0.06);
+  --nothing-yellow: #d97706;
+  --nothing-yellow-bg: rgba(217, 119, 6, 0.06);
   --scanline-color: rgba(0, 0, 0, 0.02);
 }
 

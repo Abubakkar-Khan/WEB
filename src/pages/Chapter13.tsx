@@ -66,14 +66,14 @@ const labelMono: React.CSSProperties = {
   marginBottom: '8px',
 };
 const pitfallBox: React.CSSProperties = {
-  background: '#1a0000',
+  background: 'var(--nothing-red-bg)',
   border: '1px solid var(--nothing-red)',
   padding: '24px',
   marginBottom: '44px',
 };
 const tipBox: React.CSSProperties = {
-  background: '#001a00',
-  border: '1px solid #2a6',
+  background: 'var(--nothing-green-bg)',
+  border: '1px solid var(--nothing-green)',
   padding: '24px',
   marginBottom: '44px',
 };
@@ -90,6 +90,51 @@ const btnStyle: React.CSSProperties = {
 };
 
 /* ─────────────────────── COMPONENT ─────────────────────── */
+
+interface SectionHeaderProps {
+  no: string;
+  title: string;
+  icon?: React.ReactNode;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginBottom: '24px',
+      borderBottom: '1px solid var(--nothing-border)',
+      paddingBottom: '16px',
+      marginTop: '16px'
+    }}>
+      {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '11px',
+        color: 'var(--nothing-text-muted)',
+        border: '1px solid var(--nothing-border)',
+        padding: '2px 6px',
+        fontWeight: 400,
+        background: 'var(--nothing-surface-hover)',
+      }}>
+        {no}
+      </span>
+      <h2 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: '22px',
+        fontWeight: 700,
+        letterSpacing: '-0.015em',
+        color: 'var(--nothing-text)',
+        textTransform: 'uppercase',
+        margin: 0,
+      }}>
+        {title}
+      </h2>
+    </div>
+  );
+};
+
 export const Chapter13: React.FC = () => {
   /* ── Section 1 – Event Radar state ── */
   const [radarData, setRadarData] = useState<Record<string, string>>({
@@ -271,21 +316,21 @@ export const Chapter13: React.FC = () => {
   return (
     <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {/* ═══ HEADER ═══ */}
-      <header style={{ marginBottom: '40px' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-dim)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>
+      <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
           Chapter Thirteen
         </div>
-        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '64px', letterSpacing: '0.08em', textTransform: 'uppercase', margin: 0, lineHeight: 0.95 }}>
-          13 EVENTS
+        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }}>
+          13 · Events
         </h1>
-        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '17px', marginTop: '12px', letterSpacing: '0.04em' }}>
+        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
           Mouse · Keyboard · Form · Bubbling · Capturing · Delegation
         </p>
-      </header>
+      </div>
 
       {/* ═══ SECTION 1 — EVENT OBJECT PROPERTIES ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><Zap size={22} /> Event Object Properties</h2>
+        <SectionHeader no="01" title="Event Object Properties" icon={<Zap size={22} />} />
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '18px', marginBottom: '20px', lineHeight: 1.9 }}>
           Every event handler receives an <strong style={{ color: 'var(--nothing-text)' }}>Event object</strong> containing metadata about what happened. Mouse events carry coordinates; keyboard events carry key info; all events share a common base set of properties.
@@ -379,7 +424,7 @@ export const Chapter13: React.FC = () => {
 
       {/* ═══ SECTION 2 — MOUSE EVENTS ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><MousePointer size={22} /> Mouse Events</h2>
+        <SectionHeader no="02" title="Mouse Events" icon={<MousePointer size={22} />} />
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
           <table style={tableStyle}>
@@ -468,7 +513,7 @@ element.addEventListener('dblclick',  () => console.log('4. dblclick'));`}</pre>
 
       {/* ═══ SECTION 3 — KEYBOARD EVENTS ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><Keyboard size={22} /> Keyboard Events</h2>
+        <SectionHeader no="03" title="Keyboard Events" icon={<Keyboard size={22} />} />
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
           <table style={tableStyle}>
@@ -555,7 +600,7 @@ document.addEventListener('keyup', function(e) {
 
       {/* ═══ SECTION 4 — FORM EVENTS ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><FileText size={22} /> Form Events</h2>
+        <SectionHeader no="04" title="Form Events" icon={<FileText size={22} />} />
 
         <div style={{ overflowX: 'auto', marginBottom: '44px' }}>
           <table style={tableStyle}>
@@ -657,7 +702,7 @@ document.addEventListener('keyup', function(e) {
                     <motion.div
                       initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: '#2a6', marginTop: '4px' }}
+                      style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-green)', marginTop: '4px' }}
                     >
                       💡 {focusHints[field]}
                     </motion.div>
@@ -722,7 +767,7 @@ form.addEventListener('reset', function(e) {
 
       {/* ═══ SECTION 5 — BUBBLING & CAPTURING ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><Layers size={22} /> Event Bubbling & Capturing</h2>
+        <SectionHeader no="05" title="Event Bubbling & Capturing" icon={<Layers size={22} />} />
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '18px', marginBottom: '44px', lineHeight: 1.9 }}>
           When an event occurs, it doesn't just fire on the target element — it travels through the entire DOM tree in <strong style={{ color: 'var(--nothing-text)' }}>three phases</strong>.
@@ -739,13 +784,13 @@ form.addEventListener('reset', function(e) {
         }}>
           {/* Phase Labels */}
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', fontFamily: 'var(--font-mono)', fontSize: '18px' }}>
-            <div style={{ color: '#f80', padding: '6px 14px', border: '1px solid #f80', textTransform: 'uppercase' }}>
+            <div style={{ color: 'var(--nothing-yellow)', padding: '6px 14px', border: '1px solid #f80', textTransform: 'uppercase' }}>
               Phase 1: Capturing ↓
             </div>
             <div style={{ color: '#0af', padding: '6px 14px', border: '1px solid #0af', textTransform: 'uppercase' }}>
               Phase 2: Target ●
             </div>
-            <div style={{ color: '#0f8', padding: '6px 14px', border: '1px solid #0f8', textTransform: 'uppercase' }}>
+            <div style={{ color: 'var(--nothing-green)', padding: '6px 14px', border: '1px solid #0f8', textTransform: 'uppercase' }}>
               Phase 3: Bubbling ↑
             </div>
           </div>
@@ -754,7 +799,7 @@ form.addEventListener('reset', function(e) {
           <div style={{ display: 'flex', gap: '40px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
             {/* Capturing path */}
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', textAlign: 'center' }}>
-              <div style={{ color: '#f80', marginBottom: '4px' }}>CAPTURING ↓</div>
+              <div style={{ color: 'var(--nothing-yellow)', marginBottom: '4px' }}>CAPTURING ↓</div>
               {['window', 'document', 'html', 'body', 'div', '● button'].map((n, i) => (
                 <div key={i} style={{
                   padding: '6px 20px',
@@ -773,7 +818,7 @@ form.addEventListener('reset', function(e) {
 
             {/* Bubbling path */}
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', textAlign: 'center' }}>
-              <div style={{ color: '#0f8', marginBottom: '4px' }}>BUBBLING ↑</div>
+              <div style={{ color: 'var(--nothing-green)', marginBottom: '4px' }}>BUBBLING ↑</div>
               {['● button', 'div', 'body', 'html', 'document', 'window'].map((n, i) => (
                 <div key={i} style={{
                   padding: '6px 20px',
@@ -831,7 +876,7 @@ element.addEventListener('click', handler, {
             onClick={handleBubbleClick('outer')}
             style={{
               border: `2px solid ${activeLayer === 'outer' ? '#0f8' : 'var(--nothing-border)'}`,
-              background: activeLayer === 'outer' ? 'rgba(0,255,136,0.08)' : '#0a0a0a',
+              background: activeLayer === 'outer' ? 'var(--nothing-green-bg)' : '#0a0a0a',
               padding: '24px',
               cursor: 'pointer',
               transition: 'all 0.3s',
@@ -908,11 +953,11 @@ element.addEventListener('click', handler, {
 
       {/* ═══ SECTION 6 — stopPropagation vs preventDefault ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><ShieldOff size={22} /> stopPropagation vs preventDefault</h2>
+        <SectionHeader no="06" title="stopPropagation vs preventDefault" icon={<ShieldOff size={22} />} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '44px' }}>
           <div style={{ ...cardStyle, borderColor: '#f80' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, color: '#f80', marginBottom: '12px' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, color: 'var(--nothing-yellow)', marginBottom: '12px' }}>
               stopPropagation()
             </div>
             <p style={{ fontSize: '17px', color: 'var(--nothing-text-muted)', lineHeight: 1.9, marginBottom: '12px' }}>
@@ -939,7 +984,7 @@ element.addEventListener('click', handler, {
           </div>
         </div>
 
-        <div style={{ ...cardStyle, borderColor: '#d71921' }}>
+        <div style={{ ...cardStyle, borderColor: 'var(--nothing-red)' }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, color: 'var(--nothing-red)', marginBottom: '12px' }}>
             stopImmediatePropagation()
           </div>
@@ -1002,7 +1047,7 @@ btn.addEventListener('click', (e) => {
 
       {/* ═══ SECTION 7 — EVENT DELEGATION ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><GitMerge size={22} /> Event Delegation</h2>
+        <SectionHeader no="07" title="Event Delegation" icon={<GitMerge size={22} />} />
 
         <p style={{ color: 'var(--nothing-text-muted)', fontFamily: 'var(--font-sans)', fontSize: '18px', marginBottom: '20px', lineHeight: 1.9 }}>
           Instead of attaching a listener to <em>every</em> child element, attach <strong style={{ color: 'var(--nothing-text)' }}>ONE listener to the parent</strong> and use <code style={{ color: 'var(--nothing-text)' }}>event.target</code> to determine which child was clicked. This leverages event bubbling.
@@ -1114,7 +1159,7 @@ toolbar.appendChild(newBtn);
               <div style={{ color: 'var(--nothing-text-dim)' }}>Click items...</div>
             ) : (
               delegationLog.map((entry, i) => (
-                <div key={i} style={{ padding: '3px 0', color: '#2a6', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <div key={i} style={{ padding: '3px 0', color: 'var(--nothing-green)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   {i + 1}. {entry}
                 </div>
               ))
@@ -1125,7 +1170,7 @@ toolbar.appendChild(newBtn);
 
       {/* ═══ SECTION 8 — CHEAT SHEET ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><BookOpen size={22} /> Cheat Sheet</h2>
+        <SectionHeader no="08" title="Cheat Sheet" icon={<BookOpen size={22} />} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
           {/* Event Registration */}
@@ -1257,8 +1302,8 @@ parent.addEventListener('click', (e) => {
           }}>
             {[
               { name: 'clientX/Y', desc: 'Relative to VIEWPORT', color: '#0af', sub: '(visible area, ignores scroll)' },
-              { name: 'pageX/Y', desc: 'Relative to DOCUMENT', color: '#f80', sub: '(includes scroll offset)' },
-              { name: 'screenX/Y', desc: 'Relative to SCREEN', color: '#0f8', sub: '(physical monitor)' },
+              { name: 'pageX/Y', desc: 'Relative to DOCUMENT', color: 'var(--nothing-yellow)', sub: '(includes scroll offset)' },
+              { name: 'screenX/Y', desc: 'Relative to SCREEN', color: 'var(--nothing-green)', sub: '(physical monitor)' },
             ].map((c, i) => (
               <div key={i} style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '18px' }}>
                 <div style={{
@@ -1286,7 +1331,7 @@ parent.addEventListener('click', (e) => {
 
       {/* ═══ SECTION 9 — QUIZ ═══ */}
       <section style={sectionStyle}>
-        <h2 style={sectionTitle}><HelpCircle size={22} /> Quiz</h2>
+        <SectionHeader no="09" title="Quiz" icon={<HelpCircle size={22} />} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {questions.map((q, qi) => (

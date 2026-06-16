@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Code2, Calendar, Database, FileText, HelpCircle } from 'lucide-react';
 
 /* ──────────────────────────────────────────────────────────────
    Chapter 11 — JavaScript Built-in Objects
@@ -98,7 +99,7 @@ const S = {
     cursor: 'pointer',
   },
   trap: {
-    borderLeft: '3px solid #d71921',
+    borderLeft: '3px solid var(--nothing-red)',
     paddingLeft: 16,
     background: 'rgba(215,25,33,0.05)',
     padding: 24,
@@ -142,6 +143,51 @@ const S = {
 /* ══════════════════════════════════════════════════════════════
    COMPONENT
    ══════════════════════════════════════════════════════════════ */
+
+interface SectionHeaderProps {
+  no: string;
+  title: string;
+  icon?: React.ReactNode;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginBottom: '24px',
+      borderBottom: '1px solid var(--nothing-border)',
+      paddingBottom: '16px',
+      marginTop: '16px'
+    }}>
+      {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '11px',
+        color: 'var(--nothing-text-muted)',
+        border: '1px solid var(--nothing-border)',
+        padding: '2px 6px',
+        fontWeight: 400,
+        background: 'var(--nothing-surface-hover)',
+      }}>
+        {no}
+      </span>
+      <h2 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: '22px',
+        fontWeight: 700,
+        letterSpacing: '-0.015em',
+        color: 'var(--nothing-text)',
+        textTransform: 'uppercase',
+        margin: 0,
+      }}>
+        {title}
+      </h2>
+    </div>
+  );
+};
+
 export const Chapter11: React.FC = () => {
   // ── String Console state ───────────────────────────────────
   const [strInput, setStrInput] = useState('Hello, World!');
@@ -220,7 +266,7 @@ export const Chapter11: React.FC = () => {
          ║  SECTION 1 — STRING OBJECT                          ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section>
-        <h2 style={S.sectionHeader}>1 · String Object</h2>
+        <SectionHeader no="01" title="String Object" icon={<Code2 size={20} />} />
 
         <p style={S.p}>
           JavaScript strings are <strong style={{ color: 'var(--nothing-text)' }}>immutable</strong> sequences of UTF-16 code units.
@@ -448,7 +494,7 @@ const name = "Alice";
          ║  SECTION 2 — DATE OBJECT                            ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section>
-        <h2 style={S.sectionHeader}>2 · Date Object</h2>
+        <SectionHeader no="02" title="Date Object" icon={<Calendar size={20} />} />
 
         <p style={S.p}>
           The <code>Date</code> object represents a single point in time, stored internally as the number of <strong style={{ color: 'var(--nothing-text)' }}>milliseconds since January 1, 1970 00:00:00 UTC</strong> (the Unix Epoch).
@@ -665,7 +711,7 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
          ║  SECTION 3 — WEB STORAGE                            ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section>
-        <h2 style={S.sectionHeader}>3 · Web Storage API</h2>
+        <SectionHeader no="03" title="Web Storage API" icon={<Database size={20} />} />
 
         <p style={S.p}>
           The Web Storage API provides two mechanisms for storing key-value pairs in the browser:
@@ -907,7 +953,7 @@ window.addEventListener("storage", (event) => {
          ║  SECTION 4 — CHEAT SHEET                            ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section>
-        <h2 style={S.sectionHeader}>4 · Cheat Sheet</h2>
+        <SectionHeader no="04" title="Cheat Sheet" icon={<FileText size={20} />} />
 
         <h3 style={S.subHeader}>String Methods</h3>
         <div style={{ overflowX: 'auto' }}>
@@ -1026,11 +1072,11 @@ window.addEventListener("storage", (event) => {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
                   {['Page reload', 'Tab close', 'Browser close', 'System restart'].map((e, i) => (
-                    <div key={i} style={{ padding: '4px 12px', background: '#0a3a0a', border: '1px solid #1a5a1a', fontSize: 16 }}>
+                    <div key={i} style={{ padding: '4px 12px', background: 'var(--nothing-green-bg)', border: '1px solid var(--nothing-green)', fontSize: 16 }}>
                       ✓ Survives {e}
                     </div>
                   ))}
-                  <div style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 16 }}>
+                  <div style={{ padding: '4px 12px', background: 'var(--nothing-red-bg)', border: '1px solid var(--nothing-red)', fontSize: 16 }}>
                     ✗ clear() / removeItem()
                   </div>
                 </div>
@@ -1045,15 +1091,15 @@ window.addEventListener("storage", (event) => {
                   ↓ temporary
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
-                  <div style={{ padding: '4px 12px', background: '#0a3a0a', border: '1px solid #1a5a1a', fontSize: 16 }}>
+                  <div style={{ padding: '4px 12px', background: 'var(--nothing-green-bg)', border: '1px solid var(--nothing-green)', fontSize: 16 }}>
                     ✓ Survives Page reload
                   </div>
                   {['Tab close', 'Browser close', 'System restart'].map((e, i) => (
-                    <div key={i} style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 16 }}>
+                    <div key={i} style={{ padding: '4px 12px', background: 'var(--nothing-red-bg)', border: '1px solid var(--nothing-red)', fontSize: 16 }}>
                       ✗ Lost on {e}
                     </div>
                   ))}
-                  <div style={{ padding: '4px 12px', background: '#3a0a0a', border: '1px solid #5a1a1a', fontSize: 16 }}>
+                  <div style={{ padding: '4px 12px', background: 'var(--nothing-red-bg)', border: '1px solid var(--nothing-red)', fontSize: 16 }}>
                     ✗ Not shared across tabs
                   </div>
                 </div>
@@ -1067,7 +1113,7 @@ window.addEventListener("storage", (event) => {
          ║  SECTION 5 — QUIZ                                   ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section>
-        <h2 style={S.sectionHeader}>5 · Quiz</h2>
+        <SectionHeader no="05" title="Quiz" icon={<HelpCircle size={20} />} />
         <p style={S.p}>
           Test your understanding of String, Date, and Web Storage. Select an answer for each question, then check your results.
         </p>
