@@ -4,6 +4,8 @@ A comprehensive, gamified, and highly interactive learning platform built for th
 
 Designed with the brutalist, monochrome **Nothing Design Language** aesthetics.
 
+**Live Deployment:** [https://web001-swart.vercel.app/](https://web001-swart.vercel.app/)
+
 ---
 
 ## Table of Contents

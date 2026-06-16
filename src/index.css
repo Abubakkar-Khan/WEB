@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
 
 :root {
-  /* Soft Grayscale Palette (Dark Mode) - Easy on the eyes, modern tech aesthetic */
-  --nothing-bg: #09090b;
-  --nothing-surface: #18181b;
-  --nothing-surface-hover: #27272a;
-  --nothing-border: #3f3f46;
-  --nothing-border-hover: #52525b;
-  --nothing-text: #fafafa;
-  --nothing-text-muted: #a1a1aa;
-  --nothing-text-dim: #71717a;
-  --nothing-accent: #f4f4f5;
+  /* Stark Black & White Palette (Dark Mode) - Techcore, high contrast, industrial */
+  --nothing-bg: #000000;
+  --nothing-surface: #0a0a0a;
+  --nothing-surface-hover: #161616;
+  --nothing-border: #262626;
+  --nothing-border-hover: #404040;
+  --nothing-text: #ffffff;
+  --nothing-text-muted: #a3a3a3;
+  --nothing-text-dim: #525252;
+  --nothing-accent: #ffffff;
   --nothing-red: #ef4444;
+  --nothing-red-bg: rgba(239, 68, 68, 0.08);
   --nothing-green: #34d399;
   --nothing-green-bg: rgba(52, 211, 153, 0.08);
   --nothing-yellow: #f59e0b;
@@ -26,17 +27,18 @@
 }
 
 .light-theme {
-  /* Soft Zinc Palette (Light Mode) */
-  --nothing-bg: #fafafa;
-  --nothing-surface: #f4f4f5;
-  --nothing-surface-hover: #e4e4e7;
-  --nothing-border: #d4d4d8;
-  --nothing-border-hover: #a1a1aa;
-  --nothing-text: #09090b;
+  /* Stark White & Black Palette (Light Mode) */
+  --nothing-bg: #ffffff;
+  --nothing-surface: #f5f5f5;
+  --nothing-surface-hover: #e5e5e5;
+  --nothing-border: #e5e5e5;
+  --nothing-border-hover: #a3a3a3;
+  --nothing-text: #000000;
   --nothing-text-muted: #52525b;
   --nothing-text-dim: #71717a;
-  --nothing-accent: #18181b;
+  --nothing-accent: #000000;
   --nothing-red: #dc2626;
+  --nothing-red-bg: rgba(220, 38, 38, 0.06);
   --nothing-green: #059669;
   --nothing-green-bg: rgba(5, 150, 105, 0.06);
   --nothing-yellow: #d97706;

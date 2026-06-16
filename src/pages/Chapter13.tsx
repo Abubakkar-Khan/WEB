@@ -195,6 +195,30 @@ const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions
   );
 };
 
+
+interface ChapterHeaderProps {
+  num: string;
+  title: string;
+  subtitle: string;
+  chapterWord: string;
+}
+
+const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
+  return (
+    <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+        {chapterWord}
+      </div>
+      <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
+        {num} · {title}
+      </h1>
+      <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+        {subtitle}
+      </p>
+    </div>
+  );
+};
+
 export const Chapter13: React.FC = () => {
   /* ── Section 1 – Event Radar state ── */
   const [radarData, setRadarData] = useState<Record<string, string>>({
@@ -376,17 +400,7 @@ export const Chapter13: React.FC = () => {
   return (
     <div className="nt-page">
       {/* ═══ HEADER ═══ */}
-      <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
-          Chapter Thirteen
-        </div>
-        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }}>
-          13 · Events
-        </h1>
-        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-          Mouse · Keyboard · Form · Bubbling · Capturing · Delegation
-        </p>
-      </div>
+      <ChapterHeader num="13" title="Events" subtitle="Mouse · Keyboard · Form · Bubbling · Capturing · Delegation" chapterWord="Chapter Thirteen" />
 
       {/* ═══ SECTION 1 — EVENT OBJECT PROPERTIES ═══ */}
       <section className="nt-section">

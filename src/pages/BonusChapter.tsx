@@ -186,6 +186,30 @@ const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions
   );
 };
 
+
+interface ChapterHeaderProps {
+  num: string;
+  title: string;
+  subtitle: string;
+  chapterWord: string;
+}
+
+const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
+  return (
+    <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+        {chapterWord}
+      </div>
+      <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
+        {num} · {title}
+      </h1>
+      <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+        {subtitle}
+      </p>
+    </div>
+  );
+};
+
 export const BonusChapter: React.FC = () => {
   /* SQL Injection Demo state */
   const [sqlUser, setSqlUser] = useState('');
@@ -244,17 +268,7 @@ export const BonusChapter: React.FC = () => {
     <div className="nt-page">
 
       {/* ──────── CHAPTER HEADER ──────── */}
-      <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
-          Bonus Module
-        </div>
-        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }}>
-          ++ · Security &amp; DevOps
-        </h1>
-        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-          Web Security · Modern Deployment · Architecture &amp; Trends
-        </p>
-      </div>
+      <ChapterHeader num="++" title="Security &amp; DevOps" subtitle="Web Security · Modern Deployment · Architecture &amp; Trends" chapterWord="Bonus Module" />
 
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 1: WEB SECURITY                                    ║

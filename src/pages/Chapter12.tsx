@@ -574,6 +574,30 @@ const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions
   );
 };
 
+
+interface ChapterHeaderProps {
+  num: string;
+  title: string;
+  subtitle: string;
+  chapterWord: string;
+}
+
+const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
+  return (
+    <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+        {chapterWord}
+      </div>
+      <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
+        {num} · {title}
+      </h1>
+      <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--nothing-text-muted)', fontSize: '13px', marginTop: '12px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+        {subtitle}
+      </p>
+    </div>
+  );
+};
+
 export const Chapter12: React.FC = () => {
   return (
     <div className="nt-page">

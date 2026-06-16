@@ -28,7 +28,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeChapter, setActiveChapte
     <aside className={`nothing-sidebar ${mobileOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-brand">
         <div className="brand-row" style={{ padding: '12px 0' }}>
-          <h1 className="brand-title" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '32px', letterSpacing: '-0.02em', margin: 0, color: 'var(--nothing-text)' }}>
+          <h1 className="brand-title dot-text" style={{ fontFamily: 'var(--font-dot)', fontWeight: 700, fontSize: '32px', letterSpacing: '0.05em', margin: 0, color: 'var(--nothing-text)' }}>
             WEB
             <span style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--nothing-text-muted)', marginTop: '8px', fontWeight: 400, textTransform: 'uppercase' }}>
               Study Engine
@@ -63,24 +63,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeChapter, setActiveChapte
           );
         })}
       </nav>
-
-      <div style={{ marginTop: 'auto', borderTop: '1px solid var(--nothing-border)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        <button 
-          onClick={() => { if (confirm('Reset all progress?')) { useStore.getState().resetProgress(); }}} 
-          style={{ border: 0, borderRight: '1px solid var(--nothing-border)', padding: '14px 8px', fontFamily: 'var(--font-mono)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--nothing-text-muted)', background: 'transparent', cursor: 'pointer' }}
-        >
-          Reset
-        </button>
-        <button 
-          onClick={() => {
-            const data = { xp, level, streak, completed: completedLessons };
-            navigator.clipboard?.writeText(JSON.stringify(data, null, 2));
-          }}
-          style={{ border: 0, padding: '14px 8px', fontFamily: 'var(--font-mono)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--nothing-text-muted)', background: 'transparent', cursor: 'pointer' }}
-        >
-          Export
-        </button>
-      </div>
     </aside>
   );
 };
