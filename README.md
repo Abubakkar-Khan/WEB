@@ -1,91 +1,57 @@
 # WEB Interactive Study System
 
-A comprehensive, gamified, and highly interactive learning platform built for the IIUI Web Engineering syllabus. This system transforms traditional textbook chapters into a self-contained web experience featuring real-time code simulations, detailed method reference tables, and instant-feedback quizzes.
+An interactive Web Engineering study site for the IIUI course material. The app turns the chapter PDFs into a cleaner learning experience with readable notes, cheat sheets, examples, live demos, diagrams, and quizzes.
 
-Designed with the brutalist, monochrome **Nothing Design Language** aesthetics.
+The current UI direction combines a **Vercel-like neutral dark/light palette**, **Nothing-inspired sharp geometry**, and a **Swiss/utilitarian information layout**. The goal is simple: make dense course content easier to scan, practice, and remember on both desktop and mobile.
 
-**Live Deployment:** [https://web001-swart.vercel.app/](https://web001-swart.vercel.app/)
+Live deployment: [https://web001-swart.vercel.app/](https://web001-swart.vercel.app/)
 
 ---
 
-## Table of Contents
+## What It Covers
 
-1. [Key Features](#key-features)
-2. [System Architecture](#system-architecture)
-3. [Tech Stack](#tech-stack)
-4. [Project Structure](#project-structure)
-5. [Getting Started](#getting-started)
-6. [Gamification & State Management](#gamification--state-management)
-7. [Design System](#design-system)
+- **Chapter 11:** JavaScript objects, strings, dates, browser storage, traps, examples, and quiz practice.
+- **Chapter 12:** Document Object Model, selectors, nodes, DOM mutation, style/class manipulation, and live DOM demos.
+- **Chapter 13:** Browser events, propagation, delegation, forms, keyboard/mouse events, and event-flow demos.
+- **Chapter 16:** Ajax, JSON, APIs, request lifecycle, async behavior, and data handling.
+- **Bonus Module:** Security, deployment, containers, cloud hosting, architecture, REST, cheat sheets, practice lab, and quiz.
 
 ---
 
 ## Key Features
 
-- **Interactive Simulations:** Native React components that demonstrate core concepts in real-time (e.g., live String Method consoles, visual DOM Tree surgeons, Event bubbling radars).
-- **Comprehensive Reference Guides:** Every chapter acts as a dense, self-contained reference manual completely replacing the need for textbooks. Includes explicit warnings for common developer "traps".
-- **Built-in Gamification:** A global Zustand store tracks user XP, Levels, and login streaks, automatically persisting progress to `localStorage`.
-- **Chapter Summaries & Quizzes:** Auto-grading 5-question quizzes at the end of every chapter.
-- **Lazy Loading:** Massive chapter components are split and lazily loaded via React Suspense to guarantee instant initial renders.
+- **Readable chapter structure:** Consistent chapter headers, section headers, callouts, reference tables, and exercise cards.
+- **Live demos:** Interactive components for DOM operations, event behavior, strings, forms, storage, Ajax, and related concepts.
+- **Examples-first teaching:** Concepts are paired with code snippets, common mistakes, and practical "when to use this" notes.
+- **Practice mode content:** Exercise cards and the Bonus Practice Lab give assignment-style prompts instead of passive reading only.
+- **Responsive UI:** Layouts are tuned for desktop and mobile, with wide tables protected by horizontal scroll wrappers.
+- **Theme support:** Dark and light modes use shared CSS tokens so content stays readable across the app.
+- **Fast loading:** Chapters are lazy-loaded through React Suspense.
 
 ---
 
-## System Architecture
+## Design System
 
-The application follows a client-side Single Page Application (SPA) architecture with global state management for persistence.
+The app uses a strict token-based visual system in `src/index.css`.
 
-```mermaid
-graph TD
-    %% Core Architecture Diagram
-    User([User]) --> AppRouter
-    
-    subgraph Client Application [React + Vite SPA]
-        AppRouter[App Layout & Routing Shell]
-        
-        subgraph State Management [Zustand Store]
-            Store[(Local Storage Sync)]
-            Gamification[XP / Level / Streak State]
-            ChapterState[Completion Tracking]
-            
-            Gamification --- Store
-            ChapterState --- Store
-        end
-        
-        subgraph Content Modules [Lazy Loaded Chapters]
-            Ch11[Ch 11: JS Objects]
-            Ch12[Ch 12: DOM]
-            Ch13[Ch 13: Events]
-            Ch16[Ch 16: Ajax/JSON]
-            Bonus[Bonus: Security/DevOps]
-            
-            Simulations[[Interactive Simulations]]
-            Quizzes[[Chapter Quizzes]]
-            
-            Ch11 --- Simulations
-            Ch12 --- Simulations
-            Ch13 --- Simulations
-            Ch16 --- Simulations
-            Bonus --- Simulations
-            
-            Ch11 --- Quizzes
-            Ch12 --- Quizzes
-        end
-        
-        AppRouter -->|Reads/Writes| State Management
-        AppRouter -->|Renders| Content Modules
-    end
-```
+- **Dark mode:** Vercel-style true black and near-black neutrals.
+- **Light mode:** Soft grey-white surfaces instead of harsh pure white.
+- **Shape language:** Sharp, squared edges with small technical corner details.
+- **Typography:** Dot-style hero titles, compact mono labels, and readable body text.
+- **Color discipline:** Mostly neutral UI with limited red/green/yellow/blue semantic accents.
+- **Information density:** Clean, teacher-friendly layouts that avoid clutter while still keeping reference material complete.
 
 ---
 
 ## Tech Stack
 
-- **Core:** React 18 (TypeScript)
-- **Build Tool:** Vite
-- **Styling:** Vanilla CSS / CSS Modules (Strict adherence to Nothing design principles)
-- **State Management:** Zustand (with persist middleware)
-- **Icons:** Lucide React
-- **Animations:** Framer Motion (used for premium UI micro-interactions)
+- React 19
+- TypeScript
+- Vite
+- Zustand
+- Framer Motion
+- Lucide React
+- Vanilla CSS / CSS modules
 
 ---
 
@@ -93,70 +59,66 @@ graph TD
 
 ```text
 WEB_ENG/
-├── src/
-│   ├── components/
-│   │   ├── layout/         # Sidebar, Topbar, App shell
-│   │   ├── simulations/    # Interactive components (DOM Surgeon, Event Radar, etc.)
-│   │   └── ui/             # Reusable primitives (Buttons, Cards, DotText)
-│   ├── lib/
-│   │   ├── store.ts        # Zustand gamification store
-│   │   └── utils.ts        # Classname merging utilities
-│   ├── pages/              # Lazy-loaded chapter content components
-│   ├── App.tsx             # Main router and Suspense boundary
-│   ├── index.css           # Global Nothing Design CSS tokens
-│   └── main.tsx            # React root
-├── public/                 # Static assets
-└── package.json            # Dependencies
+|-- src/
+|   |-- components/
+|   |   |-- layout/       # App shell, sidebar, topbar
+|   |   |-- simulations/  # Interactive learning demos
+|   |   `-- ui/           # Shared UI primitives
+|   |-- lib/              # Store and utilities
+|   |-- pages/            # Chapter modules
+|   |-- App.tsx           # Main app routing shell
+|   |-- index.css         # Global design tokens and layout system
+|   `-- main.tsx          # React entry point
+|-- public/
+|-- Chapter 11.pdf
+|-- Chapter 12.pdf
+|-- Chapter 13.pdf
+|-- Chapter 16.pdf
+`-- package.json
 ```
 
 ---
 
 ## Getting Started
 
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm or yarn
+Install dependencies:
 
-### Installation
+```bash
+npm install
+```
 
-1. Clone the repository and navigate to the project directory:
-   ```bash
-   cd WEB_ENG
-   ```
+Run the development server:
 
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm run dev
+```
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+Build for production:
 
-4. Open your browser and navigate to `http://localhost:5173` (or the port specified in your terminal).
+```bash
+npm run build
+```
 
----
+Preview the production build:
 
-## Gamification & State Management
-
-Progress is automatically saved directly in the user's browser via `localStorage` under the key `web-study-storage`. 
-
-- **XP Generation:** Reading lessons, completing quizzes, and finishing interactive simulations awards XP.
-- **Leveling Curve:** Every 100 XP grants a new Level.
-- **Streak Tracking:** The application checks the system date on initialization to manage daily login streaks.
-- **Resetting Progress:** Users can reset their state entirely from the bottom left corner of the Sidebar navigation.
+```bash
+npm run preview
+```
 
 ---
 
-## Design System
+## Current UI Notes
 
-The application strictly enforces the **Nothing** brand aesthetics. All styling relies heavily on CSS variables defined in `index.css`:
+The visible XP/progress/level UI has been removed because it was not helping the course experience. The app now focuses on clear navigation, readable learning material, practical examples, and exercises.
 
-- **Color Palette:** Strictly monochrome. Pure black backgrounds (`#000000`), deep grey surfaces (`#0a0a0a`), and stark white text. Accents are restricted to bright red (`#d71921`) for warnings or traps.
-- **Typography:** 
-  - `Doto` (Dot-Matrix) for massive headers and branding.
-  - `Space Grotesk` for display titles.
-  - `Inter` for highly readable body text.
-  - `Monospace` (system defaults) for code and UI element labels.
-- **Textures:** The application uses pure CSS pseudo-elements to overlay dot-grid patterns and CRT scanline effects seamlessly onto the background.
+Some legacy state-management code may still exist internally, but the user-facing experience is intentionally study-first rather than game-first.
+
+---
+
+## Next Improvements
+
+- Convert the remaining inline demo diagrams into reusable theme-aware components.
+- Normalize every table to shared table classes so light mode is fully consistent.
+- Add a search/jump palette for concepts, methods, and examples.
+- Add more guided practice tasks with revealable solutions.
+- Add visual regression checks for desktop and mobile layouts.
