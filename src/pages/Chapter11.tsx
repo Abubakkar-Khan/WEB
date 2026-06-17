@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Code2, Calendar, Database, FileText, HelpCircle } from 'lucide-react';
+import { Code2, Calendar, Database, FileText, HelpCircle, Calculator, ToggleLeft } from 'lucide-react';
 
 // ─── Reusable inline-style tokens ────────────────────────────
 const S = {
@@ -304,6 +304,8 @@ export const Chapter11: React.FC = () => {
     { q: 'What does "hello".indexOf("xyz") return?', opts: ['undefined', 'false', '-1', '0'], correct: 2 },
     { q: 'What is new Date(2026, 0, 1).getMonth()?', opts: ['1', '0', 'January', 'Error'], correct: 1 },
     { q: 'localStorage stores values as:', opts: ['JSON objects', 'Numbers', 'Strings only', 'Any type'], correct: 2 },
+    { q: 'Which Math method rounds down?', opts: ['Math.round()', 'Math.ceil()', 'Math.floor()', 'Math.trunc()'], correct: 2 },
+    { q: 'What is Boolean("false")?', opts: ['false', 'true', 'SyntaxError', 'undefined'], correct: 1 },
     { q: '"abc".substring(1, 2) returns:', opts: ['"bc"', '"b"', '"ab"', '"a"'], correct: 1 },
     { q: 'JSON.parse(undefined) will:', opts: ['Return null', 'Return undefined', 'Throw an error', 'Return ""'], correct: 2 },
     { q: 'What does "Hello".charAt(99) return?', opts: ['undefined', 'null', 'Error', '""  (empty string)'], correct: 3 },
@@ -325,16 +327,18 @@ export const Chapter11: React.FC = () => {
   return (
     <div className="nt-page">
       {/* ──────────── CHAPTER HEADER ──────────── */}
-      <ChapterHeader num="11" title="Built-in Objects" subtitle="String · Date · Web Storage" chapterWord="Chapter Eleven" />
+      <ChapterHeader num="11" title="Built-in Objects" subtitle="String · Date · Math · Boolean · Web Storage" chapterWord="Chapter Eleven" />
 
       <div className="study-callout">
-        <strong>Study route:</strong> learn strings as input processors, dates as time values, and storage as browser memory. For practice, focus on method return values, edge cases, JSON conversion, and the assignment-style flow of storing form data safely.
+        <strong>Study route:</strong> learn strings as input processors, dates as time values, Math as numeric tooling, Boolean as truth testing, and storage as browser memory. For practice, focus on method return values, edge cases, JSON conversion, and the assignment-style flow of storing form data safely.
       </div>
 
       <div className="exercise-strip">
         {[
           ['String Drill', 'Extract the domain from user@iiu.edu.pk, uppercase the name, and handle a missing @ safely.'],
           ['Date Drill', 'Build a countdown that shows days left until an assignment deadline.'],
+          ['Math Drill', 'Calculate percentage, round it correctly, and clamp the score between 0 and 100.'],
+          ['Boolean Drill', 'Predict truthy/falsy results for form fields before using them in conditions.'],
           ['Storage Drill', 'Save a small profile object, reload it, parse it, then remove only one field.'],
         ].map(([title, desc]) => (
           <article className="exercise-card" key={title}>
@@ -794,7 +798,181 @@ if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
          ║  SECTION 3 — WEB STORAGE                            ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section className="nt-section">
-        <SectionHeader no="03" title="Web Storage API" icon={<Database size={20} />} />
+        <SectionHeader no="03" title="Math Object" icon={<Calculator size={20} />} />
+
+        <p className="nt-prose">
+          The <code>Math</code> object is a built-in utility object for numeric work. It is not a constructor, so you do
+          <strong style={{ color: 'var(--nothing-text)' }}> not</strong> write <code>new Math()</code>. Use it directly as
+          <code> Math.method()</code> or <code>Math.CONSTANT</code>.
+        </p>
+
+        <h3 className="nt-sub-header">Math Constants</h3>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="nt-table">
+            <thead>
+              <tr><th className="nt-th">Constant</th><th className="nt-th">Meaning</th><th className="nt-th">Typical Use</th></tr>
+            </thead>
+            <tbody>
+              {([
+                ['Math.PI', '3.14159...', 'Circle area, circumference, angles'],
+                ['Math.E', 'Euler number', 'Growth and decay formulas'],
+                ['Math.SQRT2', 'Square root of 2', 'Geometry calculations'],
+              ] as string[][]).map(([name, meaning, use], i) => (
+                <tr key={i}>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{name}</td>
+                  <td style={S.td}>{meaning}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{use}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="nt-sub-header">Common Math Methods</h3>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="nt-table">
+            <thead>
+              <tr><th className="nt-th">Method</th><th className="nt-th">Example</th><th className="nt-th">Result / Note</th></tr>
+            </thead>
+            <tbody>
+              {([
+                ['Math.round(x)', 'Math.round(4.6)', '5 - nearest integer'],
+                ['Math.floor(x)', 'Math.floor(4.9)', '4 - always down'],
+                ['Math.ceil(x)', 'Math.ceil(4.1)', '5 - always up'],
+                ['Math.trunc(x)', 'Math.trunc(4.9)', '4 - remove decimal part'],
+                ['Math.abs(x)', 'Math.abs(-12)', '12 - distance from zero'],
+                ['Math.max(...n)', 'Math.max(4, 9, 2)', '9'],
+                ['Math.min(...n)', 'Math.min(4, 9, 2)', '2'],
+                ['Math.pow(a,b)', 'Math.pow(2, 3)', '8 - same as 2 ** 3'],
+                ['Math.sqrt(x)', 'Math.sqrt(49)', '7'],
+                ['Math.random()', 'Math.random()', 'Random number from 0 up to less than 1'],
+              ] as string[][]).map(([method, example, result], i) => (
+                <tr key={i}>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{method}</td>
+                  <td style={S.td}>{example}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{result}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="nt-sub-header">Practical Patterns</h3>
+        <pre style={S.code}>{`// Random integer between min and max, inclusive
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+randomInt(1, 6); // dice roll
+
+// Clamp a value into a safe range
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+clamp(125, 0, 100); // 100
+
+// Percentage score
+const obtained = 42;
+const total = 50;
+const percent = Math.round((obtained / total) * 100); // 84`}</pre>
+
+        <h3 className="nt-sub-header">Common Math Traps</h3>
+        <div style={S.trap}>
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 1:</strong> <code>Math.random()</code> never returns 1.
+          It returns a number from <code>0</code> up to, but not including, <code>1</code>.
+        </div>
+        <div style={S.trap}>
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 2:</strong> <code>Math.round()</code>, <code>floor()</code>,
+          and <code>ceil()</code> are different. Pick the method based on the rule you need.
+        </div>
+        <div style={S.trap}>
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 3:</strong> <code>parseInt("10.9")</code> parses text;
+          it is not a rounding method. Use Math methods for numeric rounding.
+        </div>
+      </section>
+
+      <section className="nt-section">
+        <SectionHeader no="04" title="Boolean Object" icon={<ToggleLeft size={20} />} />
+
+        <p className="nt-prose">
+          A Boolean represents one of two logical values: <code>true</code> or <code>false</code>. In real code, you mostly
+          use primitive booleans from comparisons and conditions. Avoid creating Boolean wrapper objects with
+          <code> new Boolean()</code>.
+        </p>
+
+        <h3 className="nt-sub-header">Creating Boolean Values</h3>
+        <pre style={S.code}>{`const isAdult = age >= 18;
+const hasName = name.trim() !== "";
+const isValid = hasName && isAdult;
+
+Boolean("hello"); // true
+Boolean("");      // false
+Boolean(0);       // false
+Boolean(42);      // true`}</pre>
+
+        <h3 className="nt-sub-header">Truthy and Falsy Values</h3>
+        <p className="nt-prose">
+          JavaScript conditions convert values to booleans automatically. Values that become <code>false</code> are called
+          <strong style={{ color: 'var(--nothing-text)' }}> falsy</strong>. Most other values are truthy.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="nt-table">
+            <thead>
+              <tr><th className="nt-th">Falsy Value</th><th className="nt-th">Boolean Result</th><th className="nt-th">Common Trap</th></tr>
+            </thead>
+            <tbody>
+              {([
+                ['false', 'false', 'Already a boolean false'],
+                ['0', 'false', 'But "0" as a string is true'],
+                ['""', 'false', 'Empty string only; "false" is true'],
+                ['null', 'false', 'Missing intentional value'],
+                ['undefined', 'false', 'Variable or property has no value'],
+                ['NaN', 'false', 'Invalid number result'],
+              ] as string[][]).map(([value, result, trap], i) => (
+                <tr key={i}>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{value}</td>
+                  <td style={S.td}>{result}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{trap}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="nt-sub-header">Boolean Operators</h3>
+        <pre style={S.code}>{`// AND: all conditions must be true
+if (email.includes("@") && email.endsWith("@iiu.edu.pk")) {
+  console.log("Valid IIUI email");
+}
+
+// OR: at least one condition must be true
+if (role === "admin" || role === "teacher") {
+  console.log("Can access dashboard");
+}
+
+// NOT: invert the result
+if (!localStorage.getItem("user")) {
+  console.log("No saved user found");
+}`}</pre>
+
+        <h3 className="nt-sub-header">Common Boolean Traps</h3>
+        <div style={S.trap}>
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 1:</strong> <code>Boolean("false")</code> is
+          <strong> true</strong> because the string is not empty.
+        </div>
+        <div style={S.trap}>
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 2:</strong> <code>new Boolean(false)</code> creates an object,
+          and objects are truthy. Use <code>Boolean(value)</code>, not <code>new Boolean(value)</code>.
+        </div>
+        <div style={S.trap}>
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 3:</strong> <code>==</code> performs type conversion.
+          Prefer <code>===</code> when checking exact boolean values.
+        </div>
+      </section>
+
+      <section className="nt-section">
+        <SectionHeader no="05" title="Web Storage API" icon={<Database size={20} />} />
 
         <p className="nt-prose">
           The Web Storage API provides two mechanisms for storing key-value pairs in the browser:
@@ -1036,7 +1214,7 @@ window.addEventListener("storage", (event) => {
          ║  SECTION 4 — CHEAT SHEET                            ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section className="nt-section">
-        <SectionHeader no="04" title="Cheat Sheet" icon={<FileText size={20} />} />
+        <SectionHeader no="06" title="Cheat Sheet" icon={<FileText size={20} />} />
 
         <h3 className="nt-sub-header">String Methods</h3>
         <div style={{ overflowX: 'auto' }}>
@@ -1102,6 +1280,69 @@ window.addEventListener("storage", (event) => {
                 <tr key={i}>
                   <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{m}</td>
                   <td style={S.td}>{ex}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="nt-sub-header">Math Quick Reference</h3>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="nt-table">
+            <thead>
+              <tr>
+                <th className="nt-th">Method / Constant</th>
+                <th className="nt-th">Example</th>
+                <th className="nt-th">Use</th>
+              </tr>
+            </thead>
+            <tbody>
+              {([
+                ['Math.PI', 'Math.PI', 'Circle formulas'],
+                ['Math.round()', 'Math.round(4.6)', 'Nearest integer'],
+                ['Math.floor()', 'Math.floor(4.9)', 'Round down'],
+                ['Math.ceil()', 'Math.ceil(4.1)', 'Round up'],
+                ['Math.abs()', 'Math.abs(-7)', 'Positive distance from zero'],
+                ['Math.max()', 'Math.max(1,5,3)', 'Largest number'],
+                ['Math.min()', 'Math.min(1,5,3)', 'Smallest number'],
+                ['Math.random()', 'Math.random()', 'Random decimal 0 to less than 1'],
+              ] as string[][]).map(([m, ex, use], i) => (
+                <tr key={i}>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{m}</td>
+                  <td style={S.td}>{ex}</td>
+                  <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{use}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="nt-sub-header">Boolean Quick Reference</h3>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="nt-table">
+            <thead>
+              <tr>
+                <th className="nt-th">Expression</th>
+                <th className="nt-th">Result</th>
+                <th className="nt-th">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {([
+                ['Boolean("hello")', 'true', 'Non-empty strings are truthy'],
+                ['Boolean("")', 'false', 'Empty string is falsy'],
+                ['Boolean("false")', 'true', 'Text is still non-empty'],
+                ['Boolean(0)', 'false', 'Zero is falsy'],
+                ['Boolean([])', 'true', 'Arrays are objects, and objects are truthy'],
+                ['Boolean({})', 'true', 'Even empty objects are truthy'],
+                ['!value', 'inverse', 'Turns truthy into false and falsy into true'],
+                ['a && b', 'AND', 'Both conditions must pass'],
+                ['a || b', 'OR', 'One condition must pass'],
+              ] as string[][]).map(([expr, result, note], i) => (
+                <tr key={i}>
+                  <td style={{ ...S.td, fontWeight: 600, color: 'var(--nothing-text)' }}>{expr}</td>
+                  <td style={S.td}>{result}</td>
                   <td style={{ ...S.td, color: 'var(--nothing-text-muted)' }}>{note}</td>
                 </tr>
               ))}
@@ -1196,9 +1437,9 @@ window.addEventListener("storage", (event) => {
          ║  SECTION 5 — QUIZ                                   ║
          ╚══════════════════════════════════════════════════════╝ */}
       <section className="nt-section">
-        <SectionHeader no="05" title="Quiz" icon={<HelpCircle size={20} />} />
+        <SectionHeader no="07" title="Quiz" icon={<HelpCircle size={20} />} />
         <p className="nt-prose">
-          Test your understanding of String, Date, and Web Storage. Select an answer for each question, then check your results.
+          Test your understanding of String, Date, Math, Boolean, and Web Storage. Select an answer for each question, then check your results.
         </p>
 
         {quizzes.map((quiz, qi) => (
