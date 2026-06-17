@@ -216,7 +216,7 @@ const AjaxSimulator: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '44px' }}>
           <div style={{ padding: '18px', border: '1px solid var(--nothing-border)' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-dim)', marginBottom: '4px' }}>STATUS CODE</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: statusCode ? '#4f4' : 'var(--nothing-text-dim)' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: statusCode ? 'var(--nothing-text)' : 'var(--nothing-text-dim)' }}>
               {statusCode ?? '—'}
             </div>
           </div>
@@ -297,8 +297,8 @@ const JSONPlayground: React.FC = () => {
         <button onClick={handleParse} style={{ ...btnStyle, marginBottom: '12px' }}>Parse JSON</button>
         {parseError && (
           <div style={{ ...trapBox, marginBottom: '8px', padding: '16px' }}>
-            <XCircle size={14} color="#d71921" style={{ flexShrink: 0, marginTop: 2 }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: '#d71921' }}>{parseError}</span>
+            <XCircle size={14} color="var(--nothing-red)" style={{ flexShrink: 0, marginTop: 2 }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-red)' }}>{parseError}</span>
           </div>
         )}
         {parseResult && (
@@ -571,7 +571,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
       {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
       <span style={{
         fontFamily: 'var(--font-mono)',
-        fontSize: '11px',
+        fontSize: '13px',
         color: 'var(--nothing-text-muted)',
         border: '1px solid var(--nothing-border)',
         padding: '2px 6px',
@@ -732,12 +732,12 @@ const AjaxRequestCycle: React.FC = () => {
                   opacity: active ? 1 : 0.4,
                   transition: 'all 0.3s ease',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '12px'
+                  fontSize: '13px'
                 }}>
                   <div style={{ fontWeight: 'bold', color: current ? 'var(--nothing-text)' : 'var(--nothing-text-muted)' }}>
                     Step {s.id}: {s.title}
                   </div>
-                  {current && <div style={{ fontSize: '11px', color: 'var(--nothing-text-dim)', marginTop: '4px' }}>{s.desc}</div>}
+                  {current && <div style={{ fontSize: '13px', color: 'var(--nothing-text-dim)', marginTop: '4px' }}>{s.desc}</div>}
                 </div>
               );
             })}
@@ -746,7 +746,7 @@ const AjaxRequestCycle: React.FC = () => {
 
         {/* Network link in middle */}
         <div style={{ width: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', textTransform: 'uppercase', color: 'var(--nothing-text-dim)', marginBottom: '8px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', textTransform: 'uppercase', color: 'var(--nothing-text-dim)', marginBottom: '8px' }}>
             Network
           </div>
           <div style={{ width: '2px', flex: 1, background: 'var(--nothing-border)', position: 'relative' }}>
@@ -801,12 +801,12 @@ const AjaxRequestCycle: React.FC = () => {
                   opacity: active ? 1 : 0.4,
                   transition: 'all 0.3s ease',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '12px'
+                  fontSize: '13px'
                 }}>
                   <div style={{ fontWeight: 'bold', color: current ? 'var(--nothing-text)' : 'var(--nothing-text-muted)' }}>
                     Step {s.id}: {s.title}
                   </div>
-                  {current && <div style={{ fontSize: '11px', color: 'var(--nothing-text-dim)', marginTop: '4px' }}>{s.desc}</div>}
+                  {current && <div style={{ fontSize: '13px', color: 'var(--nothing-text-dim)', marginTop: '4px' }}>{s.desc}</div>}
                 </div>
               );
             })}
@@ -830,11 +830,11 @@ const AjaxRequestCycle: React.FC = () => {
 
       {/* Terminal log panel */}
       <div style={{ marginTop: '24px', background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '6px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '6px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
           <span>CONSOLE LOGS</span>
           <span style={{ color: 'var(--nothing-green)' }}>● ONLINE</span>
         </div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', minHeight: '120px', maxHeight: '200px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', minHeight: '120px', maxHeight: '200px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {logs.length === 0 ? (
             <div style={{ color: 'var(--nothing-text-dim)' }}>Console empty. Click "Run Simulation" or "Step Next" to start...</div>
           ) : (
@@ -868,7 +868,7 @@ interface ChapterHeaderProps {
 const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
   return (
     <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
         {chapterWord}
       </div>
       <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
@@ -889,6 +889,20 @@ export const Chapter16: React.FC = () => {
 
       <div className="study-callout">
         <strong>Study route:</strong> learn Ajax as a request lifecycle: create the request, send it, watch readyState, check status, parse JSON, then update the DOM. The address-book demo is the exam-style mental model for async data loading.
+      </div>
+
+      <div className="exercise-strip">
+        {[
+          ['readyState Drill', 'Write the five readyState values and what the UI should show at each stage.'],
+          ['JSON Drill', 'Parse a contacts JSON string, handle invalid JSON with try/catch, then render names.'],
+          ['Request Drill', 'Compare GET and POST for a search form, including URL, body, and headers.'],
+        ].map(([title, desc]) => (
+          <article className="exercise-card" key={title}>
+            <span>Exercise</span>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </article>
+        ))}
       </div>
 
       {/* ══════════════════════════════════════════════════════════ */}
@@ -917,17 +931,17 @@ export const Chapter16: React.FC = () => {
                 <div style={{
                   width: '20px', height: '20px', borderRadius: '50%',
                   border: '1px solid var(--nothing-border)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--nothing-text-dim)', flexShrink: 0,
+                  fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', flexShrink: 0,
                 }}>
                   {i + 1}
                 </div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: step.includes('FULL') || step.includes('ENTIRE') ? '#d71921' : 'var(--nothing-text-muted)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: step.includes('FULL') || step.includes('ENTIRE') ? 'var(--nothing-red)' : 'var(--nothing-text-muted)' }}>
                   {step}
                 </span>
               </div>
             ))}
-            <div style={{ marginTop: '12px', padding: '8px', background: 'rgba(215,25,33,0.08)', border: '1px solid rgba(215,25,33,0.2)', fontFamily: 'var(--font-mono)', fontSize: '18px', color: '#d71921', textAlign: 'center' }}>
-              ⚠ Screen flashes white on every interaction
+            <div style={{ marginTop: '12px', padding: '8px', background: 'var(--nothing-red-bg)', border: '1px solid rgba(215,25,33,0.2)', fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-red)', textAlign: 'center' }}>
+              Screen flashes on every interaction
             </div>
           </div>
 
@@ -936,22 +950,22 @@ export const Chapter16: React.FC = () => {
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-text-dim)', marginBottom: '44px', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>
               Ajax Model
             </div>
-            {['User interacts', 'JS creates XHR in background', 'Async HTTP Request →', 'User continues browsing', '← JSON/XML data response', 'JS updates ONLY changed DOM', 'Page stays loaded ✓'].map((step, i) => (
+            {['User interacts', 'JS creates XHR in background', 'Async HTTP Request →', 'User continues browsing', '← JSON/XML data response', 'JS updates ONLY changed DOM', 'Page stays loaded'].map((step, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
                 <div style={{
                   width: '20px', height: '20px', borderRadius: '50%',
-                  border: `1px solid ${step.includes('✓') ? '#4f4' : 'var(--nothing-border)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontFamily: 'var(--font-mono)', fontSize: '9px', color: step.includes('✓') ? '#4f4' : 'var(--nothing-text-dim)', flexShrink: 0,
+                  border: '1px solid var(--nothing-border)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', flexShrink: 0,
                 }}>
                   {i + 1}
                 </div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: step.includes('ONLY') || step.includes('✓') ? '#4f4' : 'var(--nothing-text-muted)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: step.includes('ONLY') ? 'var(--nothing-text)' : 'var(--nothing-text-muted)' }}>
                   {step}
                 </span>
               </div>
             ))}
             <div style={{ marginTop: '12px', padding: '8px', background: 'var(--nothing-green-bg)', border: '1px solid var(--nothing-green-bg)', fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-green)', textAlign: 'center' }}>
-              ✓ Seamless, no page flicker
+              Seamless, no page flicker
             </div>
           </div>
         </div>
@@ -1118,7 +1132,7 @@ xhr.send();`}
           },
           {
             group: '5xx — Server Error',
-            color: '#d71921',
+            color: 'var(--nothing-red)',
             codes: [
               ['500', 'Internal Server Error', 'Generic server-side failure. Bug in server code.'],
               ['503', 'Service Unavailable', 'Server is temporarily overloaded or under maintenance.'],
@@ -1227,9 +1241,9 @@ xhr.send(payload);  // Body with data`}
         </div>
 
         <div style={{ ...trapBox, marginTop: '20px' }}>
-          <AlertTriangle size={16} color="#d71921" style={{ flexShrink: 0, marginTop: 2 }} />
+          <AlertTriangle size={16} color="var(--nothing-red)" style={{ flexShrink: 0, marginTop: 2 }} />
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-muted)' }}>
-            <strong style={{ color: '#d71921' }}>TRAP:</strong> Forgetting <code>setRequestHeader("Content-Type", "application/json")</code> before <code>send()</code> on POST requests means the server won't parse your JSON body correctly. The call order is always: <code>open() → setRequestHeader() → send()</code>.
+            <strong style={{ color: 'var(--nothing-red)' }}>TRAP:</strong> Forgetting <code>setRequestHeader("Content-Type", "application/json")</code> before <code>send()</code> on POST requests means the server won't parse your JSON body correctly. The call order is always: <code>open() → setRequestHeader() → send()</code>.
           </div>
         </div>
       </div>
@@ -1250,7 +1264,7 @@ xhr.send(payload);  // Body with data`}
         <h3 className="nt-sub-header">JSON Syntax Rules</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
           <div style={{ padding: '24px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-green)', marginBottom: '10px' }}>✓ VALID JSON</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-text)', marginBottom: '10px' }}>VALID JSON</div>
             <pre style={{ ...codeBlock, border: 'none', padding: 0, marginBottom: 0 }}>
 {`{
   "name": "Alice",
@@ -1265,8 +1279,8 @@ xhr.send(payload);  // Body with data`}
             </pre>
           </div>
           <div style={{ padding: '24px', border: '1px solid var(--nothing-border)', background: 'var(--nothing-bg)' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: '#d71921', marginBottom: '10px' }}>✗ INVALID JSON</div>
-            <pre style={{ ...codeBlock, border: 'none', padding: 0, marginBottom: 0, color: '#d71921' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', color: 'var(--nothing-text)', marginBottom: '10px' }}>INVALID JSON</div>
+            <pre style={{ ...codeBlock, border: 'none', padding: 0, marginBottom: 0, color: 'var(--nothing-red)' }}>
 {`{
   name: "Alice",        // unquoted key
   'age': 30,            // single-quoted key
@@ -1281,7 +1295,7 @@ xhr.send(payload);  // Body with data`}
 
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-muted)', lineHeight: 2, marginBottom: '20px', paddingLeft: '12px', borderLeft: '2px solid var(--nothing-border)' }}>
           <strong style={{ color: 'var(--nothing-text)' }}>Allowed value types:</strong> string (double-quoted), number, boolean (true/false), null, object, array<br />
-          <strong style={{ color: '#d71921' }}>NOT allowed:</strong> undefined, functions, Symbol, comments, trailing commas, single quotes, unquoted keys
+          <strong style={{ color: 'var(--nothing-red)' }}>NOT allowed:</strong> undefined, functions, Symbol, comments, trailing commas, single quotes, unquoted keys
         </div>
 
         <h3 className="nt-sub-header">JSON.parse(text, reviver?)</h3>
@@ -1331,9 +1345,9 @@ JSON.stringify(obj, (key, value) => {
         </pre>
 
         <div style={trapBox}>
-          <AlertTriangle size={16} color="#d71921" style={{ flexShrink: 0, marginTop: 2 }} />
+          <AlertTriangle size={16} color="var(--nothing-red)" style={{ flexShrink: 0, marginTop: 2 }} />
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-muted)', lineHeight: 1.9 }}>
-            <strong style={{ color: '#d71921' }}>TRAPS:</strong><br />
+            <strong style={{ color: 'var(--nothing-red)' }}>TRAPS:</strong><br />
             • <code>JSON.parse("invalid")</code> → throws <strong>SyntaxError</strong>. Always use try/catch!<br />
             • <code>JSON.stringify(undefined)</code> → returns <strong>undefined</strong> (not a string)<br />
             • <code>JSON.stringify(&#123;a: undefined, b: function()&#123;&#125;&#125;)</code> → <code>'&#123;&#125;'</code> — properties with undefined/function values are <strong>omitted</strong><br />
@@ -1500,9 +1514,9 @@ function showDetail(contact) {
         <AddressBook />
 
         <div style={{ ...trapBox, marginTop: '20px' }}>
-          <AlertTriangle size={16} color="#d71921" style={{ flexShrink: 0, marginTop: 2 }} />
+          <AlertTriangle size={16} color="var(--nothing-red)" style={{ flexShrink: 0, marginTop: 2 }} />
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-muted)', lineHeight: 1.9 }}>
-            <strong style={{ color: '#d71921' }}>APPLICATION TRAPS:</strong><br />
+            <strong style={{ color: 'var(--nothing-red)' }}>APPLICATION TRAPS:</strong><br />
             • <strong>CORS:</strong> Ajax requests from <code>file://</code> protocol will be blocked. Must use a local HTTP server (e.g., <code>python -m http.server</code> or Live Server).<br />
             • <strong>Error handling:</strong> Always handle <code>xhr.status !== 200</code> and network failures. Show user-friendly error messages.<br />
             • <strong>Loading feedback:</strong> Show a spinner or "Loading..." message while <code>readyState &lt; 4</code>. Users need visual feedback.<br />

@@ -16,7 +16,7 @@ const LoadingFallback = () => (
     alignItems: 'center', 
     justifyContent: 'center', 
     fontFamily: 'var(--font-mono)', 
-    fontSize: '12px', 
+    fontSize: '14px',
     color: 'var(--nothing-text-muted)',
     letterSpacing: '0.1em',
     textTransform: 'uppercase'
@@ -27,11 +27,7 @@ const LoadingFallback = () => (
 
 function App() {
   const [activeChapter, setActiveChapter] = useState('ch11');
-  const { checkStreak, theme } = useStore();
-
-  React.useEffect(() => {
-    checkStreak();
-  }, [checkStreak]);
+  const { theme } = useStore();
 
   React.useEffect(() => {
     if (theme === 'light') {

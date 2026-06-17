@@ -159,7 +159,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
       {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
       <span style={{
         fontFamily: 'var(--font-mono)',
-        fontSize: '11px',
+        fontSize: '13px',
         color: 'var(--nothing-text-muted)',
         border: '1px solid var(--nothing-border)',
         padding: '2px 6px',
@@ -254,7 +254,7 @@ interface ChapterHeaderProps {
 const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
   return (
     <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
         {chapterWord}
       </div>
       <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
@@ -325,24 +325,24 @@ export const Chapter11: React.FC = () => {
   return (
     <div className="nt-page">
       {/* ──────────── CHAPTER HEADER ──────────── */}
-      <header>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, letterSpacing: '0.2em', color: 'var(--nothing-text-dim)', marginBottom: 8 }}>
-          CHAPTER
-        </div>
-        <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: 56, margin: 0, lineHeight: 0.95, letterSpacing: '0.05em' }}>
-          11
-        </h1>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 500, marginTop: 8, letterSpacing: '0.02em' }}>
-          JavaScript Built-in Objects
-        </h2>
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-muted)', letterSpacing: '0.08em', marginTop: 4 }}>
-          String · Date · Web Storage
-        </p>
-        <div style={{ height: 1, background: 'var(--nothing-border)', marginTop: 24 }} />
-      </header>
+      <ChapterHeader num="11" title="Built-in Objects" subtitle="String · Date · Web Storage" chapterWord="Chapter Eleven" />
 
       <div className="study-callout">
         <strong>Study route:</strong> learn strings as input processors, dates as time values, and storage as browser memory. For practice, focus on method return values, edge cases, JSON conversion, and the assignment-style flow of storing form data safely.
+      </div>
+
+      <div className="exercise-strip">
+        {[
+          ['String Drill', 'Extract the domain from user@iiu.edu.pk, uppercase the name, and handle a missing @ safely.'],
+          ['Date Drill', 'Build a countdown that shows days left until an assignment deadline.'],
+          ['Storage Drill', 'Save a small profile object, reload it, parse it, then remove only one field.'],
+        ].map(([title, desc]) => (
+          <article className="exercise-card" key={title}>
+            <span>Exercise</span>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </article>
+        ))}
       </div>
 
       {/* ╔══════════════════════════════════════════════════════╗
@@ -505,27 +505,27 @@ const name = "Alice";
 \`Hello, \${name}!\`;    // "Hello, Alice!"`}</pre>
 
         {/* ── String Traps ── */}
-        <h3 className="nt-sub-header">⚠ Common String Traps</h3>
+        <h3 className="nt-sub-header">Common String Traps</h3>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 1:</strong> <code>indexOf</code> returns <strong>-1</strong>, not <code>false</code> or <code>undefined</code>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 1:</strong> <code>indexOf</code> returns <strong>-1</strong>, not <code>false</code> or <code>undefined</code>.
           Using it in a boolean context is dangerous because <code>0</code> (valid index) is falsy.
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 2:</strong> <code>substring(start, end)</code> — the <strong>end index is exclusive</strong>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 2:</strong> <code>substring(start, end)</code> — the <strong>end index is exclusive</strong>.
           <code>"abc".substring(0, 2)</code> → <code>"ab"</code> (not <code>"abc"</code>).
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 3:</strong> <code>"hello".split("")</code> splits into <strong>every single character</strong>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 3:</strong> <code>"hello".split("")</code> splits into <strong>every single character</strong>.
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 4:</strong> All string methods are <strong>CASE SENSITIVE</strong>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 4:</strong> All string methods are <strong>CASE SENSITIVE</strong>.
           <code>"Hello".includes("hello")</code> → <code>false</code>.
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 5:</strong> <code>charAt()</code> out of range returns <strong>""</strong> (empty string), not <code>undefined</code>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 5:</strong> <code>charAt()</code> out of range returns <strong>""</strong> (empty string), not <code>undefined</code>.
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 6:</strong> Strings are <strong>IMMUTABLE</strong>. Methods always return <strong>new</strong> strings; the original is never modified.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 6:</strong> Strings are <strong>IMMUTABLE</strong>. Methods always return <strong>new</strong> strings; the original is never modified.
         </div>
 
         {/* ── Interactive String Console ── */}
@@ -705,21 +705,21 @@ if (d2 > d1) { console.log("d2 is later"); }
 if (d1.getTime() === d2.getTime()) { console.log("same moment"); }`}</pre>
 
         {/* ── Date Traps ── */}
-        <h3 className="nt-sub-header">⚠ Common Date Traps</h3>
+        <h3 className="nt-sub-header">Common Date Traps</h3>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 1:</strong> Months are <strong>0-indexed</strong>! January = 0, December = 11.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 1:</strong> Months are <strong>0-indexed</strong>! January = 0, December = 11.
           <code style={{ display: 'block', marginTop: 4 }}>new Date(2026, 1, 1)</code> → <strong>February</strong> 1, not January.
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 2:</strong> <code>getDate()</code> returns the <strong>day of the month</strong> (1-31).
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 2:</strong> <code>getDate()</code> returns the <strong>day of the month</strong> (1-31).
           <code>getDay()</code> returns the <strong>day of the week</strong> (0 = Sunday, 6 = Saturday). Don't confuse them!
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 3:</strong> <code>getYear()</code> is <strong>DEPRECATED</strong>. Always use <code>getFullYear()</code>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 3:</strong> <code>getYear()</code> is <strong>DEPRECATED</strong>. Always use <code>getFullYear()</code>.
           <code>getYear()</code> returns years since 1900 (e.g., 126 for 2026).
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 4:</strong> <code>new Date()</code> without <code>new</code> → returns a <strong>string</strong>, not a Date object.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 4:</strong> <code>new Date()</code> without <code>new</code> → returns a <strong>string</strong>, not a Date object.
           <code>Date()</code> → string. <code>new Date()</code> → Date object.
         </div>
 
@@ -943,26 +943,26 @@ Object.keys(localStorage).forEach(key => {
 });`}</pre>
 
         {/* ── Storage Traps ── */}
-        <h3 className="nt-sub-header">⚠ Common Web Storage Traps</h3>
+        <h3 className="nt-sub-header">Common Web Storage Traps</h3>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 1:</strong> Storage only stores <strong>STRINGS</strong>.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 1:</strong> Storage only stores <strong>STRINGS</strong>.
           <code>localStorage.setItem("num", 42)</code> stores the string <code>"42"</code>.
           <code>localStorage.getItem("num") === 42</code> → <code>false</code> (it's <code>"42"</code>).
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 2:</strong> <code>JSON.parse(null)</code> returns <code>null</code> (safe).
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 2:</strong> <code>JSON.parse(null)</code> returns <code>null</code> (safe).
           <code>JSON.parse(undefined)</code> <strong>throws a SyntaxError</strong>!
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 3:</strong> <strong>Never store passwords or sensitive data</strong> in Web Storage.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 3:</strong> <strong>Never store passwords or sensitive data</strong> in Web Storage.
           It's accessible to any JavaScript on the same origin (XSS vulnerable).
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 4:</strong> All storage operations are <strong>synchronous</strong> and block the main thread.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 4:</strong> All storage operations are <strong>synchronous</strong> and block the main thread.
           Avoid storing very large amounts of data.
         </div>
         <div className="nt-trap">
-          <strong style={{ color: '#d71921' }}>TRAP 5:</strong> <code>getItem()</code> returns <code>null</code> (not <code>undefined</code>) for missing keys.
+          <strong style={{ color: 'var(--nothing-red)' }}>TRAP 5:</strong> <code>getItem()</code> returns <code>null</code> (not <code>undefined</code>) for missing keys.
         </div>
 
         {/* ── Storage Event ── */}
@@ -1002,7 +1002,7 @@ window.addEventListener("storage", (event) => {
               localStorage.removeItem(storageKey); refreshStorage();
               setStorageResult(`Removed "${storageKey}"`);
             }}>removeItem</button>
-            <button style={{ ...S.btn, background: '#d71921', color: 'var(--nothing-text)' }} onClick={() => {
+            <button style={{ ...S.btn, background: 'var(--nothing-red)', color: 'var(--nothing-text)' }} onClick={() => {
               localStorage.clear(); refreshStorage();
               setStorageResult('Cleared all localStorage');
             }}>clear()</button>
@@ -1215,9 +1215,9 @@ window.addEventListener("storage", (event) => {
                 const isCorrect = quiz.correct === oi;
                 let bg = 'transparent';
                 let borderColor = 'var(--nothing-border)';
-                if (showQuizResults && selected && isCorrect) { bg = 'rgba(0,180,0,0.12)'; borderColor = '#0a5'; }
-                if (showQuizResults && selected && !isCorrect) { bg = 'rgba(215,25,33,0.12)'; borderColor = '#d71921'; }
-                if (showQuizResults && !selected && isCorrect) { bg = 'rgba(0,180,0,0.06)'; borderColor = '#0a5'; }
+                if (showQuizResults && selected && isCorrect) { bg = 'var(--nothing-surface-hover)'; borderColor = 'var(--nothing-text)'; }
+                if (showQuizResults && selected && !isCorrect) { bg = 'var(--nothing-red-bg)'; borderColor = 'var(--nothing-red)'; }
+                if (showQuizResults && !selected && isCorrect) { bg = 'var(--nothing-surface-hover)'; borderColor = 'var(--nothing-text)'; }
 
                 return (
                   <button
@@ -1240,8 +1240,8 @@ window.addEventListener("storage", (event) => {
                       {String.fromCharCode(65 + oi)}.
                     </span>
                     {opt}
-                    {showQuizResults && isCorrect && <span style={{ marginLeft: 8, color: '#0a5' }}>✓</span>}
-                    {showQuizResults && selected && !isCorrect && <span style={{ marginLeft: 8, color: '#d71921' }}>✗</span>}
+                    {showQuizResults && isCorrect && <span style={{ marginLeft: 8, color: 'var(--nothing-text)' }}>✓</span>}
+                    {showQuizResults && selected && !isCorrect && <span style={{ marginLeft: 8, color: 'var(--nothing-red)' }}>✗</span>}
                   </button>
                 );
               })}
@@ -1275,7 +1275,7 @@ window.addEventListener("storage", (event) => {
           }}>
             Score: {quizzes.filter((q, i) => quizAnswers[i] === q.correct).length} / {quizzes.length}
             {quizzes.filter((q, i) => quizAnswers[i] === q.correct).length === quizzes.length && (
-              <span style={{ marginLeft: 12, color: '#0a5' }}>★ Perfect!</span>
+              <span style={{ marginLeft: 12, color: 'var(--nothing-text)' }}>★ Perfect!</span>
             )}
           </div>
         )}

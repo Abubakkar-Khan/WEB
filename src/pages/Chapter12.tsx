@@ -64,7 +64,7 @@ const tdStyle: React.CSSProperties = {
   verticalAlign: 'top',
 };
 const trapBox: React.CSSProperties = {
-  background: 'rgba(215,25,33,0.08)',
+  background: 'var(--nothing-red-bg)',
   border: '1px solid rgba(215,25,33,0.3)',
   padding: '16px 20px',
   marginBottom: '44px',
@@ -490,7 +490,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
       {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
       <span style={{
         fontFamily: 'var(--font-mono)',
-        fontSize: '11px',
+        fontSize: '13px',
         color: 'var(--nothing-text-muted)',
         border: '1px solid var(--nothing-border)',
         padding: '2px 6px',
@@ -585,7 +585,7 @@ interface ChapterHeaderProps {
 const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
   return (
     <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
         {chapterWord}
       </div>
       <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
@@ -602,20 +602,24 @@ export const Chapter12: React.FC = () => {
   return (
     <div className="nt-page">
       {/* ── HEADER ── */}
-      <div style={{ marginBottom: '44px' }}>
-        <div style={{ fontFamily: 'var(--font-dot)', fontSize: '60px', letterSpacing: '0.08em', lineHeight: 0.9, textTransform: 'uppercase' }}>
-          12
-        </div>
-        <div style={{ fontFamily: 'var(--font-dot)', fontSize: '32px', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '8px' }}>
-          Document Object Model
-        </div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em', marginTop: '8px' }}>
-          DOM Tree · Selecting · Creating · Inserting · Removing · Collections · Dynamic Styling
-        </div>
-      </div>
+      <ChapterHeader num="12" title="Document Object Model" subtitle="DOM Tree · Selecting · Creating · Inserting · Removing · Collections · Dynamic Styling" chapterWord="Chapter Twelve" />
 
       <div className="study-callout">
         <strong>Study route:</strong> think of the DOM as the browser's live tree. Master how to select nodes, inspect relationships, change structure, and explain why live collections behave differently from static query results.
+      </div>
+
+      <div className="exercise-strip">
+        {[
+          ['Selector Drill', 'Select only links inside a nav, count them, and add an active class to the first one.'],
+          ['Node Drill', 'Create a list item, insert it before the second item, then replace it with a warning paragraph.'],
+          ['Style Drill', 'Toggle three classes from buttons and explain why classList is cleaner than style.cssText.'],
+        ].map(([title, desc]) => (
+          <article className="exercise-card" key={title}>
+            <span>Exercise</span>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </article>
+        ))}
       </div>
 
       {/* ═══════ SECTION 1: DOM TREE STRUCTURE ═══════ */}
@@ -807,7 +811,7 @@ h1.firstChild.nodeValue;   // "Hello"`}</pre>
                   <td key={j} style={{
                     ...tdStyle,
                     ...(j === 0 ? { color: 'var(--nothing-text)', fontWeight: 500 } : {}),
-                    ...(j === 3 ? { color: cell === 'LIVE' ? '#0f0' : cell === 'STATIC' ? '#ff0' : 'var(--nothing-text-dim)' } : {}),
+                    ...(j === 3 ? { color: cell === 'LIVE' ? 'var(--nothing-text)' : cell === 'STATIC' ? 'var(--nothing-text-muted)' : 'var(--nothing-text-dim)' } : {}),
                   }}>{cell}</td>
                 ))}
               </tr>

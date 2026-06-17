@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { useStore } from '../../lib/store';
 import './Topbar.css';
 

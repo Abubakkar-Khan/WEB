@@ -103,7 +103,7 @@ export const DOMSimulator: React.FC = () => {
           cursor: 'pointer',
           marginTop: '8px',
           fontFamily: 'var(--font-mono)',
-          fontSize: '12px'
+          fontSize: '13px'
         }}
       >
         <span style={{ color: 'var(--nothing-text-muted)' }}>&lt;{node.tag}&gt;</span>
@@ -129,11 +129,11 @@ export const DOMSimulator: React.FC = () => {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em' }}>NEW NODE TEXT</label>
+            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em' }}>NEW NODE TEXT</label>
             <input 
               value={newNodeText} 
               onChange={(e) => setNewNodeText(e.target.value)}
-              style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text)', padding: '12px', fontFamily: 'var(--font-mono)', fontSize: '12px' }}
+              style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text)', padding: '12px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}
             />
           </div>
 
@@ -143,8 +143,8 @@ export const DOMSimulator: React.FC = () => {
           </div>
 
           <div style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '12px', flexGrow: 1 }}>
-            <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', marginBottom: '8px' }}>ACTION LOG</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-muted)', marginBottom: '8px' }}>ACTION LOG</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {actionLog.map((log, i) => (
                 <li key={i} style={{ opacity: 1 - (i * 0.2) }}>&gt; {log}</li>
               ))}

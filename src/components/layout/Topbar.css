@@ -29,7 +29,7 @@
 
 .topbar-context strong {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 16px;
   color: var(--nothing-text);
   white-space: nowrap;
   overflow: hidden;
@@ -38,7 +38,7 @@
 
 .topbar-kicker {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--nothing-text-dim);
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -104,7 +104,7 @@
   right: 8px;
   border: 1px solid var(--nothing-border-hover);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   padding: 4px 8px;
   color: var(--nothing-text-muted);
   background: var(--nothing-bg);
@@ -124,7 +124,7 @@
   border: 1px solid var(--nothing-border);
   padding: 0 16px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--nothing-text-muted);
   background: var(--nothing-surface);

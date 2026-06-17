@@ -25,28 +25,28 @@ export const StringSimulator: React.FC = () => {
       <CardBody style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
         <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em' }}>BASE TEXT</label>
+            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em' }}>BASE TEXT</label>
             <textarea 
               value={text} 
               onChange={(e) => setText(e.target.value)}
-              style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text)', padding: '12px', fontFamily: 'var(--font-mono)', fontSize: '12px', minHeight: '80px', resize: 'vertical' }}
+              style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text)', padding: '12px', fontFamily: 'var(--font-mono)', fontSize: '13px', minHeight: '80px', resize: 'vertical' }}
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em' }}>SEARCH NEEDLE</label>
+            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-muted)', letterSpacing: '0.1em' }}>SEARCH NEEDLE</label>
             <input 
               value={needle} 
               onChange={(e) => setNeedle(e.target.value)}
-              style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text)', padding: '12px', fontFamily: 'var(--font-mono)', fontSize: '12px' }}
+              style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', color: 'var(--nothing-text)', padding: '12px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}
             />
           </div>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' }}>
-            <span style={{ border: '1px solid var(--nothing-border-hover)', padding: '4px 8px', fontSize: '10px', fontFamily: 'var(--font-mono)' }}>Zero-based index</span>
-            <span style={{ border: '1px solid var(--nothing-border-hover)', padding: '4px 8px', fontSize: '10px', fontFamily: 'var(--font-mono)' }}>Case sensitive</span>
+            <span style={{ border: '1px solid var(--nothing-border-hover)', padding: '4px 8px', fontSize: '13px', fontFamily: 'var(--font-mono)' }}>Zero-based index</span>
+            <span style={{ border: '1px solid var(--nothing-border-hover)', padding: '4px 8px', fontSize: '13px', fontFamily: 'var(--font-mono)' }}>Case sensitive</span>
           </div>
         </div>
 
-        <div className="output-group" style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px', fontFamily: 'var(--font-mono)', fontSize: '12px', lineHeight: 1.8, overflowX: 'auto' }}>
+        <div className="output-group" style={{ background: 'var(--nothing-bg)', border: '1px solid var(--nothing-border)', padding: '16px', fontFamily: 'var(--font-mono)', fontSize: '13px', lineHeight: 1.8, overflowX: 'auto' }}>
           <div><span style={{ color: 'var(--nothing-text-muted)' }}>length:</span> {results.length}</div>
           <div><span style={{ color: 'var(--nothing-text-muted)' }}>charAt(0):</span> {results.charAt0}</div>
           <div><span style={{ color: 'var(--nothing-text-muted)' }}>charCodeAt(0):</span> {results.charCodeAt0}</div>

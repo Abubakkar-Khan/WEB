@@ -3,15 +3,6 @@ import { motion } from 'framer-motion';
 import { Shield, Server, Cloud, Lock, AlertTriangle, Database, Eye, Key, Bug, FileWarning, MonitorX, Globe, Container, Rocket, GitBranch, Layers, Zap, BookOpen, CheckCircle, XCircle, HelpCircle, Cpu } from 'lucide-react';
 
 /* ───────── shared inline style helpers ───────── */
-const sectionStyle: React.CSSProperties = { marginBottom: 48 };
-const headingStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-dot)', letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-  fontSize: 32, marginBottom: 20, color: 'var(--nothing-text)',
-};
-const subHeadingStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-display)', fontSize: 24, marginBottom: 14,
-  color: 'var(--nothing-text)', borderBottom: '1px solid var(--nothing-border)', paddingBottom: 8,
-};
 const cardStyle: React.CSSProperties = {
   background: 'var(--nothing-surface)', border: '1px solid var(--nothing-border)',
   padding: 20, borderRadius: 0,
@@ -24,9 +15,6 @@ const codeBlock: React.CSSProperties = {
   background: 'var(--nothing-bg)', padding: 14, fontFamily: 'var(--font-mono)', fontSize: 16,
   border: '1px solid var(--nothing-border)', overflowX: 'auto', lineHeight: 1.9,
   color: 'var(--nothing-text)', whiteSpace: 'pre',
-};
-const tableStyle: React.CSSProperties = {
-  width: '100%', borderCollapse: 'collapse' as const, fontFamily: 'var(--font-mono)', fontSize: 15,
 };
 const thStyle: React.CSSProperties = {
   textAlign: 'left', padding: '12px 16px', borderBottom: '2px solid var(--nothing-border)',
@@ -102,7 +90,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
       {icon && <span style={{ color: 'var(--nothing-text)', display: 'flex', alignItems: 'center' }}>{icon}</span>}
       <span style={{
         fontFamily: 'var(--font-mono)',
-        fontSize: '11px',
+        fontSize: '13px',
         color: 'var(--nothing-text-muted)',
         border: '1px solid var(--nothing-border)',
         padding: '2px 6px',
@@ -127,66 +115,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ no, title, icon }) => {
 };
 
 
-interface UnifiedQuizQuestion {
-  q: string;
-  opts: string[];
-  ans: number;
-  explain: string;
-}
-
-const UnifiedQuiz: React.FC<{ questions: UnifiedQuizQuestion[] }> = ({ questions }) => {
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [showResults, setShowResults] = useState(false);
-
-  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.ans ? 1 : 0), 0);
-
-  return (
-    <div className="nt-quiz-container">
-      {questions.map((q, qi) => (
-        <div key={qi} className="nt-quiz-question-card">
-          <div className="nt-quiz-question-text">
-            <span className="nt-quiz-question-no">Q{qi + 1}.</span> {q.q}
-          </div>
-          <div>
-            {q.opts.map((opt, oi) => {
-              const chosen = answers[qi] === oi;
-              const isCorrect = showResults && oi === q.ans;
-              const isWrong = showResults && chosen && oi !== q.ans;
-              return (
-                <div
-                  key={oi}
-                  onClick={() => !showResults && setAnswers(prev => ({ ...prev, [qi]: oi }))}
-                  className={`nt-quiz-option ${chosen ? 'chosen' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'incorrect' : ''} ${showResults ? 'disabled' : ''}`}
-                >
-                  {showResults && isCorrect && <span style={{ marginRight: '8px', color: 'var(--nothing-green)' }}>✓</span>}
-                  {showResults && isWrong && <span style={{ marginRight: '8px', color: 'var(--nothing-red)' }}>✗</span>}
-                  <span style={{ color: 'var(--nothing-text-dim)', marginRight: '8px' }}>{String.fromCharCode(65 + oi)}.</span>
-                  {opt}
-                </div>
-              );
-            })}
-          </div>
-          {showResults && (
-            <div className="nt-quiz-explanation">
-              <strong>Explanation: </strong> {q.explain}
-            </div>
-          )}
-        </div>
-      ))}
-      <div className="nt-quiz-actions">
-        <button className="nt-button" onClick={() => setShowResults(true)}>Check Answers</button>
-        <button className="nt-button-secondary" onClick={() => { setAnswers({}); setShowResults(false); }}>Reset</button>
-        {showResults && (
-          <span className="nt-quiz-score">
-            Score: {score} / {questions.length}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-};
-
-
 interface ChapterHeaderProps {
   num: string;
   title: string;
@@ -197,7 +125,7 @@ interface ChapterHeaderProps {
 const ChapterHeader: React.FC<ChapterHeaderProps> = ({ num, title, subtitle, chapterWord }) => {
   return (
     <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '24px' }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>
         {chapterWord}
       </div>
       <h1 style={{ fontFamily: 'var(--font-dot)', fontSize: '48px', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0, lineHeight: 1.0, color: 'var(--nothing-text)' }} className="dot-text">
@@ -265,7 +193,7 @@ export const BonusChapter: React.FC = () => {
 
   /* ═══════════ RENDER ═══════════ */
   return (
-    <div className="nt-page">
+    <div className="nt-page bonus-page">
 
       {/* ──────── CHAPTER HEADER ──────── */}
       <ChapterHeader num="++" title="Security &amp; DevOps" subtitle="Web Security · Modern Deployment · Architecture &amp; Trends" chapterWord="Bonus Module" />
@@ -274,10 +202,33 @@ export const BonusChapter: React.FC = () => {
         <strong>Study route:</strong> connect security, hosting, containers, CI/CD, REST, and architecture to the class assignments. You should be able to justify a framework choice, deploy a simple page, and explain how frontend, backend, database, and network layers fit together.
       </div>
 
+      <nav className="bonus-map" aria-label="Bonus module sections">
+        <a href="#bonus-security">Security</a>
+        <a href="#bonus-deployment">Deployment</a>
+        <a href="#bonus-architecture">Architecture</a>
+        <a href="#bonus-cheatsheet">Cheat Sheet</a>
+        <a href="#bonus-practice">Practice</a>
+        <a href="#bonus-quiz">Quiz</a>
+      </nav>
+
+      <div className="exercise-strip">
+        {[
+          ['Security Drill', 'Identify the vulnerability, explain the attack path, then name the prevention.'],
+          ['Hosting Drill', 'Choose Vercel, PaaS, VPS, or serverless for three project scenarios.'],
+          ['Architecture Drill', 'Draw client, server, API, database, deployment, and CI/CD flow for a class project.'],
+        ].map(([title, desc]) => (
+          <article className="exercise-card" key={title}>
+            <span>Exercise</span>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </article>
+        ))}
+      </div>
+
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 1: WEB SECURITY                                    ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section className="nt-section">
+      <section className="nt-section bonus-section" id="bonus-security">
         <SectionHeader no="01" title="Web Security" icon={<Shield size={22} />} />
 
         {/* ── OWASP Top 10 ── */}
@@ -286,7 +237,7 @@ export const BonusChapter: React.FC = () => {
           <p className="nt-prose">
             The Open Web Application Security Project (OWASP) publishes a list of the ten most critical web application security risks. Understanding these is essential for building secure software.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
+          <div className="bonus-card-grid">
             {owaspData.map((item) => {
               const Icon = item.icon;
               const isExpanded = expandedOwasp === item.id;
@@ -305,7 +256,7 @@ export const BonusChapter: React.FC = () => {
                   {isExpanded && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ marginTop: 14 }}>
                       <div style={monoLabel}>EXAMPLE</div>
-                      <pre style={{ ...codeBlock, marginBottom: 12, color: '#d71921' }}>{item.example}</pre>
+                      <pre style={{ ...codeBlock, marginBottom: 12, color: 'var(--nothing-red)' }}>{item.example}</pre>
                       <div style={monoLabel}>PREVENTION</div>
                       <p style={{ fontSize: 15, color: 'var(--nothing-text)', lineHeight: 1.9, padding: '10px 16px', background: 'var(--nothing-surface)', border: '1px solid var(--nothing-border)' }}>{item.prevention}</p>
                     </motion.div>
@@ -318,11 +269,11 @@ export const BonusChapter: React.FC = () => {
 
         {/* ── Interactive SQL Injection Demo ── */}
         <div style={{ marginBottom: 36 }}>
-          <h3 className="nt-sub-header">🛡️ Interactive: SQL Injection Demo</h3>
+          <h3 className="nt-sub-header">Interactive: SQL Injection Demo</h3>
           <p style={{ color: 'var(--nothing-text-muted)', fontSize: 15, marginBottom: 16, lineHeight: 1.9 }}>
-            Type into the fields below to see how user input becomes part of a SQL query. Try typing <code style={{ color: '#d71921' }}>' OR '1'='1</code> into the username field.
+            Type into the fields below to see how user input becomes part of a SQL query. Try typing <code style={{ color: 'var(--nothing-red)' }}>' OR '1'='1</code> into the username field.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+          <div className="bonus-cluster" style={{ marginBottom: 16 }}>
             <div>
               <div style={monoLabel}>USERNAME</div>
               <input style={inputStyle} value={sqlUser} onChange={e => setSqlUser(e.target.value)} placeholder="e.g. admin" />
@@ -334,15 +285,15 @@ export const BonusChapter: React.FC = () => {
           </div>
 
           <div style={monoLabel}>GENERATED SQL QUERY (UNSAFE)</div>
-          <pre style={{ ...codeBlock, borderColor: isMalicious ? '#d71921' : 'var(--nothing-border)', marginBottom: 10 }}>
+          <pre style={{ ...codeBlock, borderColor: isMalicious ? 'var(--nothing-red)' : 'var(--nothing-border)', marginBottom: 10 }}>
 {unsafeQuery}
           </pre>
           {isMalicious && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              style={{ padding: '12px 16px', border: '1px solid #d71921', background: 'rgba(215,25,33,0.08)', marginBottom: 12 }}
+              style={{ padding: '12px 16px', border: '1px solid var(--nothing-red)', background: 'var(--nothing-red-bg)', marginBottom: 12 }}
             >
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: '#d71921' }}>
-                ⚠ INJECTION DETECTED — The single quote breaks out of the string literal, altering the SQL logic!
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-red)' }}>
+                Injection detected - the single quote breaks out of the string literal, altering the SQL logic.
               </span>
             </motion.div>
           )}
@@ -357,7 +308,7 @@ export const BonusChapter: React.FC = () => {
 {sanitizedQuery}
               </pre>
               <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 8 }}>
-                ✓ User input is treated as data, never as executable SQL. The database driver handles escaping.
+                User input is treated as data, never as executable SQL. The database driver handles escaping.
               </p>
             </motion.div>
           )}
@@ -366,7 +317,7 @@ export const BonusChapter: React.FC = () => {
         {/* ── Authentication vs Authorization ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 className="nt-sub-header">Authentication vs Authorization</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <div className="bonus-cluster bonus-cluster--wide">
             <div style={{ ...cardStyle, borderTop: '3px solid #fff' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <Key size={18} />
@@ -405,7 +356,7 @@ export const BonusChapter: React.FC = () => {
             </div>
           </div>
           <div style={{ ...cardStyle, marginTop: 16, display: 'flex', alignItems: 'center', gap: 16, padding: '14px 20px' }}>
-            <AlertTriangle size={16} style={{ color: '#d71921', flexShrink: 0 }} />
+            <AlertTriangle size={16} style={{ color: 'var(--nothing-red)', flexShrink: 0 }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-muted)' }}>
               KEY INSIGHT: Authentication always comes BEFORE authorization. You must know WHO the user is before deciding WHAT they can do.
             </span>
@@ -417,9 +368,9 @@ export const BonusChapter: React.FC = () => {
           <h3 className="nt-sub-header">HTTPS & TLS Handshake</h3>
 
           {/* HTTP vs HTTPS comparison */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
+          <div className="bonus-cluster" style={{ marginBottom: 24 }}>
             <div style={{ ...cardStyle, borderLeft: '3px solid var(--nothing-red)' }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: '#d71921' }}>HTTP</div>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 8, color: 'var(--nothing-red)' }}>HTTP</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text-muted)', fontSize: 15, lineHeight: 2 }}>
                 <li>Data sent in <strong style={{ color: 'var(--nothing-text)' }}>plaintext</strong></li>
                 <li>Vulnerable to eavesdropping</li>
@@ -483,25 +434,22 @@ export const BonusChapter: React.FC = () => {
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 2: DEVOPS & DEPLOYMENT                             ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section className="nt-section">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-          <Rocket size={28} />
-          <h2 style={{ ...headingStyle, marginBottom: 0 }}>02 — MODERN DEPLOYMENT & DEVOPS</h2>
-        </div>
+      <section className="nt-section bonus-section" id="bonus-deployment">
+        <SectionHeader no="02" title="Modern Deployment & DevOps" icon={<Rocket size={22} />} />
 
         {/* ── Docker / Containers ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 className="nt-sub-header">Containerization (Docker)</h3>
 
           {/* VM vs Container */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
+          <div className="bonus-cluster bonus-cluster--wide" style={{ marginBottom: 24 }}>
             <div style={cardStyle}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>VIRTUAL MACHINE</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {['App A', 'Bins/Libs', 'Guest OS'].map(l => (
                   <div key={l} style={{ padding: '10px 16px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
                 ))}
-                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: '#d71921' }}>HYPERVISOR</div>
+                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: 'var(--nothing-red)' }}>HYPERVISOR</div>
                 <div style={{ padding: '10px 16px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS</div>
                 <div style={{ padding: '10px 16px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
               </div>
@@ -525,6 +473,7 @@ export const BonusChapter: React.FC = () => {
 
           {/* Key Docker Concepts */}
           <div style={monoLabel}>KEY DOCKER CONCEPTS</div>
+          <div className="bonus-table-wrap">
           <table className="nt-table">
             <thead><tr>
               <th className="nt-th">Concept</th><th className="nt-th">Description</th>
@@ -542,6 +491,7 @@ export const BonusChapter: React.FC = () => {
               ))}
             </tbody>
           </table>
+          </div>
 
           {/* Example Dockerfile */}
           <div style={{ ...monoLabel, marginTop: 20 }}>EXAMPLE DOCKERFILE (NODE.JS APP)</div>
@@ -573,6 +523,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
         {/* ── Cloud Hosting ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 className="nt-sub-header">Cloud Hosting: PaaS vs IaaS</h3>
+          <div className="bonus-table-wrap">
           <table className="nt-table">
             <thead><tr>
               <th className="nt-th">Aspect</th>
@@ -597,6 +548,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               ))}
             </tbody>
           </table>
+          </div>
 
           {/* Deployment Advisor Interactive */}
           <div style={{ ...cardStyle, marginTop: 24, borderColor: 'var(--nothing-text-muted)' }}>
@@ -614,13 +566,13 @@ $ docker run -p 3000:3000 my-app`}</pre>
                   <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginBottom: 16 }}>{advisorQuestions[advisorStep].q}</p>
                   <div style={{ display: 'flex', gap: 12 }}>
                     <button style={{ ...btnStyle, borderColor: 'var(--nothing-green)', color: 'var(--nothing-green)' }} onClick={() => handleAdvisorAnswer(true)}>YES</button>
-                    <button style={{ ...btnStyle, borderColor: 'var(--nothing-red)', color: '#d71921' }} onClick={() => handleAdvisorAnswer(false)}>NO</button>
+                    <button style={{ ...btnStyle, borderColor: 'var(--nothing-red)', color: 'var(--nothing-red)' }} onClick={() => handleAdvisorAnswer(false)}>NO</button>
                   </div>
                 </div>
               </div>
             ) : (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                <div style={{ padding: 20, border: '2px solid #0f0', background: 'var(--nothing-green-bg)' }}>
+                <div style={{ padding: 20, border: '2px solid var(--nothing-text)', background: 'var(--nothing-green-bg)' }}>
                   <div style={{ ...monoLabel, color: 'var(--nothing-green)' }}>RECOMMENDATION</div>
                   <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginTop: 8 }}>{advisorResult}</p>
                 </div>
@@ -650,7 +602,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               <React.Fragment key={step.label}>
                 <div style={{
                   ...cardStyle, minWidth: 120, textAlign: 'center', padding: '16px 12px', flexShrink: 0,
-                  borderColor: i < 4 ? 'var(--nothing-border)' : '#0f0',
+                  borderColor: i < 4 ? 'var(--nothing-border)' : 'var(--nothing-text)',
                 }}>
                   <div style={{ fontSize: 22, marginBottom: 6 }}>{step.icon}</div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 700, marginBottom: 4 }}>{step.label}</div>
@@ -684,16 +636,13 @@ $ docker run -p 3000:3000 my-app`}</pre>
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 3: WEB ARCHITECTURE & FUTURE TRENDS                ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section className="nt-section">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-          <Layers size={28} />
-          <h2 style={{ ...headingStyle, marginBottom: 0 }}>03 — WEB ARCHITECTURE & FUTURE TRENDS</h2>
-        </div>
+      <section className="nt-section bonus-section" id="bonus-architecture">
+        <SectionHeader no="03" title="Web Architecture & Future Trends" icon={<Layers size={22} />} />
 
         {/* ── Monolith vs Microservices ── */}
         <div style={{ marginBottom: 36 }}>
           <h3 className="nt-sub-header">Monolith vs Microservices</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
+          <div className="bonus-cluster bonus-cluster--wide" style={{ marginBottom: 24 }}>
             {/* Monolith Diagram */}
             <div style={cardStyle}>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>MONOLITH</div>
@@ -736,6 +685,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
           </div>
 
           {/* Comparison table */}
+          <div className="bonus-table-wrap">
           <table className="nt-table">
             <thead><tr>
               <th className="nt-th">Aspect</th><th className="nt-th">Monolith</th><th className="nt-th">Microservices</th>
@@ -758,6 +708,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               ))}
             </tbody>
           </table>
+          </div>
         </div>
 
         {/* ── Serverless ── */}
@@ -769,10 +720,10 @@ $ docker run -p 3000:3000 my-app`}</pre>
 
           {/* Execution Flow */}
           <div style={monoLabel}>SERVERLESS EXECUTION FLOW</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 0, overflowX: 'auto', padding: '16px 0', marginBottom: 16 }}>
+          <div className="bonus-flow" style={{ marginBottom: 16 }}>
             {[
               { label: 'EVENT TRIGGER', sub: 'HTTP request, schedule, queue message', color: 'var(--nothing-text-muted)' },
-              { label: 'COLD START', sub: 'Container spins up (if needed)', color: '#d71921' },
+              { label: 'COLD START', sub: 'Container spins up (if needed)', color: 'var(--nothing-red)' },
               { label: 'FUNCTION RUNS', sub: 'Your code executes', color: 'var(--nothing-text)' },
               { label: 'RETURNS', sub: 'Response sent back', color: 'var(--nothing-green)' },
               { label: 'SCALES TO ZERO', sub: 'No charge when idle', color: 'var(--nothing-text-dim)' },
@@ -790,7 +741,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
             ))}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="bonus-cluster">
             <div style={cardStyle}>
               <div style={monoLabel}>PROVIDERS</div>
               <ul style={{ paddingLeft: 16, color: 'var(--nothing-text)', fontSize: 15, lineHeight: 2 }}>
@@ -822,7 +773,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
           </p>
 
           <div style={monoLabel}>REST PRINCIPLES</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12, marginBottom: 20 }}>
+          <div className="bonus-card-grid bonus-card-grid--dense" style={{ marginBottom: 20 }}>
             {[
               { title: 'Resources', desc: 'Everything is a resource identified by a URI (e.g. /api/posts/1)' },
               { title: 'HTTP Methods', desc: 'GET (read), POST (create), PUT (update), DELETE (remove)' },
@@ -837,6 +788,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
           </div>
 
           <div style={monoLabel}>EXAMPLE: BLOG API ENDPOINTS</div>
+          <div className="bonus-table-wrap">
           <table className="nt-table">
             <thead><tr>
               <th className="nt-th">Method</th><th className="nt-th">Endpoint</th><th className="nt-th">Description</th><th className="nt-th">Request Body</th>
@@ -852,7 +804,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
                 ['POST', '/api/posts/:id/comments', 'Add a comment to a post', '{ body, author }'],
               ].map(([m, e, d, b]) => (
                 <tr key={`${m}-${e}`}>
-                  <td style={{ ...tdStyle, fontWeight: 700, color: m === 'GET' ? '#0f0' : m === 'POST' ? '#00bfff' : m === 'PUT' ? '#ff0' : '#d71921' }}>{m}</td>
+                  <td style={{ ...tdStyle, fontWeight: 700, color: m === 'GET' ? 'var(--nothing-text)' : m === 'POST' ? 'var(--nothing-text)' : m === 'PUT' ? 'var(--nothing-text-muted)' : 'var(--nothing-red)' }}>{m}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)' }}>{e}</td>
                   <td className="nt-td">{d}</td>
                   <td style={{ ...tdStyle, fontSize: 15 }}>{b}</td>
@@ -860,6 +812,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               ))}
             </tbody>
           </table>
+          </div>
 
           <pre style={{ ...codeBlock, marginTop: 16 }}>{`// Example: Express.js REST endpoint
 app.get('/api/posts', async (req, res) => {
@@ -881,17 +834,15 @@ app.post('/api/posts', async (req, res) => {
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 4: CHEAT SHEET                                     ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section className="nt-section">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-          <BookOpen size={28} />
-          <SectionHeader no="04" title="Cheat Sheet" icon={<BookOpen size={22} />} />
-        </div>
+      <section className="nt-section bonus-section" id="bonus-cheatsheet">
+        <SectionHeader no="04" title="Cheat Sheet" icon={<BookOpen size={22} />} />
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
+        <div className="bonus-cluster bonus-cluster--wide">
           {/* Security Terms */}
           <div style={cardStyle}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>🛡️ Security Quick Reference</div>
-            <table style={{ ...tableStyle, fontSize: 16 }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>Security Quick Reference</div>
+            <div className="bonus-table-wrap">
+            <table className="bonus-mini-table">
               <tbody>
                 {[
                   ['SQLi', 'Inject SQL via user input to manipulate database'],
@@ -905,15 +856,16 @@ app.post('/api/posts', async (req, res) => {
                   ['CSP', 'Content Security Policy — restrict script sources'],
                   ['OWASP', 'Open Web Application Security Project'],
                 ].map(([term, def]) => (
-                  <tr key={term}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)', width: 70 }}>{term}</td><td className="nt-td">{def}</td></tr>
+                  <tr key={term}><td>{term}</td><td>{def}</td></tr>
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
 
           {/* Docker Commands */}
           <div style={cardStyle}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>🐳 Docker Commands</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>Docker Commands</div>
             <pre style={{ ...codeBlock, fontSize: 15, lineHeight: 1.9 }}>{`docker build -t name .      # Build image
 docker run -p 3000:3000 name # Run container
 docker ps                    # List running
@@ -928,11 +880,12 @@ docker-compose up -d         # Start services`}</pre>
 
           {/* Architecture Comparison */}
           <div style={cardStyle}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>🏗️ Architecture At-a-Glance</div>
-            <table style={{ ...tableStyle, fontSize: 15 }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>Architecture At-a-Glance</div>
+            <div className="bonus-table-wrap">
+            <table className="bonus-mini-table">
               <thead><tr>
-                <th style={{ ...thStyle, fontSize: 16 }}>Pattern</th>
-                <th style={{ ...thStyle, fontSize: 16 }}>When to Use</th>
+                <th>Pattern</th>
+                <th>When to Use</th>
               </tr></thead>
               <tbody>
                 {[
@@ -944,22 +897,64 @@ docker-compose up -d         # Start services`}</pre>
                   ['PaaS', 'Quick deployment, no infra management'],
                   ['IaaS', 'Full control, custom infrastructure'],
                 ].map(([p, u]) => (
-                  <tr key={p}><td style={{ ...tdStyle, fontWeight: 700, color: 'var(--nothing-text)' }}>{p}</td><td className="nt-td">{u}</td></tr>
+                  <tr key={p}><td>{p}</td><td>{u}</td></tr>
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section className="nt-section bonus-section" id="bonus-practice">
+        <SectionHeader no="05" title="Practice Lab" icon={<Zap size={22} />} />
+        <p className="nt-prose">
+          Use these as short assignment-style checks. Each one forces you to connect the term to a decision, a risk, or a working implementation detail.
+        </p>
+        <div className="bonus-practice-grid">
+          {[
+            {
+              title: 'Attack Trace',
+              label: 'Security',
+              body: 'Given a login form, show how SQL injection changes the query. Then rewrite it as a parameterized query.',
+              checks: ['Name the vulnerable string concatenation', 'Show the safe query shape', 'Explain why escaping alone is weaker'],
+            },
+            {
+              title: 'Deploy Decision',
+              label: 'DevOps',
+              body: 'Pick hosting for a static portfolio, a Node API, and a containerized team app. Defend each choice in one sentence.',
+              checks: ['Mention cost and scaling', 'Mention operational control', 'Mention deployment workflow'],
+            },
+            {
+              title: 'Architecture Sketch',
+              label: 'System',
+              body: 'Draw a request from browser to API to database, then add CDN, CI/CD, logging, and TLS into the diagram.',
+              checks: ['Separate frontend/backend/database', 'Mark trust boundaries', 'Show where monitoring belongs'],
+            },
+            {
+              title: 'REST Review',
+              label: 'API',
+              body: 'Design endpoints for posts and comments. Use correct HTTP verbs and explain which requests need a body.',
+              checks: ['Use plural resource names', 'Keep GET body-free', 'Return clear JSON response shapes'],
+            },
+          ].map((task) => (
+            <article className="bonus-practice-card" key={task.title}>
+              <span>{task.label}</span>
+              <h3>{task.title}</h3>
+              <p>{task.body}</p>
+              <ul>
+                {task.checks.map((check) => <li key={check}>{check}</li>)}
+              </ul>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* ╔══════════════════════════════════════════════════════════════╗
          ║  SECTION 5: QUIZ                                            ║
          ╚══════════════════════════════════════════════════════════════╝ */}
-      <section className="nt-section">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-          <Zap size={28} />
-          <SectionHeader no="05" title="Quiz" icon={<HelpCircle size={22} />} />
-        </div>
+      <section className="nt-section bonus-section" id="bonus-quiz">
+        <SectionHeader no="06" title="Quiz" icon={<HelpCircle size={22} />} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {quizQuestions.map((q, qi) => {
@@ -968,7 +963,7 @@ docker-compose up -d         # Start services`}</pre>
             return (
               <div key={qi} style={{
                 ...cardStyle,
-                borderColor: quizSubmitted ? (isCorrect ? '#0f0' : '#d71921') : 'var(--nothing-border)',
+                borderColor: quizSubmitted ? (isCorrect ? 'var(--nothing-text)' : 'var(--nothing-red)') : 'var(--nothing-border)',
               }}>
                 <div style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
                   <span style={{ ...tagStyle('var(--nothing-text-muted)') }}>Q{qi + 1}</span>
@@ -981,8 +976,8 @@ docker-compose up -d         # Start services`}</pre>
                     let borderColor = 'var(--nothing-border)';
                     let bg = 'transparent';
                     if (quizSubmitted) {
-                      if (isAnswer) { borderColor = '#0f0'; bg = 'var(--nothing-green-bg)'; }
-                      else if (isSelected && !isAnswer) { borderColor = '#d71921'; bg = 'rgba(215,25,33,0.06)'; }
+                      if (isAnswer) { borderColor = 'var(--nothing-text)'; bg = 'var(--nothing-green-bg)'; }
+                      else if (isSelected && !isAnswer) { borderColor = 'var(--nothing-red)'; bg = 'var(--nothing-red-bg)'; }
                     } else if (isSelected) {
                       borderColor = '#fff'; bg = 'rgba(255,255,255,0.04)';
                     }
@@ -996,7 +991,7 @@ docker-compose up -d         # Start services`}</pre>
                         }}
                       >
                         <span style={{ width: 20, height: 20, border: `1px solid ${borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
-                          {quizSubmitted ? (isAnswer ? <CheckCircle size={14} color="#0f0" /> : isSelected ? <XCircle size={14} color="#d71921" /> : String.fromCharCode(65 + oi)) : String.fromCharCode(65 + oi)}
+                          {quizSubmitted ? (isAnswer ? <CheckCircle size={14} color="var(--nothing-text)" /> : isSelected ? <XCircle size={14} color="var(--nothing-red)" /> : String.fromCharCode(65 + oi)) : String.fromCharCode(65 + oi)}
                         </span>
                         <span>{opt}</span>
                       </div>
@@ -1018,7 +1013,7 @@ docker-compose up -d         # Start services`}</pre>
           ) : (
             <>
               <div style={{
-                padding: '12px 20px', border: `2px solid ${quizScore >= 6 ? '#0f0' : '#d71921'}`,
+                padding: '12px 20px', border: `2px solid ${quizScore >= 6 ? 'var(--nothing-text)' : 'var(--nothing-red)'}`,
                 fontFamily: 'var(--font-mono)', fontSize: 16,
               }}>
                 SCORE: {quizScore} / {quizQuestions.length} ({Math.round(quizScore / quizQuestions.length * 100)}%)
