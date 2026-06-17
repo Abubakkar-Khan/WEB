@@ -99,7 +99,7 @@ export const DOMSimulator: React.FC = () => {
           marginLeft: '16px',
           padding: '8px',
           border: isSelected ? '1px solid var(--nothing-text)' : '1px solid var(--nothing-border)',
-          backgroundColor: isSelected ? 'rgba(255,255,255,0.05)' : 'transparent',
+          backgroundColor: isSelected ? 'var(--nothing-surface-hover)' : 'transparent',
           cursor: 'pointer',
           marginTop: '8px',
           fontFamily: 'var(--font-mono)',
@@ -123,7 +123,7 @@ export const DOMSimulator: React.FC = () => {
       </CardHeader>
       <CardBody style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
         
-        <div style={{ border: '1px solid var(--nothing-border)', padding: '16px', background: '#050505', overflowY: 'auto', minHeight: '300px' }}>
+        <div style={{ border: '1px solid var(--nothing-border)', padding: '16px', background: 'var(--nothing-bg-elevated)', overflowY: 'auto', minHeight: '300px' }}>
           {renderTree(tree)}
         </div>
 

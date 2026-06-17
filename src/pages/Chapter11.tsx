@@ -1147,7 +1147,7 @@ window.addEventListener("storage", (event) => {
             <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start' }}>
               {/* localStorage column */}
               <div style={{ textAlign: 'center' }}>
-                <div style={{ padding: '12px 24px', border: '2px solid #fff', marginBottom: 8, fontWeight: 700, fontSize: 15 }}>
+                <div style={{ padding: '12px 24px', border: '2px solid var(--nothing-text)', marginBottom: 8, fontWeight: 700, fontSize: 15 }}>
                   localStorage
                 </div>
                 <div style={{ color: 'var(--nothing-text-muted)', fontSize: 16 }}>
@@ -1230,7 +1230,7 @@ window.addEventListener("storage", (event) => {
                       padding: '10px 14px',
                       fontFamily: 'var(--font-mono)',
                       fontSize: 16,
-                      background: selected && !showQuizResults ? 'rgba(255,255,255,0.08)' : bg,
+                      background: selected && !showQuizResults ? 'var(--nothing-surface-hover)' : bg,
                       border: `1px solid ${selected && !showQuizResults ? 'var(--nothing-text)' : borderColor}`,
                       color: 'var(--nothing-text)',
                       cursor: showQuizResults ? 'default' : 'pointer',

@@ -248,7 +248,7 @@ export const BonusChapter: React.FC = () => {
                   whileHover={{ borderColor: '#666' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                    <span style={{ ...tagStyle('#fff'), minWidth: 24, textAlign: 'center' }}>#{item.id}</span>
+                    <span style={{ ...tagStyle('var(--nothing-text)'), minWidth: 24, textAlign: 'center' }}>#{item.id}</span>
                     <Icon size={16} style={{ color: 'var(--nothing-text-muted)' }} />
                     <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16 }}>{item.name}</span>
                   </div>
@@ -318,7 +318,7 @@ export const BonusChapter: React.FC = () => {
         <div style={{ marginBottom: 36 }}>
           <h3 className="nt-sub-header">Authentication vs Authorization</h3>
           <div className="bonus-cluster bonus-cluster--wide">
-            <div style={{ ...cardStyle, borderTop: '3px solid #fff' }}>
+            <div style={{ ...cardStyle, borderTop: '3px solid var(--nothing-text)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <Key size={18} />
                 <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 }}>AUTHENTICATION</span>
@@ -447,11 +447,11 @@ export const BonusChapter: React.FC = () => {
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>VIRTUAL MACHINE</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {['App A', 'Bins/Libs', 'Guest OS'].map(l => (
-                  <div key={l} style={{ padding: '10px 16px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
+                  <div key={l} style={{ padding: '10px 16px', background: 'var(--diagram-layer-1)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
                 ))}
-                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: 'var(--nothing-red)' }}>HYPERVISOR</div>
-                <div style={{ padding: '10px 16px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS</div>
-                <div style={{ padding: '10px 16px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
+                <div style={{ padding: '10px 16px', background: 'var(--diagram-layer-2)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: 'var(--nothing-red)' }}>HYPERVISOR</div>
+                <div style={{ padding: '10px 16px', background: 'var(--diagram-layer-3)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS</div>
+                <div style={{ padding: '10px 16px', background: 'var(--diagram-layer-4)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
               </div>
               <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 10 }}>Heavy — each VM runs full OS. GBs of overhead. Minutes to start.</p>
             </div>
@@ -460,12 +460,12 @@ export const BonusChapter: React.FC = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
                   {['App A', 'App B'].map(l => (
-                    <div key={l} style={{ padding: '10px 16px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
+                    <div key={l} style={{ padding: '10px 16px', background: 'var(--diagram-layer-1)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>{l}</div>
                   ))}
                 </div>
-                <div style={{ padding: '10px 16px', background: '#222', border: '1px solid var(--nothing-green)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: 'var(--nothing-green)' }}>CONTAINER ENGINE (Docker)</div>
-                <div style={{ padding: '10px 16px', background: '#333', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS (shared kernel)</div>
-                <div style={{ padding: '10px 16px', background: '#444', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
+                <div style={{ padding: '10px 16px', background: 'var(--diagram-layer-2)', border: '1px solid var(--nothing-green)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', color: 'var(--nothing-green)' }}>CONTAINER ENGINE (Docker)</div>
+                <div style={{ padding: '10px 16px', background: 'var(--diagram-layer-3)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HOST OS (shared kernel)</div>
+                <div style={{ padding: '10px 16px', background: 'var(--diagram-layer-4)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center' }}>HARDWARE</div>
               </div>
               <p style={{ color: 'var(--nothing-text-muted)', fontSize: 16, marginTop: 10 }}>Light — shares host OS kernel. MBs of overhead. Seconds to start.</p>
             </div>
@@ -649,7 +649,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               <div style={{ border: '2px solid var(--nothing-text-muted)', padding: 24, marginBottom: 12 }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--nothing-text-muted)', textAlign: 'center', marginBottom: 8 }}>SINGLE APPLICATION</div>
                 {['UI Layer', 'Business Logic', 'Data Access', 'Database'].map(l => (
-                  <div key={l} style={{ padding: '6px 10px', background: '#1a1a1a', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', marginBottom: 4 }}>{l}</div>
+                  <div key={l} style={{ padding: '6px 10px', background: 'var(--diagram-layer-1)', border: '1px solid var(--nothing-border)', fontFamily: 'var(--font-mono)', fontSize: 15, textAlign: 'center', marginBottom: 4 }}>{l}</div>
                 ))}
               </div>
               <div style={monoLabel}>CHARACTERISTICS</div>
@@ -667,7 +667,7 @@ $ docker run -p 3000:3000 my-app`}</pre>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 12 }}>MICROSERVICES</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6, marginBottom: 12 }}>
                 {['Auth Service', 'User Service', 'Payment Service', 'Email Service', 'Search Service', 'API Gateway'].map(s => (
-                  <div key={s} style={{ padding: '10px 6px', background: '#1a1a1a', border: '1px solid var(--nothing-text-muted)', fontFamily: 'var(--font-mono)', fontSize: 16, textAlign: 'center' }}>{s}</div>
+                  <div key={s} style={{ padding: '10px 6px', background: 'var(--diagram-layer-1)', border: '1px solid var(--nothing-text-muted)', fontFamily: 'var(--font-mono)', fontSize: 16, textAlign: 'center' }}>{s}</div>
                 ))}
               </div>
               <div style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--nothing-text-dim)', marginBottom: 12 }}>
@@ -979,7 +979,7 @@ docker-compose up -d         # Start services`}</pre>
                       if (isAnswer) { borderColor = 'var(--nothing-text)'; bg = 'var(--nothing-green-bg)'; }
                       else if (isSelected && !isAnswer) { borderColor = 'var(--nothing-red)'; bg = 'var(--nothing-red-bg)'; }
                     } else if (isSelected) {
-                      borderColor = '#fff'; bg = 'rgba(255,255,255,0.04)';
+                      borderColor = 'var(--nothing-text)'; bg = 'var(--nothing-surface-hover)';
                     }
                     return (
                       <div key={oi}

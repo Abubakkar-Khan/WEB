@@ -250,7 +250,7 @@ const DomSurgeon: React.FC = () => {
             padding: '4px 10px',
             marginBottom: '3px',
             cursor: 'pointer',
-            background: isSel ? 'rgba(255,255,255,0.12)' : 'transparent',
+            background: isSel ? 'var(--nothing-surface-hover)' : 'transparent',
             border: isSel ? '1px solid var(--nothing-text-muted)' : '1px solid transparent',
             color: isSel ? 'var(--nothing-text)' : 'var(--nothing-text-muted)',
             display: 'inline-block',
@@ -325,7 +325,7 @@ const DomSurgeon: React.FC = () => {
 /* ─────────────────────── INTERACTIVE: STYLE TOGGLE ─────────────────────── */
 const StyleToggle: React.FC = () => {
   const [classes, setClasses] = useState<string[]>(['box']);
-  const [bgColor, setBgColor] = useState('#333333');
+  const [bgColor, setBgColor] = useState('#737373');
   const [borderRadius, setBorderRadius] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [scale, setScale] = useState(1);
@@ -400,11 +400,11 @@ const StyleToggle: React.FC = () => {
             borderRadius: `${borderRadius}%`,
             transform: `rotate(${rotation}deg) scale(${scale})`,
             transition: animating ? 'none' : 'all 0.3s ease',
-            border: classes.includes('bordered') ? '3px solid #fff' : '1px solid var(--nothing-border)',
+            border: classes.includes('bordered') ? '3px solid var(--nothing-text)' : '1px solid var(--nothing-border)',
             boxShadow: classes.includes('shadow')
               ? '0 8px 32px rgba(0,0,0,0.6)'
               : classes.includes('glow')
-                ? '0 0 30px rgba(255,255,255,0.15)'
+                ? '0 0 30px var(--nothing-border-hover)'
                 : 'none',
           }}
         />

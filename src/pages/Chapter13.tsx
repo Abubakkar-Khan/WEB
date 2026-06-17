@@ -456,7 +456,7 @@ export const Chapter13: React.FC = () => {
                 ['keyCode', 'number', '⚠ DEPRECATED – numeric key code, use key/code instead'],
                 ['repeat', 'boolean', 'true if key is being held down (auto-repeat)'],
               ].map(([prop, type, desc], i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
+                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'var(--nothing-surface-soft)' }}>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{prop}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-dim)' }}>{type}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{desc}</td>
@@ -506,7 +506,7 @@ export const Chapter13: React.FC = () => {
             Click or press keys here ↓
           </div>
           {Object.entries(radarData).map(([k, v]) => (
-            <div key={k} style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', padding: '6px 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--nothing-border)' }}>
+            <div key={k} style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', padding: '6px 10px', background: 'var(--nothing-surface-soft)', border: '1px solid var(--nothing-border)' }}>
               <span style={{ color: 'var(--nothing-text-dim)', marginRight: '6px' }}>{k}:</span>
               <span style={{ color: v !== '—' ? 'var(--nothing-text)' : 'var(--nothing-text-dim)' }}>{v}</span>
             </div>
@@ -541,7 +541,7 @@ export const Chapter13: React.FC = () => {
                 ['mousemove', 'Pointer moves over element', 'Yes', 'Fires many times — use throttle!'],
                 ['contextmenu', 'Right-click / context menu', 'Yes', 'preventDefault() to suppress menu'],
               ].map(([evt, when, bubbles, notes], i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
+                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'var(--nothing-surface-soft)' }}>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{evt}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{when}</td>
                   <td style={{ ...tdStyle, color: bubbles.includes('No') ? 'var(--nothing-red)' : 'var(--nothing-text)' }}>{bubbles}</td>
@@ -623,7 +623,7 @@ element.addEventListener('dblclick',  () => console.log('4. dblclick'));`}</pre>
                 ['keyup', 'Key is released', 'No', 'Fires once on release'],
                 ['keypress', 'Character key is pressed', 'Yes', '⚠ DEPRECATED – Do not use. Use keydown instead.'],
               ].map(([evt, when, repeats, notes], i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
+                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'var(--nothing-surface-soft)' }}>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{evt}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{when}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{repeats}</td>
@@ -715,7 +715,7 @@ document.addEventListener('keyup', function(e) {
                 ['change', 'Value changed AND element lost focus', 'Yes', 'Fires on BLUR, not in real-time'],
                 ['input', 'Value is being changed', 'Yes', 'Fires in REAL-TIME on every keystroke'],
               ].map(([evt, when, bubbles, notes], i) => (
-                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)' }}>
+                <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'var(--nothing-surface-soft)' }}>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text)', fontWeight: 600 }}>{evt}</td>
                   <td style={{ ...tdStyle, color: 'var(--nothing-text-muted)' }}>{when}</td>
                   <td style={{ ...tdStyle, color: bubbles.includes('No') ? 'var(--nothing-red)' : 'var(--nothing-text)' }}>{bubbles}</td>
@@ -968,7 +968,7 @@ element.addEventListener('click', handler, {
             onClick={handleBubbleClick('outer')}
             style={{
               border: `2px solid ${activeLayer === 'outer' ? '#0f8' : 'var(--nothing-border)'}`,
-              background: activeLayer === 'outer' ? 'var(--nothing-green-bg)' : '#0a0a0a',
+              background: activeLayer === 'outer' ? 'var(--nothing-green-bg)' : 'var(--diagram-layer-1)',
               padding: '24px',
               cursor: 'pointer',
               transition: 'all 0.3s',
@@ -982,7 +982,7 @@ element.addEventListener('click', handler, {
               onClick={handleBubbleClick('middle')}
               style={{
                 border: `2px solid ${activeLayer === 'middle' ? '#f80' : 'var(--nothing-border)'}`,
-                background: activeLayer === 'middle' ? 'rgba(255,136,0,0.08)' : '#111',
+                background: activeLayer === 'middle' ? 'var(--nothing-yellow-bg)' : 'var(--diagram-layer-2)',
                 padding: '24px',
                 cursor: 'pointer',
                 transition: 'all 0.3s',
@@ -997,7 +997,7 @@ element.addEventListener('click', handler, {
                 onClick={handleBubbleClick('inner')}
                 style={{
                   border: `2px solid ${activeLayer === 'inner' ? '#0af' : 'var(--nothing-border)'}`,
-                  background: activeLayer === 'inner' ? 'rgba(0,170,255,0.1)' : '#1a1a1a',
+                  background: activeLayer === 'inner' ? 'var(--nothing-blue-bg)' : 'var(--diagram-layer-3)',
                   padding: '24px',
                   cursor: 'pointer',
                   transition: 'all 0.3s',
@@ -1033,7 +1033,7 @@ element.addEventListener('click', handler, {
                 <div key={i} style={{
                   padding: '4px 0',
                   color: entry.includes('CAPTURE') ? '#f80' : entry.includes('TARGET') ? '#0af' : entry.includes('🛑') ? 'var(--nothing-red)' : '#0f8',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  borderBottom: '1px solid var(--nothing-border)',
                 }}>
                   {i + 1}. {entry}
                 </div>
@@ -1221,7 +1221,7 @@ toolbar.appendChild(newBtn);
                     color: 'var(--nothing-text)',
                     transition: 'background 0.15s',
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+                  onMouseEnter={e => (e.currentTarget.style.background = 'var(--nothing-surface-hover)')}
                   onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                 >
                   {item}
@@ -1251,7 +1251,7 @@ toolbar.appendChild(newBtn);
               <div style={{ color: 'var(--nothing-text-dim)' }}>Click items...</div>
             ) : (
               delegationLog.map((entry, i) => (
-                <div key={i} style={{ padding: '3px 0', color: 'var(--nothing-green)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <div key={i} style={{ padding: '3px 0', color: 'var(--nothing-green)', borderBottom: '1px solid var(--nothing-border)' }}>
                   {i + 1}. {entry}
                 </div>
               ))

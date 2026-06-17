@@ -829,7 +829,7 @@ const AjaxRequestCycle: React.FC = () => {
       </div>
 
       {/* Terminal log panel */}
-      <div style={{ marginTop: '24px', background: '#000', border: '1px solid var(--nothing-border)', padding: '16px' }}>
+      <div style={{ marginTop: '24px', background: 'var(--nothing-bg-elevated)', border: '1px solid var(--nothing-border)', padding: '16px' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--nothing-text-dim)', borderBottom: '1px solid var(--nothing-border)', paddingBottom: '6px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
           <span>CONSOLE LOGS</span>
           <span style={{ color: 'var(--nothing-green)' }}>● ONLINE</span>
